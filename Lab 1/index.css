@@ -5,7 +5,7 @@ Hannah Bach - hbach003
 
 /* Feel free to edit CSS of body if you'd like. We provide you the light gray background color and font family in the body styling */
 body {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   background-color: #e6ecf0;
 }
@@ -24,16 +24,28 @@ nav {
 nav li {
   margin: 5px;
   margin-top: 15px;
-  margin-left: 35px;
+  margin-left: 62px;
+  color: #707070;
 }
 
-#TweetButton {
+#space-nav {
+  margin-left: 62px;
+}
+
+#tweet-button {
   position: fixed;
   right: 0%;
+  margin-top: 10px;
   margin-right: 35px;
+  padding: 8px;
+  border-radius: 16px;
+  width: 77px;
+  height: 30px;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
   color: white;
-  background-color:dodgerblue;
-  
+  background-color: #32adf9;
 }
 
 #twitterlogo {
@@ -44,43 +56,78 @@ nav li {
 }
 
 #wrapper {
-  background-color:aquamarine;
+  background-color: #e6ecf0;
   display: flex;
-  margin-top: 100px;
+  flex-direction: row; /* display flex items from left to right horizontally*/
+  align-items: flex-start; /* aligning children/items to start on the top of cross-axis  */
+  justify-content: center; /* aligning children/items to the center of the main-axis  */
+  margin-top: 80px;
 }
 
 #content-left {
-  height: 100px;
-  width: 100%;
-  background-color: blue;
-  display:flex;
-  align-items: flex-end; /**/
-  margin: 100px;
+  display: flex;
+  height: 250px;
+  width: 55%;
+  background-color: white;
+  margin-left: 50px;
 }
 
-#content-center{
-  height: 600px;
-  width: 100%;
-  background-color: white;
+#content-center {
   display: flex;
   flex-direction: column;
-  
-  margin: 10px;
-  padding:50px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  /* padding: 50px; */
+  margin-left: 14px;
+  margin-right: 14px;
 }
 
-#content-right{
-  height: 200px;
-  width: 100%;
-  background-color: blue;
+#tweet {
+  /* padding: 0px; */
+  margin-right: 120px;
+  flex-direction: row;
+}
+
+#ratatouille {
+  float: left; /*so that we can position the text to be right next to ratatouille profile picture side by side */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+}
+
+#tweet-text {
+  padding-left: 70px;
+}
+
+#name-date {
+  color: grey;
+}
+
+#content-right {
+  display: flex;
+  height: 250px;
+  width: 55%;
+  background-color: white;
+  margin-right: 100px;
 }
 
 hr {
-  clear:both;
-  display:block;
-  width: 96%;               
-  background-color: grey;
-  height: 1px;
+  /* clear: both; */
+  /* display: block; */
+  /* position: fixed; */
+  width: 100%;
+  background-color: #f7f5f5;
+  /* display: block; */
+  /* height: 1px; */
+}
+
+p {
+  margin-top: 11px;
+  margin-bottom: 10px;
+  padding: 0;
+  /* color: blue; */
 }
 
 @media (max-width: 1200px) {
