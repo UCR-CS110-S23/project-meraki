@@ -36,7 +36,7 @@ nav li {
   position: fixed;
   right: 0%;
   margin-top: 10px;
-  margin-right: 35px;
+  margin-right: 20px;
   padding: 8px;
   border-radius: 16px;
   width: 77px;
@@ -66,8 +66,8 @@ nav li {
 
 #content-left {
   display: flex;
-  height: 250px;
-  width: 55%;
+  height: 280px;
+  width: 40%;
   background-color: white;
   margin-left: 50px;
 }
@@ -75,17 +75,17 @@ nav li {
 #content-center {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  height: 470px;
+  width: 80%;
   background-color: white;
-  /* padding: 50px; */
+
   margin-left: 14px;
   margin-right: 14px;
 }
 
 #tweet {
   /* padding: 0px; */
-  margin-right: 120px;
+  margin-right: 150px;
   flex-direction: row;
 }
 
@@ -107,20 +107,46 @@ nav li {
 
 #content-right {
   display: flex;
-  height: 250px;
-  width: 55%;
+  flex-direction: column;
+  height: 280px;
+  width: 40%;
   background-color: white;
   margin-right: 100px;
 }
 
-hr {
-  /* clear: both; */
-  /* display: block; */
-  /* position: fixed; */
+/* #profile {
+    border-bottom: 1px solid #d3d3d3;
+  
+  } */
+#cc-border-bot {
   width: 100%;
-  background-color: #f7f5f5;
-  /* display: block; */
-  /* height: 1px; */
+  border-bottom: 1px solid #d3d3d3;
+  padding-top: 3px;
+  padding-bottom: 10px;
+}
+#cr-border-bot {
+  margin: 17px;
+  border-bottom: 1px solid #d3d3d3;
+}
+#profile-pic {
+  flex-direction: column;
+  float: left;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+}
+
+#follow-button {
+  margin-top: 5px;
+  border: 1px solid#32adf9;
+  border-radius: 12px;
+  width: 95px;
+  height: 28px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #32adf9;
+  background-color: white;
 }
 
 p {
@@ -128,6 +154,11 @@ p {
   margin-bottom: 10px;
   padding: 0;
   /* color: blue; */
+}
+
+h3 {
+  margin: 20px;
+  font-size: 20px;
 }
 
 @media (max-width: 1200px) {
