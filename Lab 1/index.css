@@ -28,6 +28,65 @@ nav li {
   color: #707070;
 }
 
+#content-left {
+  display: flex;
+  flex-direction: column;
+  height: 280px;
+  width: 40%;
+  background-color: white;
+  margin-left: 100px;
+}
+
+#cover {
+  background-color: black;
+  position: relative;
+  height: 120px;
+  width: 100%;
+  margin-bottom: 2em;
+}
+
+#banner {
+  height: 35px;
+  width: 65%;
+  margin-left: 56px;
+  margin-top: 45px;
+}
+
+#cover-profile {
+  position: absolute;
+  left: 120px;
+  top: 175px;
+  display: flex;
+  z-index: 10;
+  width: 21.3%;
+}
+
+#cover-profile-pic {
+  flex-direction: column;
+  float: left;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  border: 3px solid white;
+  overflow: hidden;
+}
+
+#name-screen {
+  margin: 35px 0px 0px 22px;
+}
+
+#stats-content {
+  display: flex;
+  flex-direction: row; /*row so that each '#stats' are in a row format"  */
+  justify-content: space-evenly;
+}
+
+#stats {
+  flex-direction: column; /*column so that each stat info 'Tweets\n#' 'Following\n#' 'Followers\n#' are in a row format"  */
+  display: flex;
+  margin-top: 27px;
+}
+
 #space-nav {
   margin-left: 62px;
 }
@@ -62,14 +121,6 @@ nav li {
   align-items: flex-start; /* aligning children/items to start on the top of cross-axis  */
   justify-content: center; /* aligning children/items to the center of the main-axis  */
   margin-top: 80px;
-}
-
-#content-left {
-  display: flex;
-  height: 280px;
-  width: 40%;
-  background-color: white;
-  margin-left: 50px;
 }
 
 #content-center {
@@ -128,6 +179,7 @@ nav li {
   margin: 17px;
   border-bottom: 1px solid #d3d3d3;
 }
+
 #profile-pic {
   flex-direction: column;
   float: left;
