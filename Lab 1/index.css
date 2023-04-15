@@ -31,34 +31,31 @@ nav li {
 #content-left {
   display: flex;
   flex-direction: column;
-  height: 280px;
+  height: 255px;
   width: 40%;
   background-color: white;
   margin-left: 100px;
 }
 
-#cover {
-  background-color: black;
-  position: relative;
-  height: 120px;
+#cover-coverpfp {
+  height: 37%;
   width: 100%;
-  margin-bottom: 2em;
+  background-color: black;
+  margin-bottom: 45px;
 }
 
 #banner {
-  height: 35px;
-  width: 65%;
-  margin-left: 56px;
-  margin-top: 45px;
+  height: 30px;
+  width: 56%;
+  margin-left: 65px;
+  margin-top: 35px;
+  /* padding: 2px; */
 }
 
 #cover-profile {
-  position: absolute;
-  left: 120px;
-  top: 175px;
   display: flex;
-  z-index: 10;
-  width: 21.3%;
+  flex-direction: row;
+  padding-left: 25px;
 }
 
 #cover-profile-pic {
@@ -72,7 +69,7 @@ nav li {
 }
 
 #name-screen {
-  margin: 35px 0px 0px 22px;
+  margin: 33px 0px 0px 22px;
 }
 
 #stats-content {
@@ -167,7 +164,7 @@ nav li {
 
 /* #profile {
     border-bottom: 1px solid #d3d3d3;
-  
+ 
   } */
 #cc-border-bot {
   width: 100%;
