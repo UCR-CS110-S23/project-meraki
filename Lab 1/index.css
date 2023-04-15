@@ -22,10 +22,16 @@ nav {
 }
 
 nav li {
-  margin: 5px;
-  margin-top: 15px;
-  margin-left: 62px;
+  /* margin: 5px; */
+  /* margin-top: 15px; */
+  margin: 15px 0px 0px 50px;
   color: #707070;
+}
+
+#nav-tabs {
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
 }
 
 #content-left {
@@ -34,7 +40,7 @@ nav li {
   height: 255px;
   width: 40%;
   background-color: white;
-  margin-left: 100px;
+  margin-left: 80px;
 }
 
 #cover-coverpfp {
@@ -117,7 +123,7 @@ nav li {
   flex-direction: row; /* display flex items from left to right horizontally*/
   align-items: flex-start; /* aligning children/items to start on the top of cross-axis  */
   justify-content: center; /* aligning children/items to the center of the main-axis  */
-  margin-top: 80px;
+  margin-top: 63px;
 }
 
 #content-center {
@@ -133,7 +139,7 @@ nav li {
 
 #tweet {
   /* padding: 0px; */
-  margin-right: 150px;
+  margin-right: 130px;
   flex-direction: row;
 }
 
