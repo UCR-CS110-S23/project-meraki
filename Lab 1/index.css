@@ -13,10 +13,13 @@ body {
 /* TODO: Create CSS for your Twitter Mockup */
 nav {
   background-color: rgb(255, 255, 255);
-  height: 50px;
+  height: 46px;
   width: 100%;
   position: fixed;
-  top: 0%;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
   display: flex;
   list-style: none;
 }
@@ -28,19 +31,24 @@ nav li {
   color: #707070;
 }
 
+nav li:hover {
+  color: #4ab3f4;
+  border-bottom: 3px solid #4ab3f4;
+}
+
 #nav-tabs {
   display: flex;
   flex-direction: row;
-  margin-left: 40px;
+  margin-left: 130px;
 }
 
 #content-left {
   display: flex;
   flex-direction: column;
   height: 255px;
-  width: 40%;
+  width: 290px;
   background-color: white;
-  margin-left: 80px;
+  overflow: hidden;
 }
 
 #cover-coverpfp {
@@ -52,7 +60,7 @@ nav li {
 
 #banner {
   height: 30px;
-  width: 56%;
+  width: 59%;
   margin-left: 65px;
   margin-top: 35px;
   /* padding: 2px; */
@@ -98,7 +106,7 @@ nav li {
   position: fixed;
   right: 0%;
   margin-top: 10px;
-  margin-right: 20px;
+  margin-right: 100px;
   padding: 8px;
   border-radius: 16px;
   width: 77px;
@@ -107,14 +115,14 @@ nav li {
   font-weight: bold;
   font-size: 16px;
   color: white;
-  background-color: #32adf9;
+  background-color: #4ab3f4;
 }
 
 #twitterlogo {
   position: fixed;
-  left: 50%;
+  left: 52%;
   width: 30px;
-  margin-top: 15px;
+  margin-top: 12px;
 }
 
 #wrapper {
@@ -123,24 +131,28 @@ nav li {
   flex-direction: row; /* display flex items from left to right horizontally*/
   align-items: flex-start; /* aligning children/items to start on the top of cross-axis  */
   justify-content: center; /* aligning children/items to the center of the main-axis  */
-  margin-top: 63px;
+  margin: 56px auto;
+  max-width: 1190px;
+  /* border: solid; */
 }
 
 #content-center {
   display: flex;
   flex-direction: column;
   height: 470px;
-  width: 80%;
+  width: 50%;
   background-color: white;
-
+  height: auto;
   margin-left: 14px;
   margin-right: 14px;
 }
 
 #tweet {
   /* padding: 0px; */
-  margin-right: 130px;
+  padding: 5px;
+  margin-right: 80px;
   flex-direction: row;
+  min-height: 51px;
 }
 
 #ratatouille {
@@ -163,9 +175,8 @@ nav li {
   display: flex;
   flex-direction: column;
   height: 280px;
-  width: 40%;
+  width: 290px;
   background-color: white;
-  margin-right: 100px;
 }
 
 /* #profile {
@@ -194,13 +205,13 @@ nav li {
 
 #follow-button {
   margin-top: 5px;
-  border: 1px solid#32adf9;
+  border: 1px solid#4AB3F4;
   border-radius: 12px;
   width: 95px;
   height: 28px;
   font-weight: bold;
   font-size: 14px;
-  color: #32adf9;
+  color: #4ab3f4;
   background-color: white;
 }
 
@@ -214,6 +225,14 @@ p {
 h3 {
   margin: 20px;
   font-size: 20px;
+}
+
+nav a {
+  /* for Usability Requirements */
+  color: gray;
+  font-size: 15px;
+  margin: 5px;
+  display: none;
 }
 
 @media (max-width: 1200px) {

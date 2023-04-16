@@ -2,13 +2,14 @@
 <!-- Hannah Bach - hbach003 -->
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <link rel="stylesheet" type="text/css" href="index.css" />
   </head>
 
   <body>
-    <nav id="header" p style="color: gray">
+    <nav id="header" role="navigation" style="color: gray">
+      <a href="#wrapper">Jump to content</a>
       <div id="nav-tabs">
         <li><b>Home</b></li>
         <li><b>Moments</b></li>
@@ -54,7 +55,7 @@
         </div>
       </div>
 
-      <div id="content-center">
+      <div id="content-center" role="main">
         <div id="tweet">
           <img
             id="ratatouille"
@@ -126,7 +127,11 @@
         </div>
         <div id="cr-border-bot"></div>
         <div id="profile">
-          <img id="profile-pic" src="images\ratatouille.jpg" alt="linguini" />
+          <img
+            id="profile-pic"
+            src="images\ratatouille.jpg"
+            alt="ratatouille"
+          />
           <p><b>CS110 TA</b> <span id="name-date">@cs</span></p>
           <button type="button" id="follow-button">Follow</button>
         </div>
