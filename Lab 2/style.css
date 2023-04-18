@@ -21,8 +21,9 @@ h1 {
 }
 
 /* Button: NewGame and Reset */
-.new_game, .reset {
-  text-align:center;
+.new_game,
+.reset {
+  text-align: center;
   background-color: #ff8c00;
   color: #000000;
   font-size: 24px;
@@ -33,7 +34,8 @@ h1 {
   margin: 20px auto;
 }
 
-.new_game:hover, .reset {
+.new_game:hover,
+.reset {
   background-color: orange;
 }
 
@@ -50,7 +52,15 @@ h1 {
   flex-wrap: wrap;
 }
 
-.one, .two, .three, .four, .five, .six, .seven, .eight, .nine {
+.one,
+.two,
+.three,
+.four,
+.five,
+.six,
+.seven,
+.eight,
+.nine {
   flex-grow: 1;
   width: 100px;
   background-color: pink;
@@ -69,7 +79,8 @@ h1 {
   text-align: center;
 }
 
-.play_ai, .two_player {
+.play_ai,
+.two_player {
   margin-left: 150px;
   background-color: #ff8c00;
   color: #000000;
@@ -81,12 +92,14 @@ h1 {
   margin: 20px auto;
 }
 
-.play_ai:hover, .two_player:hover {
+.play_ai:hover,
+.two_player:hover {
   background-color: orange;
 }
 
-
-#X {
-  margin: 0;
-  padding: 0;
+.move {
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  padding: 18% 0% 0% 35%;
 }
