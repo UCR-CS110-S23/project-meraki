@@ -7,29 +7,27 @@ var score_x = 0;
 var score_o = 0;
 var player = "X";
 
-let board = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-];
+let X_moves = [, , ,]; //max of 4 moves, delete the first move when we place a 5th piece
 
-console.log(board);
+let Y_moves = [, , ,];
+
+// console.log(board);
 
 // const player = new Boolean(false); //Player X = false;
-function addMove(cl, xId, oId) {
-  if (!document.getElementById(xId) && !document.getElementById(oId)) {
+function addMove(cl, id) {
+  if (!document.getElementById(id)) {
     console.log("bruh");
     if (player == "X") {
       console.log("enterX");
 
-      let addHtml = '<h1 class="move" id="' + xId + '">X</h1>';
+      let addHtml = '<h1 class="move" id="' + id + '">X</h1>';
       console.log(addHtml);
       $(addHtml).appendTo(cl);
       player = "O";
     } else if (player == "O") {
       console.log("enterO");
 
-      let addHtml = '<h1 class="move" id="' + oId + '">O</h1>';
+      let addHtml = '<h1 class="move" id="' + id + '">O</h1>';
       console.log(addHtml);
       $(addHtml).appendTo(cl);
       player = "X";
@@ -41,47 +39,47 @@ function addMove(cl, xId, oId) {
 $(function () {
   $(".one").on("click", function () {
     console.log("clicked box one");
-    addMove(".one", "X1", "O1");
+    addMove(".one", 1);
   });
 
   $(".two").on("click", function () {
     console.log("clicked box two");
-    addMove(".two", "X2", "O2");
+    addMove(".two", 2);
   });
 
   $(".three").on("click", function () {
     console.log("clicked box three");
-    addMove(".three", "X3", "O3");
+    addMove(".three", 3);
   });
 
   $(".four").on("click", function () {
     console.log("clicked box four");
-    addMove(".four", "X4", "O4");
+    addMove(".four", 4);
   });
 
   $(".five").on("click", function () {
     console.log("clicked box five");
-    addMove(".five", "X5", "O5");
+    addMove(".five", 5);
   });
 
   $(".six").on("click", function () {
     console.log("clicked box six");
-    addMove(".six", "X6", "O6");
+    addMove(".six", 6);
   });
 
   $(".seven").on("click", function () {
     console.log("clicked box seven");
-    addMove(".seven", "X7", "O7");
+    addMove(".seven", 7);
   });
 
   $(".eight").on("click", function () {
     console.log("clicked box eight");
-    addMove(".eight", "X8", "O8");
+    addMove(".eight", 8);
   });
 
   $(".nine").on("click", function () {
     console.log("clicked box nine");
-    addMove(".nine", "X9", "O9");
+    addMove(".nine", 9);
   });
 });
 

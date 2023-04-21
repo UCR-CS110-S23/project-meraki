@@ -4,22 +4,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Tic Tac Toe Game</title>
-    
+
     <link rel="stylesheet" href="style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="main.js"></script>
   </head>
   <body>
-
     <h1>Tic Tac Toe</h1>
-    <h2 style="text-align: center">Scores: X : <span></span> O :  <span></span>.</h2>
-    <h2 style="text-align: center">Its your turn, <span class="display_player"></span>.</h2>
+    <h2 style="text-align: center">
+      Scores: X : <span></span> O : <span></span>.
+    </h2>
+    <h2 style="text-align: center">
+      Its your turn, <span class="display_player"></span>.
+    </h2>
 
     <!-- <div style=""> -->
-      <button class="play_ai" style="float:right">Play Against AI</button><br><br><br><br><br><br>
-      <button class="two_player" style="float:right">Select 2 Players</button>
+    <button class="play_ai" style="float: right">Play Against AI</button
+    ><br /><br /><br /><br /><br /><br />
+    <button class="two_player" style="float: right">Select 2 Players</button>
     <!-- </div> -->
     <!-- <button onclick="setTimeout(myFunction, 500);"></button>
     <script>
@@ -29,17 +33,17 @@
     </script>     -->
 
     <div class="game_board">
-      <div class='row'>
+      <div class="row">
         <div class="one"><span class="xo"></span></div>
         <div class="two"><span class="xo"></span></div>
         <div class="three"><span class="xo"></span></div>
       </div>
-      <div class='row'>
+      <div class="row">
         <div class="four"><span class="xo"></span></div>
         <div class="five"><span class="xo"></span></div>
         <div class="six"><span class="xo"></span></div>
       </div>
-      <div class='row'>
+      <div class="row">
         <div class="seven"><span class="xo"></span></div>
         <div class="eight"><span class="xo"></span></div>
         <div class="nine"><span class="xo"></span></div>
@@ -47,6 +51,6 @@
     </div>
 
     <button class="new_game">New Game</button>
-    <button class="reset">Reset</button>  
+    <button class="reset">Reset</button>
   </body>
 </html>
