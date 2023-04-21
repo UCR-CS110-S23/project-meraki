@@ -11,6 +11,14 @@ let X_moves = [, , ,]; //max of 4 moves, delete the first move when we place a 5
 
 let Y_moves = [, , ,];
 
+function displayOutput(){
+  let response = "";
+  //output if X's turn or O's turn
+
+
+  return response;
+}
+
 // console.log(board);
 
 // const player = new Boolean(false); //Player X = false;
@@ -84,7 +92,7 @@ $(function () {
 });
 
 $(function () {
-  $(".new_game").click(function () {
+  $(".new_game").on("click", function () {
     console.log("create new game");
     //scores should be kept
     player = "X";
@@ -92,9 +100,15 @@ $(function () {
 });
 
 $(function () {
-  $(".reset").click(function () {
+  $(".reset").on("click", function () {
     console.log("create new game");
     //scores should be reset too
     player = "X";
   });
+});
+
+let form = document.getElementById('my-form');
+form.addEventListener('submit', function(event){
+  event.preventDefault();
+  document.getElementById('output').innerHTML = displayOutput();
 });
