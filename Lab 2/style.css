@@ -13,6 +13,10 @@ h1 {
   font-size: 4em;
 }
 
+.timer{
+  align-items: center;
+}
+
 .whose_turn {
   margin: 10px auto;
   margin-bottom: 20px;

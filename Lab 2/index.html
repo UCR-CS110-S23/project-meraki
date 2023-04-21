@@ -20,14 +20,21 @@
       Its your turn, <span class="display_player"></span>.
     </h2>
 
-    <!-- <div style=""> -->
-    <!-- </div> -->
-    <!-- <button onclick="setTimeout(myFunction, 500);"></button>
-    <script>
-      function myFunction(){
-        alert('Time\'s Up!');
-      }
-    </script>     -->
+    <div class="timer">
+      <input type = "text" id = "text">
+      <script>
+        let time = document.getElementById("time");
+        setTimeout(function(){time.value = "5 seconds"}, 2000);
+        setTimeout(function(){time.value = "3 seconds"}, 3000);
+        setTimeout(function(){time.value = "2 seconds"}, 5000);
+        function myFunction(){
+          timeout = setTimeout(alertFunc, 5000);
+        }
+        function alertFunc(){
+          alert("Time\'s Up! We\'re skipping your turn!");
+        }
+      </script>
+    </div>
 
     <div class="game_board">
       <div class="row">
