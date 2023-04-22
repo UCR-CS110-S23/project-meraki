@@ -3,6 +3,8 @@ Hannah Bach - hbach003 */
 
 "use strict";
 
+let AIgame = false;
+
 var score_x = 0;
 var score_o = 0;
 var player = "X";
@@ -200,6 +202,27 @@ function updateGameBoard() {
   }
 }
 
+function generateAIMove() {
+  var currMoves = X_moves.concat(O_moves);
+  var availMoves = [];
+  for (let i = 1; i <= 9; i++) {
+    if (!currMoves.includes(i)) {
+      availMoves.push(i);
+    }
+  }
+  console.log("availMoves", availMoves);
+  // console.log("currentMoves", currMoves);
+  var AIMove = Math.floor(Math.random() * 9);
+
+  while (!availMoves.includes(AIMove)) {
+    AIMove = Math.floor(Math.random() * 9);
+    // console.log("hm");
+  }
+  console.log("AI move", AIMove);
+
+  return AIMove;
+}
+
 $(function () {
   $(".new_game").on("click", function () {
     clearBoard();
@@ -207,74 +230,149 @@ $(function () {
 
   $(".reset").on("click", function () {
     clearBoard();
+    X_score = 0;
+    O_score = 0;
     $("#X-score").empty();
     $("#X-score").append(0);
 
     $("#O-score").empty();
     $("#O-score").append(0);
   });
+
+  $(".play_ai").on("click", function () {
+    AIgame = true;
+    console.log("playing AI now");
+  });
 });
 
+function addAIMove(cl, id) {
+  /*PLAYER X's TURN*/
+  //Add your move as player X
+  if (!gameOver) {
+    let addHtml = '<h1 class="move" id="' + id + '">X</h1>';
+    console.log(addHtml);
+    $(addHtml).appendTo(cl);
+
+    if (X_moves.length >= 4) {
+      let firstXMove = X_moves.shift();
+      let firstXClass = getClass(firstXMove);
+      // console.log("first x move", firstXClass);
+      $(firstXClass).empty();
+      X_moves.push(id);
+    } else {
+      X_moves.push(id);
+    }
+    updateGameBoard();
+    verifyWin("X");
+
+    /*AI PLAYER O's TURN*/
+    //add AI's move as player O
+    let aiMove = generateAIMove(); //aiMove also represents the id
+    let classAI = getClass(aiMove);
+    console.log("actual ai move", aiMove);
+    let addAIHtml = '<h1 class="move" id="' + aiMove + '">O</h1>';
+    console.log(addAIHtml, "classAI", classAI);
+    $(addAIHtml).appendTo(classAI);
+
+    if (O_moves.length >= 4) {
+      let firstOMove = O_moves.shift();
+      let firstOClass = getClass(firstOMove);
+      // console.log("first o move", firstOClass);
+      $(firstOClass).empty();
+      O_moves.push(aiMove);
+    } else {
+      O_moves.push(aiMove);
+    }
+
+    if (!gameOver) {
+      verifyWin("O");
+      updateGameBoard();
+    }
+  }
+  console.log("Current X_moves:", X_moves);
+  console.log("Current AI_O_moves:", O_moves);
+}
 $(function () {
   $(".one").on("click", function () {
     console.log("clicked box one");
-    addMove(".one", 1);
+    if (AIgame && !document.getElementById(1)) {
+      addAIMove(".one", 1);
+    } else {
+      addMove(".one", 1);
+    }
+    //TODO: Make a different addMoveAIGame() to generate different moves. and add an if condition for addMove() to only be played/called when AIgame == false
   });
 
   $(".two").on("click", function () {
     console.log("clicked box two");
-    addMove(".two", 2);
+    if (AIgame && !document.getElementById(2)) {
+      addAIMove(".two", 2);
+    } else {
+      addMove(".two", 2);
+    }
   });
 
   $(".three").on("click", function () {
     console.log("clicked box three");
-    addMove(".three", 3);
+    if (AIgame && !document.getElementById(3)) {
+      addAIMove(".three", 3);
+    } else {
+      addMove(".three", 3);
+    }
   });
 
   $(".four").on("click", function () {
     console.log("clicked box four");
-    addMove(".four", 4);
+    if (AIgame && !document.getElementById(4)) {
+      addAIMove(".four", 4);
+    } else {
+      addMove(".four", 4);
+    }
   });
 
   $(".five").on("click", function () {
     console.log("clicked box five");
-    addMove(".five", 5);
+    if (AIgame && !document.getElementById(5)) {
+      addAIMove(".five", 5);
+    } else {
+      addMove(".five", 5);
+    }
   });
 
   $(".six").on("click", function () {
     console.log("clicked box six");
-    addMove(".six", 6);
+    if (AIgame && !document.getElementById(6)) {
+      addAIMove(".six", 6);
+    } else {
+      addMove(".six", 6);
+    }
   });
 
   $(".seven").on("click", function () {
     console.log("clicked box seven");
-    addMove(".seven", 7);
+    if (AIgame && !document.getElementById(7)) {
+      addAIMove(".seven", 7);
+    } else {
+      addMove(".seven", 7);
+    }
   });
 
   $(".eight").on("click", function () {
     console.log("clicked box eight");
-    addMove(".eight", 8);
+    if (AIgame && !document.getElementById(8)) {
+      addAIMove(".eight", 8);
+    } else {
+      addMove(".eight", 8);
+    }
   });
 
   $(".nine").on("click", function () {
     console.log("clicked box nine");
-    addMove(".nine", 9);
-  });
-});
-
-$(function () {
-  $(".new_game").on("click", function () {
-    console.log("create new game");
-    //scores should be kept
-    player = "X";
-  });
-});
-
-$(function () {
-  $(".reset").on("click", function () {
-    console.log("create new game");
-    //scores should be reset too
-    player = "X";
+    if (AIgame && !document.getElementById(9)) {
+      addAIMove(".nine", 9);
+    } else {
+      addMove(".nine", 9);
+    }
   });
 });
 
