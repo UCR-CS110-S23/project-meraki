@@ -204,6 +204,15 @@ $(function () {
   $(".new_game").on("click", function () {
     clearBoard();
   });
+
+  $(".reset").on("click", function () {
+    clearBoard();
+    $("#X-score").empty();
+    $("#X-score").append(0);
+
+    $("#O-score").empty();
+    $("#O-score").append(0);
+  });
 });
 
 $(function () {
