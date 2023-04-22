@@ -7,14 +7,13 @@ var score_x = 0;
 var score_o = 0;
 var player = "X";
 
-let X_moves = [, , ,]; //max of 4 moves, delete the first move when we place a 5th piece
+let X_moves = []; //max of 4 moves, delete the first move when we place a 5th piece
 
-let Y_moves = [, , ,];
+let O_moves = [];
 
-function displayOutput(){
+function displayOutput() {
   let response = "";
   //output if X's turn or O's turn
-
 
   return response;
 }
@@ -24,7 +23,7 @@ function displayOutput(){
 // const player = new Boolean(false); //Player X = false;
 function addMove(cl, id) {
   if (!document.getElementById(id)) {
-    console.log("bruh");
+    // console.log("bruh");
     if (player == "X") {
       console.log("enterX");
 
@@ -32,6 +31,18 @@ function addMove(cl, id) {
       console.log(addHtml);
       $(addHtml).appendTo(cl);
       player = "O";
+
+      if (X_moves.length >= 4) {
+        let firstXMove = X_moves.shift();
+        let firstXClass = getClass(firstXMove);
+        console.log("first x move", firstXClass);
+        $(firstXClass).empty();
+        X_moves.push(id);
+      } else {
+        X_moves.push(id);
+      }
+      updateGameBoard();
+      console.log(X_moves);
     } else if (player == "O") {
       console.log("enterO");
 
@@ -39,11 +50,82 @@ function addMove(cl, id) {
       console.log(addHtml);
       $(addHtml).appendTo(cl);
       player = "X";
+
+      if (O_moves.length >= 4) {
+        let firstOMove = O_moves.shift();
+        let firstOClass = getClass(firstOMove);
+        console.log("first o move", firstOClass);
+        $(firstOClass).empty();
+        O_moves.push(id);
+      } else {
+        O_moves.push(id);
+      }
+
+      console.log(O_moves);
     }
   }
+
+  // verifyWin();
+  $(".display_player").empty(); //delete previous player
+  $(".display_player").append(player); //replace with new player turn
   console.log(player);
 }
 
+function getClass(id) {
+  if (id == 1) {
+    return ".one";
+  }
+  if (id == 2) {
+    return ".two";
+  }
+
+  if (id == 3) {
+    return ".three";
+  }
+
+  if (id == 4) {
+    return ".four";
+  }
+
+  if (id == 5) {
+    return ".five";
+  }
+
+  if (id == 6) {
+    return ".six";
+  }
+
+  if (id == 7) {
+    return ".seven";
+  }
+
+  if (id == 8) {
+    return ".eight";
+  }
+
+  if (id == 9) {
+    return ".nine";
+  }
+}
+
+function updateGameBoard() {
+  for (let i = 1; i <= 9; i++) {
+    let idName = "#" + i;
+    $(idName).empty();
+  }
+
+  for (let i = 0; i < X_moves.length; i++) {
+    let idX = "#" + X_moves[i];
+    console.log(idX, "append X");
+    $(idX).append("X");
+  }
+
+  for (let i = 0; i < O_moves.length; i++) {
+    let idO = "#" + O_moves[i];
+    console.log(idO, "append O");
+    $(idO).append("O");
+  }
+}
 $(function () {
   $(".one").on("click", function () {
     console.log("clicked box one");
@@ -107,8 +189,8 @@ $(function () {
   });
 });
 
-let form = document.getElementById('my-form');
-form.addEventListener('submit', function(event){
+let form = document.getElementById("my-form");
+form.addEventListener("submit", function (event) {
   event.preventDefault();
-  document.getElementById('output').innerHTML = displayOutput();
+  document.getElementById("output").innerHTML = displayOutput();
 });

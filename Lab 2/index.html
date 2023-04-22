@@ -17,21 +17,27 @@
       Scores: X : <span></span> O : <span></span>.
     </h2>
     <h2 style="text-align: center">
-      Its your turn, <span class="display_player"></span>.
+      Its your turn, <span class="display_player">X</span>.
     </h2>
 
     <div class="timer">
-      <input type = "text" id = "text">
+      <input type="text" id="text" />
       <script>
         let time = document.getElementById("time");
-        setTimeout(function(){time.value = "5 seconds"}, 2000);
-        setTimeout(function(){time.value = "3 seconds"}, 3000);
-        setTimeout(function(){time.value = "2 seconds"}, 5000);
-        function myFunction(){
+        setTimeout(function () {
+          time.value = "5 seconds";
+        }, 2000);
+        setTimeout(function () {
+          time.value = "3 seconds";
+        }, 3000);
+        setTimeout(function () {
+          time.value = "2 seconds";
+        }, 5000);
+        function myFunction() {
           timeout = setTimeout(alertFunc, 5000);
         }
-        function alertFunc(){
-          alert("Time\'s Up! We\'re skipping your turn!");
+        function alertFunc() {
+          alert("Time's Up! We're skipping your turn!");
         }
       </script>
     </div>
