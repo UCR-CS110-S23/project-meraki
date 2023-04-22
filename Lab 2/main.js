@@ -7,6 +7,17 @@ var score_x = 0;
 var score_o = 0;
 var player = "X";
 
+const winCombos = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [1, 4, 7],
+  [2, 5, 8],
+  [3, 6, 9],
+  [1, 5, 9],
+  [3, 5, 7],
+];
+
 let X_moves = []; //max of 4 moves, delete the first move when we place a 5th piece
 
 let O_moves = [];
@@ -22,55 +33,77 @@ function displayOutput() {
 
 // const player = new Boolean(false); //Player X = false;
 function addMove(cl, id) {
+  let prevPlayer = "";
   if (!document.getElementById(id)) {
     // console.log("bruh");
     if (player == "X") {
+      prevPlayer = "X";
       console.log("enterX");
 
       let addHtml = '<h1 class="move" id="' + id + '">X</h1>';
-      console.log(addHtml);
+      // console.log(addHtml);
       $(addHtml).appendTo(cl);
       player = "O";
 
       if (X_moves.length >= 4) {
         let firstXMove = X_moves.shift();
         let firstXClass = getClass(firstXMove);
-        console.log("first x move", firstXClass);
+        // console.log("first x move", firstXClass);
         $(firstXClass).empty();
         X_moves.push(id);
       } else {
         X_moves.push(id);
       }
       updateGameBoard();
-      console.log(X_moves);
     } else if (player == "O") {
+      prevPlayer = "O";
       console.log("enterO");
 
       let addHtml = '<h1 class="move" id="' + id + '">O</h1>';
-      console.log(addHtml);
+      // console.log(addHtml);
       $(addHtml).appendTo(cl);
       player = "X";
 
       if (O_moves.length >= 4) {
         let firstOMove = O_moves.shift();
         let firstOClass = getClass(firstOMove);
-        console.log("first o move", firstOClass);
+        // console.log("first o move", firstOClass);
         $(firstOClass).empty();
         O_moves.push(id);
       } else {
         O_moves.push(id);
       }
-
-      console.log(O_moves);
     }
+    console.log("Current X_moves:", X_moves);
+    console.log("Current O_moves:", O_moves);
+    //VERIFY WIN HERE
   }
 
-  // verifyWin();
+  verifyWin(prevPlayer);
   $(".display_player").empty(); //delete previous player
   $(".display_player").append(player); //replace with new player turn
   console.log(player);
 }
 
+function verifyWin(p) {
+  let checker = (arr, target) => target.every((v) => arr.includes(v));
+
+  if (p == "X") {
+    for (let i = 0; i < winCombos.length; i++) {
+      if (checker(X_moves, winCombos[i])) {
+        console.log(X_moves, winCombos[i]);
+        console.log("X wins!");
+      }
+    }
+  } else {
+    for (let i = 0; i < winCombos.length; i++) {
+      if (checker(O_moves, winCombos[i])) {
+        console.log(O_moves, winCombos[i]);
+        console.log("O wins!");
+      }
+    }
+  }
+}
 function getClass(id) {
   if (id == 1) {
     return ".one";
@@ -116,13 +149,13 @@ function updateGameBoard() {
 
   for (let i = 0; i < X_moves.length; i++) {
     let idX = "#" + X_moves[i];
-    console.log(idX, "append X");
+    // console.log(idX, "append X");
     $(idX).append("X");
   }
 
   for (let i = 0; i < O_moves.length; i++) {
     let idO = "#" + O_moves[i];
-    console.log(idO, "append O");
+    // console.log(idO, "append O");
     $(idO).append("O");
   }
 }
