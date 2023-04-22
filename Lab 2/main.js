@@ -22,6 +22,11 @@ let X_moves = []; //max of 4 moves, delete the first move when we place a 5th pi
 
 let O_moves = [];
 
+let X_score = 0;
+let O_score = 0;
+
+let gameOver = false;
+
 function displayOutput() {
   let response = "";
   //output if X's turn or O's turn
@@ -34,76 +39,111 @@ function displayOutput() {
 // const player = new Boolean(false); //Player X = false;
 function addMove(cl, id) {
   let prevPlayer = "";
-  if (!document.getElementById(id)) {
-    // console.log("bruh");
-    if (player == "X") {
-      prevPlayer = "X";
-      console.log("enterX");
+  if (!gameOver) {
+    if (!document.getElementById(id)) {
+      // console.log("bruh");
+      if (player == "X") {
+        prevPlayer = "X";
+        console.log("enterX");
 
-      let addHtml = '<h1 class="move" id="' + id + '">X</h1>';
-      // console.log(addHtml);
-      $(addHtml).appendTo(cl);
-      player = "O";
+        let addHtml = '<h1 class="move" id="' + id + '">X</h1>';
+        // console.log(addHtml);
+        $(addHtml).appendTo(cl);
+        player = "O";
 
-      if (X_moves.length >= 4) {
-        let firstXMove = X_moves.shift();
-        let firstXClass = getClass(firstXMove);
-        // console.log("first x move", firstXClass);
-        $(firstXClass).empty();
-        X_moves.push(id);
-      } else {
-        X_moves.push(id);
+        if (X_moves.length >= 4) {
+          let firstXMove = X_moves.shift();
+          let firstXClass = getClass(firstXMove);
+          // console.log("first x move", firstXClass);
+          $(firstXClass).empty();
+          X_moves.push(id);
+        } else {
+          X_moves.push(id);
+        }
+      } else if (player == "O") {
+        prevPlayer = "O";
+        console.log("enterO");
+
+        let addHtml = '<h1 class="move" id="' + id + '">O</h1>';
+        // console.log(addHtml);
+        $(addHtml).appendTo(cl);
+        player = "X";
+
+        if (O_moves.length >= 4) {
+          let firstOMove = O_moves.shift();
+          let firstOClass = getClass(firstOMove);
+          // console.log("first o move", firstOClass);
+          $(firstOClass).empty();
+          O_moves.push(id);
+        } else {
+          O_moves.push(id);
+        }
       }
       updateGameBoard();
-    } else if (player == "O") {
-      prevPlayer = "O";
-      console.log("enterO");
-
-      let addHtml = '<h1 class="move" id="' + id + '">O</h1>';
-      // console.log(addHtml);
-      $(addHtml).appendTo(cl);
-      player = "X";
-
-      if (O_moves.length >= 4) {
-        let firstOMove = O_moves.shift();
-        let firstOClass = getClass(firstOMove);
-        // console.log("first o move", firstOClass);
-        $(firstOClass).empty();
-        O_moves.push(id);
-      } else {
-        O_moves.push(id);
-      }
+      console.log("Current X_moves:", X_moves);
+      console.log("Current O_moves:", O_moves);
+      //VERIFY WIN HERE
     }
-    console.log("Current X_moves:", X_moves);
-    console.log("Current O_moves:", O_moves);
-    //VERIFY WIN HERE
-  }
 
-  verifyWin(prevPlayer);
-  $(".display_player").empty(); //delete previous player
-  $(".display_player").append(player); //replace with new player turn
+    verifyWin(prevPlayer);
+
+    $(".display_player").empty(); //delete previous player
+    $(".display_player").append(player); //replace with new player turn
+  }
   console.log(player);
 }
 
 function verifyWin(p) {
   let checker = (arr, target) => target.every((v) => arr.includes(v));
-
+  //TODO: Check timer if 2 minutes passed. If no winner after 2 minutes, then we have a tie.
   if (p == "X") {
     for (let i = 0; i < winCombos.length; i++) {
       if (checker(X_moves, winCombos[i])) {
+        X_score += 1;
+        $("#X-score").empty();
+        $("#X-score").append(X_score);
         console.log(X_moves, winCombos[i]);
         console.log("X wins!");
+        gameOver = true;
+        console.log("gameover", gameOver);
+        setTimeout(function () {
+          //might delete setTimeout and alert (not required i believe)
+          alert("Player X wins!");
+        }, 100);
       }
     }
   } else {
     for (let i = 0; i < winCombos.length; i++) {
       if (checker(O_moves, winCombos[i])) {
+        O_score += 1;
+        $("#O-score").empty();
+        $("#O-score").append(O_score);
         console.log(O_moves, winCombos[i]);
         console.log("O wins!");
+        gameOver = true;
+        console.log("gameover", gameOver);
+        setTimeout(function () {
+          //might delete setTimeout and alert (not required i believe)
+          alert("Player O wins!");
+        }, 100);
       }
     }
   }
 }
+
+function clearBoard() {
+  X_moves = [];
+  O_moves = [];
+  gameOver = false;
+  for (let i = 1; i <= 9; i++) {
+    let c = getClass(i);
+    $(c).empty();
+  }
+  player = "X";
+  $(".display_player").empty(); //delete previous player
+  $(".display_player").append(player); //replace with new player turn
+}
+
 function getClass(id) {
   if (id == 1) {
     return ".one";
@@ -159,6 +199,13 @@ function updateGameBoard() {
     $(idO).append("O");
   }
 }
+
+$(function () {
+  $(".new_game").on("click", function () {
+    clearBoard();
+  });
+});
+
 $(function () {
   $(".one").on("click", function () {
     console.log("clicked box one");
