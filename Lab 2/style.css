@@ -13,7 +13,7 @@ h1 {
   font-size: 4em;
 }
 
-.timer{
+.timer {
   align-items: center;
 }
 
@@ -83,7 +83,6 @@ h1 {
   text-align: center;
 }
 
-.play_ai,
 .two_player {
   margin-left: 150px;
   background-color: #ff8c00;
@@ -96,7 +95,6 @@ h1 {
   margin: 20px auto;
 }
 
-.play_ai:hover,
 .two_player:hover {
   background-color: orange;
 }
@@ -106,4 +104,23 @@ h1 {
   position: absolute;
   z-index: 1;
   padding: 18% 0% 0% 35%;
+}
+
+.options {
+  width: 300px;
+  margin-top: 50px;
+  margin-left: 43%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.play_ai_label {
+  font-size: 30px;
+  /* margin-left: 20px; */
+}
+
+input[type="checkbox"] {
+  margin-right: 25px;
+  transform: scale(2.5);
 }

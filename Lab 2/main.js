@@ -240,8 +240,13 @@ $(function () {
   });
 
   $(".play_ai").on("click", function () {
-    AIgame = true;
-    console.log("playing AI now");
+    if (document.getElementById("AI_check").checked == true) {
+      AIgame = true;
+      console.log("playing AI now", AIgame);
+    } else {
+      AIgame = false;
+      console.log("no longer playing AI now", AIgame);
+    }
   });
 });
 

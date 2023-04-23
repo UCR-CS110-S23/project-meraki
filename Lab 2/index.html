@@ -21,7 +21,6 @@
     </h2>
 
     <div class="timer">
-      <input type="text" id="text" />
       <script>
         let time = document.getElementById("time");
         setTimeout(function () {
@@ -59,9 +58,11 @@
         <div class="nine"><span class="xo"></span></div>
       </div>
     </div>
-    <button class="play_ai">Play Against AI</button>
-    <button class="two_player">Select 2 Players</button>
-    <button class="new_game">New Game</button>
-    <button class="reset">Reset</button>
+    <div class="options">
+      <!-- <button class="two_player">Select 2 Players</button> -->
+      <label class="play_ai_label for="AI"><input type="checkbox" class="play_ai" id="AI_check" name="AI" value="AI" >Play against AI</label>
+      <button class="new_game">New Game</button>
+      <button class="reset">Reset</button>
+    </div>
   </body>
 </html>
