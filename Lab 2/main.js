@@ -96,6 +96,7 @@ function addMove(cl, id) {
 }
 
 function verifyWin(p) {
+  //REFERENCE for checker: https://stackoverflow.com/questions/53606337/check-if-array-contains-all-elements-of-another-array
   let checker = (arr, target) => target.every((v) => arr.includes(v));
   //TODO: Check timer if 2 minutes passed. If no winner after 2 minutes, then we have a tie.
   if (p == "X") {
