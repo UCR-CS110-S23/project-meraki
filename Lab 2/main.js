@@ -458,7 +458,8 @@ $(function () {
       addAIMove(".one", 1);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(1)) {
+      console.log("click!");
       addMove(".one", 1);
       clearTimeout(turnID);
       turnTimer();
@@ -472,7 +473,7 @@ $(function () {
       addAIMove(".two", 2);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(2)) {
       addMove(".two", 2);
       clearTimeout(turnID);
       turnTimer();
@@ -485,7 +486,7 @@ $(function () {
       addAIMove(".three", 3);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(3)) {
       addMove(".three", 3);
       clearTimeout(turnID);
       turnTimer();
@@ -498,7 +499,7 @@ $(function () {
       addAIMove(".four", 4);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(4)) {
       addMove(".four", 4);
       clearTimeout(turnID);
       turnTimer();
@@ -511,7 +512,7 @@ $(function () {
       addAIMove(".five", 5);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(5)) {
       addMove(".five", 5);
       clearTimeout(turnID);
       turnTimer();
@@ -524,7 +525,7 @@ $(function () {
       addAIMove(".six", 6);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(6)) {
       addMove(".six", 6);
       clearTimeout(turnID);
       turnTimer();
@@ -537,7 +538,7 @@ $(function () {
       addAIMove(".seven", 7);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(7)) {
       addMove(".seven", 7);
       clearTimeout(turnID);
       turnTimer();
@@ -550,7 +551,7 @@ $(function () {
       addAIMove(".eight", 8);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(8)) {
       addMove(".eight", 8);
       clearTimeout(turnID);
       turnTimer();
@@ -563,7 +564,7 @@ $(function () {
       addAIMove(".nine", 9);
       clearTimeout(AIturnID);
       turnAITimer();
-    } else {
+    } else if (!AIgame && !document.getElementById(9)) {
       addMove(".nine", 9);
       clearTimeout(turnID);
       turnTimer();
