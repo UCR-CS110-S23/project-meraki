@@ -4,7 +4,7 @@
 
 - To start a game against AI, make sure that the "Play Against AI" checkbox is checked. Once you are ready, click the "Start Playing" button to begin the game and start the 2 minute timer.
 
-- Once a game is over and you want to start a new game, click on the "New Game" button. Once you are ready to play, click on the "Start Playing" button.
+- Once a game is over and you want to start a new game, click on the "New Game" button. Once you have selected your preferred game mode and are ready to play, click on the "Start Playing" button.
 
 #### Rules:
 
