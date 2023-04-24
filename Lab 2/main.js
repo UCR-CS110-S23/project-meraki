@@ -27,7 +27,7 @@ let O_moves = [];
 let X_score = 0;
 let O_score = 0;
 
-let gameOver = false;
+let gameOver = true;
 
 function displayOutput() {
   let response = "";
@@ -109,6 +109,7 @@ function verifyWin(p) {
         console.log("X wins!");
         gameOver = true;
         console.log("gameover", gameOver);
+        clearTimeout(timeID);
         setTimeout(function () {
           //might delete setTimeout and alert (not required i believe)
           alert("Player X wins!");
@@ -125,6 +126,7 @@ function verifyWin(p) {
         console.log("O wins!");
         gameOver = true;
         console.log("gameover", gameOver);
+        clearTimeout(timeID);
         setTimeout(function () {
           //might delete setTimeout and alert (not required i believe)
           alert("Player O wins!");
@@ -135,9 +137,12 @@ function verifyWin(p) {
 }
 
 function clearBoard() {
+  clearTimeout(timeID);
+  var updateCountdownHTML = document.getElementById("countdown");
+  updateCountdownHTML.innerHTML = "2:00";
   X_moves = [];
   O_moves = [];
-  gameOver = false;
+  // gameOver = false;
   for (let i = 1; i <= 9; i++) {
     let c = getClass(i);
     $(c).empty();
@@ -249,7 +254,103 @@ $(function () {
       console.log("no longer playing AI now", AIgame);
     }
   });
+
+  $(".start_game").on("click", function () {
+    var emptyBoard = checkBoardEmpty();
+
+    if (emptyBoard) {
+      gameOver = false;
+      countdownTimer(2);
+      if (!AIgame) {
+        turnTimer();
+      }
+    }
+  });
 });
+
+function checkBoardEmpty() {
+  var empty = true;
+  for (let i = 1; i <= 9; i++) {
+    if (document.getElementById(i)) {
+      empty = false;
+      break;
+    }
+  }
+  return empty;
+}
+
+//REFERENCE for countdownTimer: https://gist.github.com/adhithyan15/4350689
+function countdownTimer(minutes) {
+  var minutesLeft = minutes - 1;
+  var secondsRemaining = 60;
+  var updateCountdownHTML = document.getElementById("countdown");
+  // minutesLeft -= 1;
+  secondsRemaining -= 1;
+  runSecond();
+  function runSecond() {
+    updateCountdownHTML.innerHTML =
+      minutesLeft + ":" + (secondsRemaining < 10 ? "0" : "") + secondsRemaining;
+    globalThis.timeID = setTimeout(function () {
+      if (secondsRemaining > 0) {
+        secondsRemaining -= 1;
+        runSecond();
+      } else {
+        if (minutesLeft >= 1) {
+          //if we have minutes left, we want to continue counting down
+          minutesLeft -= 1;
+          secondsRemaining = 59;
+          runSecond();
+        } else if (secondsRemaining > 0) {
+          //if no minutes left, call runSecond
+          runSecond();
+        } else {
+          if (!gameOver) {
+            alert("Game Over. Tie Game!"); //end game
+          }
+          gameOver = true;
+        }
+      }
+    }, 1000);
+  }
+}
+
+function turnTimer() {
+  var seconds = 5;
+  function runSecond() {
+    seconds--;
+    if (seconds > 0) {
+      globalThis.turnID = setTimeout(runSecond, 1000);
+    } else {
+      var skipTurnMsg = document.getElementById("skip-turn-msg");
+      if (player == "X" && !gameOver) {
+        skipTurnMsg.innerHTML =
+          "Time's up! Skipping player " + player + "'s turn!";
+        player = "O";
+        $(".display_player").empty(); //delete previous player
+        $(".display_player").append("O");
+        setTimeout(function () {
+          //might delete setTimeout and alert (not required i believe)
+          $("#skip-turn-msg").empty();
+        }, 1000);
+        clearTimeout(turnID);
+        turnTimer();
+      } else if (player == "O" && !gameOver) {
+        skipTurnMsg.innerHTML =
+          "Time's up! Skipping player " + player + "'s turn!";
+        player = "X";
+        $(".display_player").empty(); //delete previous player
+        $(".display_player").append("X");
+        setTimeout(function () {
+          //might delete setTimeout and alert (not required i believe)
+          $("#skip-turn-msg").empty();
+        }, 1000);
+        clearTimeout(turnID);
+        turnTimer();
+      }
+    }
+  }
+  runSecond();
+}
 
 function addAIMove(cl, id) {
   /*PLAYER X's TURN*/
@@ -305,6 +406,8 @@ $(function () {
       addAIMove(".one", 1);
     } else {
       addMove(".one", 1);
+      clearTimeout(turnID);
+      turnTimer();
     }
     //TODO: Make a different addMoveAIGame() to generate different moves. and add an if condition for addMove() to only be played/called when AIgame == false
   });
@@ -315,6 +418,8 @@ $(function () {
       addAIMove(".two", 2);
     } else {
       addMove(".two", 2);
+      clearTimeout(turnID);
+      turnTimer();
     }
   });
 
@@ -324,6 +429,8 @@ $(function () {
       addAIMove(".three", 3);
     } else {
       addMove(".three", 3);
+      clearTimeout(turnID);
+      turnTimer();
     }
   });
 
@@ -333,6 +440,8 @@ $(function () {
       addAIMove(".four", 4);
     } else {
       addMove(".four", 4);
+      clearTimeout(turnID);
+      turnTimer();
     }
   });
 
@@ -342,6 +451,8 @@ $(function () {
       addAIMove(".five", 5);
     } else {
       addMove(".five", 5);
+      clearTimeout(turnID);
+      turnTimer();
     }
   });
 
@@ -351,6 +462,8 @@ $(function () {
       addAIMove(".six", 6);
     } else {
       addMove(".six", 6);
+      clearTimeout(turnID);
+      turnTimer();
     }
   });
 
@@ -360,6 +473,8 @@ $(function () {
       addAIMove(".seven", 7);
     } else {
       addMove(".seven", 7);
+      clearTimeout(turnID);
+      turnTimer();
     }
   });
 
@@ -369,6 +484,8 @@ $(function () {
       addAIMove(".eight", 8);
     } else {
       addMove(".eight", 8);
+      clearTimeout(turnID);
+      turnTimer();
     }
   });
 
@@ -378,12 +495,14 @@ $(function () {
       addAIMove(".nine", 9);
     } else {
       addMove(".nine", 9);
+      clearTimeout(turnID);
+      turnTimer();
     }
   });
 });
 
-let form = document.getElementById("my-form");
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  document.getElementById("output").innerHTML = displayOutput();
-});
+// let form = document.getElementById("my-form");
+// form.addEventListener("submit", function (event) {
+//   event.preventDefault();
+//   document.getElementById("output").innerHTML = displayOutput();
+// });

@@ -25,6 +25,7 @@ h1 {
 }
 
 /* Button: NewGame and Reset */
+.start_game,
 .new_game,
 .reset {
   text-align: center;
@@ -38,8 +39,9 @@ h1 {
   margin: 20px auto;
 }
 
+.start_game:hover,
 .new_game:hover,
-.reset {
+.reset:hover {
   background-color: orange;
 }
 

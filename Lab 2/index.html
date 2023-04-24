@@ -19,8 +19,9 @@
     <h2 style="text-align: center">
       It's your turn, <span class="display_player">X</span>.
     </h2>
-
-    <div class="timer">
+    <h2 style="text-align: center">Time left: <span id="countdown">2:00</span></h2>
+    <h2 style="text-align: center" id="skip-turn-msg"></h2>
+    <!-- <div class="timer">
       <script>
         let time = document.getElementById("time");
         setTimeout(function () {
@@ -39,7 +40,7 @@
           alert("Time's Up! We're skipping your turn!");
         }
       </script>
-    </div>
+    </div> -->
 
     <div class="game_board">
       <div class="row">
@@ -61,6 +62,7 @@
     <div class="options">
       <!-- <button class="two_player">Select 2 Players</button> -->
       <label class="play_ai_label for="AI"><input type="checkbox" class="play_ai" id="AI_check" name="AI" value="AI" >Play against AI</label>
+      <button class="start_game">Start playing</button>
       <button class="new_game">New Game</button>
       <button class="reset">Reset</button>
     </div>
