@@ -262,7 +262,11 @@ $(function () {
       gameOver = false;
       countdownTimer(2);
       if (!AIgame) {
+        console.log("timer not ai");
         turnTimer();
+      } else {
+        console.log("ai timer");
+        turnAITimer();
       }
     }
   });
@@ -352,6 +356,54 @@ function turnTimer() {
   runSecond();
 }
 
+function turnAITimer() {
+  var seconds = 5;
+  function runSecond() {
+    seconds--;
+    if (seconds > 0) {
+      globalThis.AIturnID = setTimeout(runSecond, 1000);
+    } else {
+      var skipTurnMsg = document.getElementById("skip-turn-msg");
+      if (player == "X" && !gameOver) {
+        skipTurnMsg.innerHTML =
+          "Time's up! Skipping player " + player + "'s turn!";
+        // player = "O";
+        addSkipAIMove();
+        setTimeout(function () {
+          //might delete setTimeout and alert (not required i believe)
+          $("#skip-turn-msg").empty();
+        }, 1000);
+        clearTimeout(AIturnID);
+        turnAITimer();
+      }
+    }
+  }
+  runSecond();
+}
+
+function addSkipAIMove() {
+  let aiMove = generateAIMove(); //aiMove also represents the id
+  let classAI = getClass(aiMove);
+  console.log("actual ai move", aiMove);
+  let addAIHtml = '<h1 class="move" id="' + aiMove + '">O</h1>';
+  console.log(addAIHtml, "classAI", classAI);
+  $(addAIHtml).appendTo(classAI);
+
+  if (O_moves.length >= 4) {
+    let firstOMove = O_moves.shift();
+    let firstOClass = getClass(firstOMove);
+    // console.log("first o move", firstOClass);
+    $(firstOClass).empty();
+    O_moves.push(aiMove);
+  } else {
+    O_moves.push(aiMove);
+  }
+
+  if (!gameOver) {
+    verifyWin("O");
+    updateGameBoard();
+  }
+}
 function addAIMove(cl, id) {
   /*PLAYER X's TURN*/
   //Add your move as player X
@@ -404,6 +456,8 @@ $(function () {
     console.log("clicked box one");
     if (AIgame && !document.getElementById(1)) {
       addAIMove(".one", 1);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".one", 1);
       clearTimeout(turnID);
@@ -416,6 +470,8 @@ $(function () {
     console.log("clicked box two");
     if (AIgame && !document.getElementById(2)) {
       addAIMove(".two", 2);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".two", 2);
       clearTimeout(turnID);
@@ -427,6 +483,8 @@ $(function () {
     console.log("clicked box three");
     if (AIgame && !document.getElementById(3)) {
       addAIMove(".three", 3);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".three", 3);
       clearTimeout(turnID);
@@ -438,6 +496,8 @@ $(function () {
     console.log("clicked box four");
     if (AIgame && !document.getElementById(4)) {
       addAIMove(".four", 4);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".four", 4);
       clearTimeout(turnID);
@@ -449,6 +509,8 @@ $(function () {
     console.log("clicked box five");
     if (AIgame && !document.getElementById(5)) {
       addAIMove(".five", 5);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".five", 5);
       clearTimeout(turnID);
@@ -460,6 +522,8 @@ $(function () {
     console.log("clicked box six");
     if (AIgame && !document.getElementById(6)) {
       addAIMove(".six", 6);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".six", 6);
       clearTimeout(turnID);
@@ -471,6 +535,8 @@ $(function () {
     console.log("clicked box seven");
     if (AIgame && !document.getElementById(7)) {
       addAIMove(".seven", 7);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".seven", 7);
       clearTimeout(turnID);
@@ -482,6 +548,8 @@ $(function () {
     console.log("clicked box eight");
     if (AIgame && !document.getElementById(8)) {
       addAIMove(".eight", 8);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".eight", 8);
       clearTimeout(turnID);
@@ -493,6 +561,8 @@ $(function () {
     console.log("clicked box nine");
     if (AIgame && !document.getElementById(9)) {
       addAIMove(".nine", 9);
+      clearTimeout(AIturnID);
+      turnAITimer();
     } else {
       addMove(".nine", 9);
       clearTimeout(turnID);
@@ -500,9 +570,3 @@ $(function () {
     }
   });
 });
-
-// let form = document.getElementById("my-form");
-// form.addEventListener("submit", function (event) {
-//   event.preventDefault();
-//   document.getElementById("output").innerHTML = displayOutput();
-// });
