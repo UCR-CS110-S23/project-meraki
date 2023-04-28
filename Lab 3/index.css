@@ -236,6 +236,14 @@ nav a {
   display: none;
 }
 
+#search {
+  padding: 5px;
+}
+
+#feed{
+  padding: 5px;
+}
+
 @media (max-width: 1200px) {
   #content-right {
     display: none;

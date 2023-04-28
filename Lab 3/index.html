@@ -57,8 +57,24 @@
 
       <div id="content-center" role="main">
         <div class="searchbar">
-          <input id="searchBar" type="search" placeholder="Search in tweets">
-          Pause Feed <input id="checkBox" type="checkbox">
+          <div id="search">
+            <input id="searchBar" type="search" placeholder="Search in tweets" size="78">
+          </div>
+          <div id="feed">
+            Pause Feed <input type="checkbox" id="check" onclick="pauseFeed()">
+            <script>
+              function pauseFeed(){
+                console.log("testing");
+                var box = document.getElementById("check");
+                if(box.checked){
+                    alert("checked!");
+                }
+                else{
+                    alert("unpaused");
+                }
+              }
+            </script>
+          </div>
         </div>
         
         <div id="tweet">
