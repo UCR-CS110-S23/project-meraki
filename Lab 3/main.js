@@ -12,11 +12,10 @@ const handleSearch = (event) => {
 document.getElementById("searchBar").addEventListener("input", handleSearch);
 
 function pauseFeed(){
-  console.log("testing");
   var box = document.getElementById("check");
-  box.addEventListener('click', pauseFeed());
+  box.addEventListener('click', function() {document.getElementById("check").innerHTML = "checked"});
   if(box.checked){
-      alert("checked!");
+      alert("testing!");
       //pause feed -> don't refresh?
   }
   else{
@@ -24,7 +23,6 @@ function pauseFeed(){
       //can refresh feed again
   }
 }
-
 
 const tweetContainer = document.getElementById("tweet-container");
 
