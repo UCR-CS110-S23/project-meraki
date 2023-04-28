@@ -62,18 +62,6 @@
           </div>
           <div id="feed">
             Pause Feed <input type="checkbox" id="check" onclick="pauseFeed()">
-            <script>
-              function pauseFeed(){
-                console.log("testing");
-                var box = document.getElementById("check");
-                if(box.checked){
-                    alert("checked!");
-                }
-                else{
-                    alert("unpaused");
-                }
-              }
-            </script>
           </div>
         </div>
         
@@ -83,7 +71,10 @@
             src="images\ratatouille.jpg"
             alt="ratatouille"
           />
-          <p><b>Remy</b> <span id="name-date">@remy Nov 19</span></p>
+          <p>
+            <b><span id="username1">Remy</span></b>
+            <span id="name-date">@remy Nov 19</span>
+          </p>
           <p id="tweet-text">
             I'm taking this class called CS 110 and the TAs are all so
             <b>cool</b>!
@@ -97,7 +88,10 @@
             src="images\ratatouille.jpg"
             alt="ratatouille"
           />
-          <p><b>Remy</b> <span id="name-date">@remy Nov 19</span></p>
+          <p>
+            <b><span id="username2">Remy</span></b>
+            <span id="name-date">@remy Nov 19</span>
+          </p>
           <p id="tweet-text">
             It's 2007. You just got home from elementary school. Your mom has
             pizza bagels in the oven. Ratatouille is in theaters. Life is good
@@ -111,7 +105,10 @@
             src="images\ratatouille.jpg"
             alt="ratatouille"
           />
-          <p><b>Remy</b> <span id="name-date">@remy Nov 19</span></p>
+          <p>
+            <b><span id="username3">Remy</span></b>
+            <span id="name-date">@remy Nov 19</span>
+          </p>
           <p id="tweet-text">Let's make some pasta!</p>
         </div>
         <div id="cc-border-bot"></div>
@@ -122,7 +119,10 @@
             src="images\ratatouille.jpg"
             alt="ratatouille"
           />
-          <p><b>Remy</b> <span id="name-date">@remy Nov 19</span></p>
+          <p>
+            <b><span id="username4">Remy</span></b>
+            <span id="name-date">@remy Nov 19</span>
+          </p>
           <p id="tweet-text">Let's make some pasta!</p>
         </div>
         <div id="cc-border-bot"></div>
@@ -133,7 +133,10 @@
             src="images\ratatouille.jpg"
             alt="ratatouille"
           />
-          <p><b>Remy</b> <span id="name-date">@remy Nov 19</span></p>
+          <p>
+            <b><span id="username5">Remy</span></b>
+            <span id="name-date">@remy Nov 19</span>
+          </p>
           <p id="tweet-text">Let's make some pasta!</p>
         </div>
       </div>
@@ -159,5 +162,6 @@
         <div id="cr-border-bot"></div>
       </div>
     </div>
+    <script src="main.js"></script>
   </body>
 </html>

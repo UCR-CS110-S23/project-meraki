@@ -11,6 +11,21 @@ const handleSearch = (event) => {
 };
 document.getElementById("searchBar").addEventListener("input", handleSearch);
 
+function pauseFeed(){
+  console.log("testing");
+  var box = document.getElementById("check");
+  box.addEventListener('click', pauseFeed());
+  if(box.checked){
+      alert("checked!");
+      //pause feed -> don't refresh?
+  }
+  else{
+      alert("unpaused");
+      //can refresh feed again
+  }
+}
+
+
 const tweetContainer = document.getElementById("tweet-container");
 
 /**
