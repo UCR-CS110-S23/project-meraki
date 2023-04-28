@@ -169,6 +169,7 @@ function getRequest() {
   }
 }
 
+//Reference: https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property
 function sortTweets() {
   tweets.sort(function (a, b) {
     // Turn your strings into dates, and then subtract them
@@ -176,57 +177,6 @@ function sortTweets() {
     return new Date(b.date) - new Date(a.date);
   });
 }
-// function addTweets(data) {
-//   //   let getHTMLUsername = document.getElementById("username");
-//   //   getHTMLUsername.innconst tweetContainer = document.getElementById("tweet-container");erHTML = data[0].user_name;
-
-//   const tweetContainer = document.getElementById("tweet-container");
-
-//   for (let i = 0; i < data.length; i++) {
-//     tweets.push(data[i]);
-//   }
-
-//   // console.log("NON-SORTED ARRAY:", displayDatesSorted());
-
-//   /*SORT TWEETS BY DATE*/
-//   sortTweets();
-//   // console.log("SORTED ARRAY:", displayDatesSorted());
-
-//   /*TODO: REMOVE DUPLICATE TWEETS*/
-
-//   //clear tweet-container and recreate new div for each tweet in the sorted tweet list
-//   for (let i = 0; i < tweets.length; i++) {
-//     var newDiv = document.createElement("div");
-//     newDiv.id = "tweet";
-//     tweetContainer.appendChild(newDiv);
-
-//     var imgElement = document.createElement("img");
-//     imgElement.id = "ratatouille";
-
-//     var http = new XMLHttpRequest();
-//     var imgURL = tweets[i].avatar;
-//     http.open("HEAD", imgURL, false);
-//     http.send();
-//     if (http.status != 404) {
-//       imgElement.setAttribute("src", imgURL);
-//       imgElement.setAttribute("alt", "profile picture");
-//     } else {
-//       imgElement.setAttribute("src", "images/linguini.png");
-//       imgElement.setAttribute("alt", "profile picture");
-//     }
-//     newDiv.appendChild(imgElement);
-//     //   <img
-//     //   id="ratatouille"
-//     //   src="images\ratatouille.jpg"
-//     //   alt="ratatouille"
-//     // />
-
-//     // const tweetText = document.createTextNode(tweetObject.text);
-//     // getHTMLUsername.innerHTML = data[i].user_name;
-//     // getHTMLTweetText.innerHTML = data[i].text;
-//   }
-//   // console.log(tweets);
-// }
 
 function displayDatesSorted() {
   let dis = [];
@@ -235,23 +185,3 @@ function displayDatesSorted() {
   }
   return dis;
 }
-
-/*
-SAMPLE TWEET
-<div id="tweet">
-            <img
-              id="ratatouille"
-              src="images\ratatouille.jpg"
-              alt="ratatouille"
-            />
-            <p>
-              <b><span id="username1">Remy</span></b>
-              <span id="name-date">@remy Nov 19</span>
-            </p>
-            <p id="tweet-text">
-              I'm taking this class called CS 110 and the TAs are all so
-              <b>cool</b>!
-            </p>
-          </div>
-          <div id="cc-border-bot"></div>
-*/
