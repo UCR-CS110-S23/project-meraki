@@ -17,7 +17,7 @@ $(document).ready(function () {
 window.addEventListener("load", function () {
   // The document is loaded.
   // Fetch new data every 10 seconds.
-  setInterval(getRequest, 5000);
+  setInterval(getRequest, 10000);
 });
 
 const handleSearch = (event) => {
@@ -51,6 +51,12 @@ const tweetContainer = document.getElementById("tweet-container");
  * @returns None, the tweets will be renewed
  */
 function refreshTweets(data) {
+  // feel free to use a more complicated heuristics like in-place-patch, for simplicity, we will clear all tweets and append all tweets back
+  // {@link https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript}
+  while (tweetContainer.firstChild) {
+    tweetContainer.removeChild(tweetContainer.firstChild);
+  }
+
   if (data.length != 0) {
     for (let i = 0; i < data.length; i++) {
       tweets.push(data[i]);
@@ -61,13 +67,13 @@ function refreshTweets(data) {
   }
   tweets = removeDuplicates();
 
-  // console.log("removed", tweets);
+  // console.log("NON-SORTED ARRAY:", displayDatesSorted());
 
-  // feel free to use a more complicated heuristics like in-place-patch, for simplicity, we will clear all tweets and append all tweets back
-  // {@link https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript}
-  while (tweetContainer.firstChild) {
-    tweetContainer.removeChild(tweetContainer.firstChild);
-  }
+  /*SORT TWEETS BY DATE*/
+  sortTweets();
+  // console.log("SORTED ARRAY:", displayDatesSorted());
+
+  // console.log("removed", tweets);
 
   // create an unordered list to hold the tweets
   // {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement}
@@ -83,12 +89,6 @@ function refreshTweets(data) {
   const filteredResult = tweets.filter((tweetObject) =>
     tweetObject.text.toLowerCase().includes(searchString)
   );
-
-  // console.log("NON-SORTED ARRAY:", displayDatesSorted());
-
-  /*SORT TWEETS BY DATE*/
-  sortTweets();
-  // console.log("SORTED ARRAY:", displayDatesSorted());
 
   /*TODO: REMOVE DUPLICATE TWEETS*/
 
