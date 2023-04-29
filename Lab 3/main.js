@@ -26,12 +26,25 @@ const handleSearch = (event) => {
   searchString = event.target.value.trim().toLowerCase();
   console.log("SEARCH STRING", searchString);
   refreshTweets([]);
+  searchString = event.target.value.trim().toLowerCase();
+  console.log("SEARCH STRING", searchString);
+  refreshTweets([]);
   // you may want to update the displayed HTML here too
 };
 document.getElementById("searchBar").addEventListener("input", handleSearch);
 
 function pauseFeed() {
+function pauseFeed() {
   var box = document.getElementById("check");
+  box.addEventListener("click", function () {
+    document.getElementById("check").innerHTML = "checked";
+  });
+  if (box.checked) {
+    // alert("testing!");
+    paused = true;
+  } else {
+    // alert("unpaused");
+    paused = false;
   box.addEventListener("click", function () {
     document.getElementById("check").innerHTML = "checked";
   });
@@ -152,13 +165,25 @@ function refreshTweets(data) {
     // append the text node to the div
 
     tweetContent.appendChild(tweetTextP);
+    tweetContent.appendChild(tweetTextP);
 
+    // you may want to put more stuff here like time, username...
+    tweet.appendChild(tweetContent);
     // you may want to put more stuff here like time, username...
     tweet.appendChild(tweetContent);
 
     // finally append your tweet into the tweet list
     tweetList.appendChild(tweet);
+    // finally append your tweet into the tweet list
+    tweetList.appendChild(tweet);
 
+    /*
+    var borderBottom = document.createElement("div");
+    borderBottom.id = "cc-border-bot";
+    var getTweet = document.getElementById("tweet");
+    tweet.appendChild(borderBottom);*/
+  });
+}
     /*
     var borderBottom = document.createElement("div");
     borderBottom.id = "cc-border-bot";
@@ -181,11 +206,44 @@ function removeDuplicates() {
       )
     );
   });
+function removeDuplicates() {
+  //USED CHATGPT
+  var uniqueTweets = tweets.filter((obj, index, arr) => {
+    return (
+      index ===
+      arr.findIndex(
+        (t) =>
+          t.user_name === obj.user_name &&
+          t.user_created === obj.user_created &&
+          t.date === obj.date &&
+          t.text === obj.text
+      )
+    );
+  });
 
+  return uniqueTweets;
+}
   return uniqueTweets;
 }
 
 function getRequest() {
+  //Check if not paused, then fetch. If paused, then no fetch.
+
+  if (!paused) {
+    console.log("COUNT: ", (count += 1));
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        refreshTweets(data);
+        // addTweets(data);
+      })
+      .catch((err) => {
+        // error catching
+        console.log(err);
+      });
+  }
+}
   //Check if not paused, then fetch. If paused, then no fetch.
 
   if (!paused) {
@@ -212,11 +270,24 @@ function sortTweets() {
     return new Date(b.date) - new Date(a.date);
   });
 }
+//Reference: https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property
+function sortTweets() {
+  tweets.sort(function (a, b) {
+    // Turn your strings into dates, and then subtract them
+    // to get a value that is either negative, positive, or zero.
+    return new Date(b.date) - new Date(a.date);
+  });
+}
 
 function displayDatesSorted() {
   let dis = [];
   for (let i = 0; i < tweets.length; i++) {
     dis.push(tweets[i]);
+function displayDatesSorted() {
+  let dis = [];
+  for (let i = 0; i < tweets.length; i++) {
+    dis.push(tweets[i]);
   }
+  return dis;
   return dis;
 }
