@@ -21,7 +21,9 @@ window.addEventListener("load", function () {
 });
 
 const handleSearch = (event) => {
-  // searchString = event.target.value.trim().toLowerCase() ...
+  searchString = event.target.value.trim().toLowerCase();
+  console.log("SEARCH STRING", searchString);
+  refreshTweets([]);
   // you may want to update the displayed HTML here too
 };
 document.getElementById("searchBar").addEventListener("input", handleSearch);
@@ -49,8 +51,13 @@ const tweetContainer = document.getElementById("tweet-container");
  * @returns None, the tweets will be renewed
  */
 function refreshTweets(data) {
-  for (let i = 0; i < data.length; i++) {
-    tweets.push(data[i]);
+  if (data.length != 0) {
+    for (let i = 0; i < data.length; i++) {
+      tweets.push(data[i]);
+    }
+    console.log("data NOT EMPTY");
+  } else {
+    console.log("data IS EMPTY");
   }
   tweets = removeDuplicates();
 
@@ -73,21 +80,23 @@ function refreshTweets(data) {
 
   // // filter on search text
   // // {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter}
-  // const filteredResult = tweets.filter(...);
+  const filteredResult = tweets.filter((tweetObject) =>
+    tweetObject.text.toLowerCase().includes(searchString)
+  );
 
   // console.log("NON-SORTED ARRAY:", displayDatesSorted());
 
   /*SORT TWEETS BY DATE*/
   sortTweets();
-  console.log("SORTED ARRAY:", displayDatesSorted());
+  // console.log("SORTED ARRAY:", displayDatesSorted());
 
   /*TODO: REMOVE DUPLICATE TWEETS*/
 
   // execute the arrow function for each tweet
   // {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach}
-  tweets.forEach((tweetObject) => {
+  filteredResult.forEach((tweetObject) => {
     // create a container for individual tweet
-    console.log(tweetObject);
+    // console.log(tweetObject);
     const tweet = document.createElement("li");
 
     // e.g. create a div holding tweet content
