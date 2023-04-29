@@ -1,4 +1,3 @@
-
 /*
 Connie Pak - cpak014
 Hannah Bach - hbach003
@@ -142,13 +141,13 @@ nav li:hover {
   flex-direction: column;
   height: 470px;
   width: 50%;
-  background-color: white;
+  /* background-color: white; */
   height: auto;
   margin-left: 14px;
   margin-right: 14px;
 }
 
-#tweet {
+.tweet {
   /* padding: 0px; */
   padding: 5px;
   margin-right: 80px;
@@ -156,7 +155,7 @@ nav li:hover {
   min-height: 51px;
 }
 
-#ratatouille {
+#pfp {
   float: left; /*so that we can position the text to be right next to ratatouille profile picture side by side */
   border-radius: 50%;
   width: 50px;
@@ -170,6 +169,7 @@ nav li:hover {
 
 #name-date {
   color: grey;
+  padding-left: 5px;
 }
 
 #content-right {
@@ -240,7 +240,7 @@ nav a {
   padding: 5px;
 }
 
-#feed{
+#feed {
   padding: 5px;
 }
 
@@ -248,4 +248,26 @@ nav a {
   #content-right {
     display: none;
   }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  padding-left: 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+#searchFilterContent {
+  background-color: white;
+  margin: 5px;
+}
+
+#tweet-container {
+  margin: 5px;
+  background-color: white;
 }

@@ -5,6 +5,8 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" type="text/css" href="index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -56,89 +58,22 @@
       </div>
 
       <div id="content-center" role="main">
-        <div class="searchbar">
+        <div id="searchFilterContent">
           <div id="search">
-            <input id="searchBar" type="search" placeholder="Search in tweets" size="78">
+            <input
+              id="searchBar"
+              type="search"
+              placeholder="Search in tweets"
+              size="77"
+            />
           </div>
           <div id="feed">
-            Pause Feed <input type="checkbox" id="check" onclick="pauseFeed()">
+            Pause Feed
+            <input type="checkbox" id="check" onclick="pauseFeed()" />
           </div>
         </div>
-        
-        <div id="tweet">
-          <img
-            id="ratatouille"
-            src="images\ratatouille.jpg"
-            alt="ratatouille"
-          />
-          <p>
-            <b><span id="username1">Remy</span></b>
-            <span id="name-date">@remy Nov 19</span>
-          </p>
-          <p id="tweet-text">
-            I'm taking this class called CS 110 and the TAs are all so
-            <b>cool</b>!
-          </p>
-        </div>
-        <div id="cc-border-bot"></div>
 
-        <div id="tweet">
-          <img
-            id="ratatouille"
-            src="images\ratatouille.jpg"
-            alt="ratatouille"
-          />
-          <p>
-            <b><span id="username2">Remy</span></b>
-            <span id="name-date">@remy Nov 19</span>
-          </p>
-          <p id="tweet-text">
-            It's 2007. You just got home from elementary school. Your mom has
-            pizza bagels in the oven. Ratatouille is in theaters. Life is good
-          </p>
-        </div>
-        <div id="cc-border-bot"></div>
-
-        <div id="tweet">
-          <img
-            id="ratatouille"
-            src="images\ratatouille.jpg"
-            alt="ratatouille"
-          />
-          <p>
-            <b><span id="username3">Remy</span></b>
-            <span id="name-date">@remy Nov 19</span>
-          </p>
-          <p id="tweet-text">Let's make some pasta!</p>
-        </div>
-        <div id="cc-border-bot"></div>
-
-        <div id="tweet">
-          <img
-            id="ratatouille"
-            src="images\ratatouille.jpg"
-            alt="ratatouille"
-          />
-          <p>
-            <b><span id="username4">Remy</span></b>
-            <span id="name-date">@remy Nov 19</span>
-          </p>
-          <p id="tweet-text">Let's make some pasta!</p>
-        </div>
-        <div id="cc-border-bot"></div>
-
-        <div id="tweet">
-          <img
-            id="ratatouille"
-            src="images\ratatouille.jpg"
-            alt="ratatouille"
-          />
-          <p>
-            <b><span id="username5">Remy</span></b>
-            <span id="name-date">@remy Nov 19</span>
-          </p>
-          <p id="tweet-text">Let's make some pasta!</p>
-        </div>
+        <div id="tweet-container"></div>
       </div>
 
       <div id="content-right">
