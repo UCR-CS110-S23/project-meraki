@@ -141,7 +141,7 @@ nav li:hover {
   flex-direction: column;
   height: 470px;
   width: 50%;
-  background-color: white;
+  /* background-color: white; */
   height: auto;
   margin-left: 14px;
   margin-right: 14px;
@@ -263,5 +263,11 @@ li {
 }
 
 #searchFilterContent {
+  background-color: white;
+  margin: 5px;
+}
+
+#tweet-container {
+  margin: 5px;
   background-color: white;
 }
