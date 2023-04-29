@@ -142,13 +142,11 @@ nav li:hover {
   height: 470px;
   width: 50%;
   /* background-color: white; */
-  /* background-color: white; */
   height: auto;
   margin-left: 14px;
   margin-right: 14px;
 }
 
-.tweet {
 .tweet {
   /* padding: 0px; */
   padding: 5px;
@@ -157,7 +155,6 @@ nav li:hover {
   min-height: 51px;
 }
 
-#pfp {
 #pfp {
   float: left; /*so that we can position the text to be right next to ratatouille profile picture side by side */
   border-radius: 50%;
@@ -172,7 +169,6 @@ nav li:hover {
 
 #name-date {
   color: grey;
-  padding-left: 5px;
   padding-left: 5px;
 }
 
@@ -244,7 +240,6 @@ nav a {
   padding: 5px;
 }
 
-#feed {
 #feed {
   padding: 5px;
 }
