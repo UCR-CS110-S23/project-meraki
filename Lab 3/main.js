@@ -1,6 +1,8 @@
 /* References:
 https://www.w3schools.com/howto/howto_js_display_checkbox_text.asp
 https://www.w3schools.com/tags/att_input_size.asp
+https://www.w3schools.com/JSREF/jsref_filter.asp
+https://momentjs.com/
 */
 
 let searchString = ""; // here we use a global variable
