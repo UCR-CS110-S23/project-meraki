@@ -13,7 +13,7 @@ $(document).ready(function () {
   getRequest();
 });
 /* FETCH DATA EVERY 10 SECONDS*/
-//Reference: https://stackoverflow.com/questions/64032097/can-i-get-a-fetch-function-to-repeat-every-few-seconds
+// Reference: https://stackoverflow.com/questions/64032097/can-i-get-a-fetch-function-to-repeat-every-few-seconds
 window.addEventListener("load", function () {
   // The document is loaded.
   // Fetch new data every 10 seconds.
@@ -52,6 +52,10 @@ function refreshTweets(data) {
   for (let i = 0; i < data.length; i++) {
     tweets.push(data[i]);
   }
+  tweets = removeDuplicates();
+
+  // console.log("removed", tweets);
+
   // feel free to use a more complicated heuristics like in-place-patch, for simplicity, we will clear all tweets and append all tweets back
   // {@link https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript}
   while (tweetContainer.firstChild) {
@@ -148,6 +152,24 @@ function refreshTweets(data) {
     var getTweet = document.getElementById("tweet");
     tweet.appendChild(borderBottom);*/
   });
+}
+
+function removeDuplicates() {
+  //USED CHATGPT
+  var uniqueTweets = tweets.filter((obj, index, arr) => {
+    return (
+      index ===
+      arr.findIndex(
+        (t) =>
+          t.user_name === obj.user_name &&
+          t.user_created === obj.user_created &&
+          t.date === obj.date &&
+          t.text === obj.text
+      )
+    );
+  });
+
+  return uniqueTweets;
 }
 
 function getRequest() {
