@@ -184,13 +184,6 @@ function refreshTweets(data) {
     tweet.appendChild(borderBottom);*/
   });
 }
-    /*
-    var borderBottom = document.createElement("div");
-    borderBottom.id = "cc-border-bot";
-    var getTweet = document.getElementById("tweet");
-    tweet.appendChild(borderBottom);*/
-  });
-}
 
 function removeDuplicates() {
   //USED CHATGPT
@@ -244,23 +237,6 @@ function getRequest() {
       });
   }
 }
-  //Check if not paused, then fetch. If paused, then no fetch.
-
-  if (!paused) {
-    console.log("COUNT: ", (count += 1));
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        refreshTweets(data);
-        // addTweets(data);
-      })
-      .catch((err) => {
-        // error catching
-        console.log(err);
-      });
-  }
-}
 
 //Reference: https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property
 function sortTweets() {
@@ -283,11 +259,6 @@ function displayDatesSorted() {
   let dis = [];
   for (let i = 0; i < tweets.length; i++) {
     dis.push(tweets[i]);
-function displayDatesSorted() {
-  let dis = [];
-  for (let i = 0; i < tweets.length; i++) {
-    dis.push(tweets[i]);
   }
-  return dis;
   return dis;
 }
