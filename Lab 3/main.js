@@ -106,6 +106,7 @@ function refreshTweets(data) {
     var imgElement = document.createElement("img");
     imgElement.id = "pfp";
 
+    //Reference: got checking 404 status code from TA during lab
     var http = new XMLHttpRequest();
     var imgURL = tweetObject.avatar;
     http.open("HEAD", imgURL, false);
@@ -114,7 +115,7 @@ function refreshTweets(data) {
       imgElement.setAttribute("src", imgURL);
       imgElement.setAttribute("alt", "profile picture");
     } else {
-      imgElement.setAttribute("src", "images/linguini.png");
+      imgElement.setAttribute("src", "images/linguini.png"); //default image is linguini.png
       imgElement.setAttribute("alt", "profile picture");
     }
     tweetContent.appendChild(imgElement);
@@ -158,7 +159,8 @@ function refreshTweets(data) {
 }
 
 function removeDuplicates() {
-  //USED CHATGPT
+  //Reference: USED CHATGPT
+  //filter() method loops through tweet objects array. Uses a callback function that removes duplicates from the array.
   var uniqueTweets = tweets.filter((obj, index, arr) => {
     return (
       index ===
@@ -197,7 +199,8 @@ function getRequest() {
 //Reference: https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property
 function sortTweets() {
   tweets.sort(function (a, b) {
-    //Sorting the dates; uses sort() and a comparison function where it compares the dates of two objects and finds the difference to get the correct descending order
+    //Sorting the dates; Converts date property from a string to Date object.
+    //uses sort() and a comparison function that compares the dates of two objects by taking their difference to get the correct descending order
     return new Date(b.date) - new Date(a.date);
   });
 }
