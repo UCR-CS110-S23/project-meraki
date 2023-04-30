@@ -36,10 +36,10 @@ function pauseFeed() {
     document.getElementById("check").innerHTML = "checked";
   });
   if (box.checked) {
-    // alert("testing!");
+    //paused
     paused = true;
   } else {
-    // alert("unpaused");
+    //unpaused
     paused = false;
   }
 }
@@ -92,8 +92,6 @@ function refreshTweets(data) {
     tweetObject.text.toLowerCase().includes(searchString)
   );
 
-  /*TODO: REMOVE DUPLICATE TWEETS*/
-
   // execute the arrow function for each tweet
   // {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach}
   filteredResult.forEach((tweetObject) => {
@@ -129,7 +127,7 @@ function refreshTweets(data) {
 
     var spanHandle = document.createElement("span");
     spanHandle.id = "name-date";
-    var date = tweetObject.date; /*TODO: CLEAN & PARSE THE DATE*/
+    var date = tweetObject.date;
     date = moment(date).format("LLL");
 
     var handleDate = document.createTextNode(
@@ -145,9 +143,7 @@ function refreshTweets(data) {
 
     // create a text node "safely" with HTML characters escaped
     // {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode}
-    const tweetText = document.createTextNode(
-      tweetObject.text
-    ); /*TODO: REMOVE Twitter short url at the end of the text; can prob do this by doing somethign like */
+    const tweetText = document.createTextNode(tweetObject.text);
     tweetTextP.appendChild(tweetText);
     // append the text node to the div
 
@@ -158,12 +154,6 @@ function refreshTweets(data) {
 
     // finally append your tweet into the tweet list
     tweetList.appendChild(tweet);
-
-    /*
-    var borderBottom = document.createElement("div");
-    borderBottom.id = "cc-border-bot";
-    var getTweet = document.getElementById("tweet");
-    tweet.appendChild(borderBottom);*/
   });
 }
 
@@ -207,8 +197,7 @@ function getRequest() {
 //Reference: https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property
 function sortTweets() {
   tweets.sort(function (a, b) {
-    // Turn your strings into dates, and then subtract them
-    // to get a value that is either negative, positive, or zero.
+    //Sorting the dates; uses sort() and a comparison function where it compares the dates of two objects and finds the difference to get the correct descending order
     return new Date(b.date) - new Date(a.date);
   });
 }
