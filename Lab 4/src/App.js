@@ -18,7 +18,9 @@ function App() {
         <div className="postContainer">
           <div id="newPost">
             <h3>New Post</h3>
-            <NewPost addComment={addComment}> </NewPost>
+            <NewPost addComment={addComment} depth={0}>
+              {" "}
+            </NewPost>
           </div>
         </div>
         <div className="commentContainer">

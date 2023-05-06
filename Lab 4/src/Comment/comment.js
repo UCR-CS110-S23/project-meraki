@@ -16,14 +16,22 @@ function Comment({ mainComment }) {
       <div className="thread">
         <div id="nameTitle">{mainComment.name}</div>
         <div id="commentText">{mainComment.text}</div>
-        <button id="replyButton" onClick={() => setIsReply(!isReply)}>
-          Reply
-        </button>
-
-        {/*Open a NewPost form to submit. Adds the reply to replies array corresponding to this thread/Comment by calling addReply().*/}
-        <div>{isReply && <NewPost addComment={addReply}></NewPost>}</div>
-
+        {mainComment.depth < 2 && (
+          <button id="replyButton" onClick={() => setIsReply(!isReply)}>
+            Reply
+          </button>
+        )}
+        {/*Open a NewPost form to submit. Adds the reply to replies array corresponding to this reply by calling addReply().*/}
+        <div>
+          {isReply && mainComment.depth < 2 && (
+            <NewPost
+              addComment={addReply}
+              depth={mainComment.depth + 1}
+            ></NewPost>
+          )}
+        </div>
         {/*Iterate through the replies container of a specific thread (i.e. <Comment/>) we are on in App.js*/}
+        {/*NOTE: EACH COMMENT (i.e. reply or post) is going to have its own list of replies. (exception: if its depth is 2, it will have an empty list of replies)*/}
         <div className="repliesContainer">
           {replies.length > 0 &&
             replies.map((reply, index) => (
