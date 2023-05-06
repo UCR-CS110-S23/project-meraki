@@ -1,0 +1,43 @@
+#threadsContainer {
+  display: flex;
+  /* align-items: flex-start;
+  justify-content: flex-start; */
+  color: black;
+}
+
+.thread {
+  width: 40em;
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  font-size: medium;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#nameTitle {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  color: #1877f2;
+}
+
+#commentText {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+#replyButton {
+  border: none;
+  background-color: white;
+  color: grey;
+  margin-top: 10px;
+}
+
+#replyButton:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
