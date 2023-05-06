@@ -8,7 +8,8 @@ function NewPost({ addComment }) {
     if (text.trim() === "" || name.trim() === "") {
       return;
     }
-    addComment({ name: name, text: text, replies: [] });
+    //1) adds main post/thread to an array of threads called "comments" in App.js 2) Adds reply to an array of replies in comment.js corresponding to a specific thread/post so that it can be displayed with that same thread
+    addComment({ name: name, text: text, depth: 0 });
     setText("");
     setName("");
     console.log(name, text, " ");
@@ -41,4 +42,4 @@ function NewPost({ addComment }) {
     </div>
   );
 }
-export default NewPost; //export NewPost so that other scripts like App.js can use it
+export default NewPost; //export NewPost so that other scripts like App.js can use it.

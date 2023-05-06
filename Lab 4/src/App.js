@@ -18,11 +18,11 @@ function App() {
         <div className="postContainer">
           <div id="newPost">
             <h3>New Post</h3>
-            {/* <div id="title">Chat App</div> */}
             <NewPost addComment={addComment}> </NewPost>
           </div>
         </div>
         <div className="commentContainer">
+          {/*Iterates through all the main comments/threads and displays them*/}
           {comments.map((comment, index) => (
             <Comment mainComment={comment} key={index}></Comment>
           ))}

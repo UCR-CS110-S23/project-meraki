@@ -41,3 +41,9 @@
   background-color: lightgrey;
   cursor: pointer;
 }
+
+.repliesContainer {
+  width: 30em;
+  border-left: 2px solid lightgrey;
+  /* border-top: 1px solid black;; */
+}
