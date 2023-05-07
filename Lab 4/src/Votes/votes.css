@@ -1,9 +1,9 @@
-#upvote:hover {
+.upVote:hover {
   background-color: lightgrey;
   cursor: pointer;
 }
 
-#downvote:hover {
+.downVote:hover {
   background-color: lightgrey;
   cursor: pointer;
 }
@@ -13,5 +13,5 @@
 }
 
 .voting {
-  font-size: large;
+  font-size: small;
 }

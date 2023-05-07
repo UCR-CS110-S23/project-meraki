@@ -22,7 +22,10 @@ function Comment({ mainComment }) {
             <div id="commentText">{mainComment.text}</div>
             {mainComment.depth < 2 && (
               <button id="replyButton" onClick={() => setIsReply(!isReply)}>
-                <ChatBubbleOutlineOutlinedIcon />
+                <ChatBubbleOutlineOutlinedIcon
+                  className="chatIcon"
+                  fontSize="small"
+                />
                 &nbsp; Reply
               </button>
             )}
