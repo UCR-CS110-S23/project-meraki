@@ -1,0 +1,17 @@
+#upvote:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+#downvote:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+#voteDisplay {
+  color: #1877f2;
+}
+
+.voting {
+  font-size: large;
+}

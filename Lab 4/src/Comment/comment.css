@@ -1,19 +1,19 @@
 #threadsContainer {
   display: flex;
-  /* align-items: flex-start;
-  justify-content: flex-start; */
+  /* align-items: flex-start;*/
   color: black;
+  margin: 15px;
+  background-color: white;
 }
 
 .thread {
-  width: 40em;
   background-color: white;
   padding: 20px;
-  margin: 10px;
+  /* margin: 10px; */
   font-size: medium;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  width: 100%; /* ensures that every thread is the same width  */
 }
 
 #nameTitle {
@@ -22,19 +22,25 @@
   padding: 0;
   font-weight: bold;
   color: #1877f2;
+  font-size: 22px;
 }
 
 #commentText {
   text-align: left;
   margin: 0;
   padding: 0;
+  font-size: 22px;
+  width: 25em;
 }
 
 #replyButton {
+  display: flex;
+
   border: none;
   background-color: white;
   color: grey;
   margin-top: 10px;
+  font-size: 18px;
 }
 
 #replyButton:hover {
@@ -43,7 +49,28 @@
 }
 
 .repliesContainer {
-  width: 30em;
   border-left: 2px solid lightgrey;
   /* border-top: 1px solid black;; */
+}
+
+.voteButton {
+  color: #1877f2;
+  margin: 0;
+  padding: 0;
+}
+
+#wholeComment {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 5px;
+  justify-content: space-between; /* adds space in between across the main-axis (i.e. spacing between items in a row)  */
+}
+
+#voteContainer {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1em;
+}
+
+#comment {
 }

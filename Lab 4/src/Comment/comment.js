@@ -1,6 +1,8 @@
 import "./comment.css";
 import NewPost from "../NewPost/newPost";
+import Votes from "../Votes/votes";
 import { useState } from "react";
+import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 
 function Comment({ mainComment }) {
   const [replies, setReplies] = useState([]); //each main comment/thread will have its own array of replies
@@ -14,13 +16,21 @@ function Comment({ mainComment }) {
   return (
     <div id="threadsContainer">
       <div className="thread">
-        <div id="nameTitle">{mainComment.name}</div>
-        <div id="commentText">{mainComment.text}</div>
-        {mainComment.depth < 2 && (
-          <button id="replyButton" onClick={() => setIsReply(!isReply)}>
-            Reply
-          </button>
-        )}
+        <div id="wholeComment">
+          <div id="comment">
+            <div id="nameTitle">{mainComment.name}</div>
+            <div id="commentText">{mainComment.text}</div>
+            {mainComment.depth < 2 && (
+              <button id="replyButton" onClick={() => setIsReply(!isReply)}>
+                <ChatBubbleOutlineOutlinedIcon />
+                &nbsp; Reply
+              </button>
+            )}
+          </div>
+          <div id="voteContainer">
+            <Votes></Votes>
+          </div>
+        </div>
         {/*Open a NewPost form to submit. Adds the reply to replies array corresponding to this reply by calling addReply().*/}
         <div>
           {isReply && mainComment.depth < 2 && (
