@@ -28,6 +28,7 @@ app.get("/books", (req, res) => {
   res.json(books);
 });
 
+//make updates to a book
 app.post("/book/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   const newBook = req.body;
@@ -49,6 +50,21 @@ app.get("/book/:isbn", (req, res) => {
     if (books[i].isbn === isbn) {
       console.log(books[i], "CHECK");
       res.json(books[i]);
+    }
+  }
+});
+
+app.delete("/book/:isbn", (req, res) => {
+  const isbn = req.params.isbn;
+
+  for (let i = 0; i < books.length; i++) {
+    if (books[i].isbn === isbn) {
+      console.log(books[i], "DELETE");
+      const beforeElement = books.slice(0, i);
+      const afterElement = books.slice(i + 1);
+      books = beforeElement.concat(afterElement);
+      console.log(books, "now");
+      res.send(`Book with ISBN ${isbn} has been deleted.`);
     }
   }
 });

@@ -19,11 +19,11 @@ async function loadBooks() {
 
                             <div>Author: ${book.author}</div>
                             <div>Publisher: ${book.publisher}</div>
-                            <div>Number Of Pages: ${book.numPages}</div>
+                            <div>Number Of Pages: ${book.numOfPages}</div>
 
                             <hr>
 
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            <button type="button" class="btn btn-danger" onClick="deleteBook(${book.isbn})">Delete</button>
                             <button types="button" class="btn btn-primary" data-toggle="modal" data-target="#editBookModal" onClick="setEditModal(${book.isbn})">Edit</button>
                         </div>
                     </div>
@@ -50,18 +50,24 @@ async function setEditModal(isbn) {
     console.log("In setEditModal() ", data);
     const book = JSON.parse(data);
 
-    const { title, author, publisher, publishedDate, numPages } = book;
+    const { title, author, publisher, publish_date, numOfPages } = book;
 
     document.getElementById("isbn").value = isbn;
     document.getElementById("title").value = title;
     document.getElementById("author").value = author;
     document.getElementById("publisher").value = publisher;
-    document.getElementById("publish_date").value = publishedDate;
-    document.getElementById("numOfPages").value = numPages;
+    document.getElementById("publish_date").value = publish_date;
+    document.getElementById("numOfPages").value = numOfPages;
 
     //TODO: EDIT POST METHOD FOR EDITING FORM. Currently does not display the updated data.
     document.getElementById(
       "editForm"
     ).action = `http://localhost:3000/book/${isbn}`; //tells Edit form to make a POST request when we submit an edit
   }
+}
+
+async function deleteBook(isbn) {
+  let response = await fetch(`http://localhost:3000/book/${isbn}`, {
+    method: "DELETE",
+  });
 }
