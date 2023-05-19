@@ -11,4 +11,5 @@ database.once('connected', ()=>{
     console.log("Connected to the DB!");
 })
 // npm install mongoose
-// npm install dotenv
+// npm install dotenv 
+//
