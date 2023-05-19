@@ -21,6 +21,7 @@ app.post("/book", (req, res) => {
   console.log(book);
   books.push(book);
 
+  //   res.sendFile(__dirname + "/new-book.html");
   res.send("Book is added to the database");
 });
 

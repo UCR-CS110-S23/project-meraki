@@ -70,4 +70,6 @@ async function deleteBook(isbn) {
   let response = await fetch(`http://localhost:3000/book/${isbn}`, {
     method: "DELETE",
   });
+  //   location.href = "./book-list.html";
+  location.reload();
 }
