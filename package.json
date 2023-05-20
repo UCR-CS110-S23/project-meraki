@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/UCR-CS110-S23/project-meraki#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "mongoose": "^7.2.0"
   }
 }
