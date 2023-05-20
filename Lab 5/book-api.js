@@ -1,12 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+var bookList = require("./book.json"); //getting book list from book.json file
 
 const app = express();
 const port = 3000;
 
 //Where we will keep books
-let books = [];
+let books = bookList.books; //add already existing books from book.json file
 
 app.use(cors());
 
@@ -21,8 +22,8 @@ app.post("/book", (req, res) => {
   console.log(book);
   books.push(book);
 
-  //   res.sendFile(__dirname + "/new-book.html");
-  res.send("Book is added to the database");
+  res.sendFile(__dirname + "/new-book.html");
+  // res.send("Book is added to the database");
 });
 
 app.get("/books", (req, res) => {
