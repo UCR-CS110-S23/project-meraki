@@ -5,6 +5,7 @@ var bookList = require("./book.json"); //getting book list from book.json file
 
 const app = express();
 const port = 3000;
+app.use(express.static(__dirname));
 
 //Where we will keep books
 let books = bookList.books; //add already existing books from book.json file
@@ -22,8 +23,11 @@ app.post("/book", (req, res) => {
   console.log(book);
   books.push(book);
 
+  res.redirect("/new-book");
+});
+
+app.get("/new-book", (req, res) => {
   res.sendFile(__dirname + "/new-book.html");
-  // res.send("Book is added to the database");
 });
 
 app.get("/books", (req, res) => {
@@ -41,7 +45,11 @@ app.post("/book/:isbn", (req, res) => {
       books[i] = newBook;
     }
   }
-  res.send("Book is edited");
+  res.redirect("/book-list");
+});
+
+app.get("/book-list", (req, res) => {
+  res.sendFile(__dirname + "/book-list.html");
 });
 
 //get book data to populate into Edit form
