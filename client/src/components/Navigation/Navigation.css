@@ -1,0 +1,23 @@
+* {
+  color: white;
+}
+
+#nav-tabs {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+nav li {
+  margin: 15px 0px 0px 50px;
+}
+
+.Navigation {
+  background-color: pink;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem; /* puts space in between the tab elements */
+  padding: 0 1rem; /* adds spacing around the edges so the tab elements aren't touching the edges of the screen */
+  padding-bottom: 0.7rem;
+}
