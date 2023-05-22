@@ -1,11 +1,15 @@
-* {
-  color: white;
-}
-
 #nav-tabs {
   display: flex;
   flex-direction: row;
   list-style: none;
+}
+
+#nav-tabs li:hover {
+  background-color: lightgrey;
+}
+
+#nav-tabs li:active {
+  background-color: grey;
 }
 
 nav li {

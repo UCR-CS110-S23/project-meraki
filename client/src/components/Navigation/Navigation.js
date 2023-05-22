@@ -1,32 +1,48 @@
 import React from "react";
 import "./Navigation.css";
+import { Link } from "react-router-dom";
 
 function Navigation() {
   return (
-    <div className="Navigation">
-      <nav id="header" role="navigation">
+    <>
+      <nav className="Navigation" role="navigation">
         <div id="nav-tabs">
-          <li>
-            <a href="home.html">Home</a>
-          </li>
-          <li>
-            <a href="food.html">Food</a>
-          </li>
-          <li>
-            <a href="homeImprovements.html">Home Improvements</a>
-          </li>
-          <li>
-            <a href="Arts">Arts</a>
-          </li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="logout.html">Logout</a>
-          </li>
+          <PageLink to="/" style={{ color: "white" }}>
+            Home
+          </PageLink>
+
+          <PageLink to="/food" style={{ color: "white" }}>
+            Food
+          </PageLink>
+
+          <PageLink to="/homeImprovements" style={{ color: "white" }}>
+            Home Improvements
+          </PageLink>
+
+          <PageLink to="/arts" style={{ color: "white" }}>
+            Arts
+          </PageLink>
+
+          <PageLink to="/login" style={{ color: "white" }}>
+            Login
+          </PageLink>
+
+          <PageLink to="/register" style={{ color: "white" }}>
+            Register
+          </PageLink>
         </div>
       </nav>
-    </div>
+    </>
+  );
+}
+
+function PageLink({ to, children, ...props }) {
+  return (
+    <li>
+      <Link to={to} {...props}>
+        {children}
+      </Link>
+    </li>
   );
 }
 
