@@ -20,7 +20,7 @@
   height: 7rem;
 }
 
-#loginContainer {
+#formContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +30,7 @@
   height: 70%;
 }
 
-#loginButton {
+#button {
   background-color: #007fff;
   color: white;
   font-size: 18px;
@@ -44,7 +44,7 @@
   margin-bottom: 60px;
 }
 
-#loginButton:hover {
+#button:hover {
   background-color: lightgrey;
   cursor: pointer;
 }
