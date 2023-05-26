@@ -1,9 +1,7 @@
+import UserForm from "../../components/UserForm/UserForm";
+
 function Login() {
-  return (
-    <div>
-      <h1>Login</h1>
-    </div>
-  );
+  return <UserForm formType={"Log in"}></UserForm>;
 }
 
 export default Login;

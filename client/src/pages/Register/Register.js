@@ -1,9 +1,7 @@
+import UserForm from "../../components/UserForm/UserForm";
+
 function Register() {
-  return (
-    <div>
-      <h1>Register</h1>
-    </div>
-  );
+  return <UserForm formType={"Register"}></UserForm>;
 }
 
 export default Register;
