@@ -12,18 +12,22 @@ function Home() {
 
       <div id = "recommendedPosts">
         <h3>Recommended Posts</h3>
-
-        <div id ="posts">
-
-        </div>
+        <div id ="post1"></div>
+        <div id="post2"></div>
+        <div id="post3"></div>
+        <div id="post4"></div>
+        <div id="post5"></div>
+        <div id="post6"></div>
       </div>
     
       <div id = "recommendedUsers">
         <h3>Recommended Users</h3>
-        
-        <div id="users">
-
-        </div>
+        <div id="user1"></div>
+        <div id="user2"></div>
+        <div id="user3"></div>
+        <div id="user4"></div>
+        <div id="user5"></div>
+        <div id="user6"></div>
       </div>
 
     </div>
