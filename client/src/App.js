@@ -6,6 +6,7 @@ import Food from "./pages/Food/Food";
 import Arts from "./pages/Arts/Arts";
 import HomeImprovements from "./pages/HomeImprovements/HomeImprovements";
 import Profile from "./pages/Profile/Profile";
+import CreatePost from "./pages/CreatePost/CreatePost";
 import Favorites from "./pages/Favorites/Favorites";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
@@ -21,6 +22,7 @@ function App() {
           <Route path="/food" element={<Food />} />
           <Route path="/homeImprovements" element={<HomeImprovements />} />
           <Route path="/arts" element={<Arts />} />
+          <Route path="/createPost" element={<CreatePost />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/login" element={<Login />} />

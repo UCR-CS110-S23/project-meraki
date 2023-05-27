@@ -23,6 +23,10 @@ function Navigation() {
             Arts
           </PageLink>
 
+          <PageLink to="/createPost" style={{ color: "white" }}>
+            Create Post
+          </PageLink>
+
           <PageLink to="/profile" style={{ color: "white" }}>
             Profile
           </PageLink>
