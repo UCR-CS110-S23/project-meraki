@@ -14,9 +14,14 @@ function Food() {
       <div id = "recipes">
         <h3>Recipes</h3>
 
-        <div id ="posts">
-
-        </div>
+        <div id ="fpost1"></div>
+        <div id="fpost2"></div>
+        <div id="fpost3"></div>
+        <div id="fpost4"></div>
+        <div id="fpost5"></div>
+        <div id="fpost6"></div>
+        <div id="fpost7"></div>
+        <div id="fpost8"></div>
       </div>
 
 
