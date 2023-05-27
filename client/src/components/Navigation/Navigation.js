@@ -23,6 +23,14 @@ function Navigation() {
             Arts
           </PageLink>
 
+          <PageLink to="/profile" style={{ color: "white" }}>
+            Profile
+          </PageLink>
+
+          <PageLink to="/favorites" style={{ color: "white" }}>
+            Favorites
+          </PageLink>
+
           <PageLink to="/login" style={{ color: "white" }}>
             Login
           </PageLink>
