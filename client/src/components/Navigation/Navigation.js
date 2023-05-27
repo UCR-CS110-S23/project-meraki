@@ -27,6 +27,10 @@ function Navigation() {
             Profile
           </PageLink>
 
+          <PageLink to="/favorites" style={{ color: "white" }}>
+            Favorites
+          </PageLink>
+
           <PageLink to="/login" style={{ color: "white" }}>
             Login
           </PageLink>
