@@ -1,0 +1,32 @@
+#profileContent{
+    height: 100vh;
+}
+
+#postsBox{
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    background-color: pink;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+#profilePosts{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.profilePost{
+    display: flex;
+    height: 30%;
+    width: 20%;
+    background-color: white;
+    margin: 5px;
+}
+
+.profilePost:hover{
+    background-color: lightgrey;
+}
