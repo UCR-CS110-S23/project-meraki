@@ -24,7 +24,6 @@ function Profile() {
           <div className="profilePost"></div>
           <div className="profilePost"></div>
           <div className="profilePost"></div>
-
         </div>
       </div>
     </div>

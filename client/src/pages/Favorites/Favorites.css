@@ -1,8 +1,8 @@
-#profileContent{
+#favoritesContent{
     height: 100vh;
 }
 
-#postsBox{
+#favoritesBox{
     display: flex;
     flex-direction: column;
     height: 90%;
@@ -11,8 +11,8 @@
     margin-right: 30px;
 }
 
-/* container for the posts */
-#profilePosts{
+/* container for all the posts */
+#favoritesPosts{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -21,7 +21,7 @@
 }
 
 /* the actual posts */
-.profilePost{
+.favoritesPost{
     display: flex;
     height: 30%;
     width: 20%;
@@ -29,6 +29,6 @@
     margin: 5px;
 }
 
-.profilePost:hover{
+.favoritesPost:hover{
     background-color: lightgrey;
 }
