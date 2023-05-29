@@ -10,6 +10,7 @@
 
 #selectTags {
   width: 45%;
+  margin-top: 100px;
 }
 
 #inputs {
@@ -20,7 +21,7 @@
   height: 10rem;
 }
 
-#submit {
+.submitButton {
   background-color: #007fff;
   color: white;
   font-size: 18px;
@@ -34,7 +35,46 @@
   margin-bottom: 60px;
 }
 
-#submit:hover {
+.submitButton:hover {
   background-color: lightgrey;
   cursor: pointer;
+}
+
+#fileContainer {
+  border: 2px dotted grey;
+  padding: 10px;
+  width: 40%;
+}
+
+.fileUploadButton {
+  visibility: hidden;
+  /* hiding the upload button so that the user just submits the file upload form along with the other inputs (i.e. Title, Description) from the "Post" button in NewPost.js */
+}
+
+#uploadButton {
+  background-color: grey;
+  color: white;
+  font-weight: bold;
+  font-size: small;
+  border: 2px;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+#uploadButton:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.hideUploadButton {
+  visibility: hidden;
+  width: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+p {
+  font-size: medium;
+  padding: 0px;
+  margin: 0px;
 }
