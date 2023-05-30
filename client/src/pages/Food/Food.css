@@ -13,137 +13,39 @@
     margin-top: -2px;
 }
 
-#recipes {
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 90%;
+.title {
     width: 97%;
     background-color: pink;
     margin-left: 30px;
     margin-right: 14px;
 }
 
+#recipes {
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;
+    flex-direction: row;
+    height: 100%;
+    width: 97%;
+    background-color: pink;
+    margin-left: 30px;
+    margin-right: 14px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 /* Recipe Posts */
-/* Recommended Posts */
-#fpost1{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 60px;
-    margin-top: 120px;
+.fpost {
+    border: 1px solid #000;
+    background-color: white;
+    padding: 10px;
+    margin-top: -200px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 20%;
+    height: 30%;
 }
 
-#fpost1:hover{
-    background-color: lightgrey;
-}
-
-#fpost2{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 520px;
-    margin-top: 120px;
-}
-
-#fpost2:hover{
-    background-color: lightgrey;
-}
-
-#fpost3{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 980px;
-    margin-top: 120px;
-}
-
-#fpost3:hover{
-    background-color: lightgrey;
-}
-
-#fpost4{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 1440px;
-    margin-top: 120px;
-}
-
-#fpost4:hover{
-    background-color: lightgrey;
-}
-
-
-#fpost5{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 60px;
-    margin-top: 420px;
-}
-
-
-#fpost5:hover{
-    background-color: lightgrey;
-}
-
-#fpost6{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 520px;
-    margin-top: 420px;
-}
-
-#fpost6:hover{
-    background-color: lightgrey;
-}
-
-#fpost7{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 980px;
-    margin-top: 420px;
-}
-
-#fpost7:hover{
-    background-color: lightgrey;
-}
-
-#fpost8{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 1440px;
-    margin-top: 420px;
-}
-
-#fpost8:hover{
-    background-color: lightgrey;
+.fpost:hover{
+    background-color: lightgray;
 }

@@ -11,19 +11,17 @@ function Food() {
         </div>
       </div>
 
-      <div id = "recipes">
-        <h3>Recipes</h3>
-
-        <div id ="fpost1"></div>
-        <div id="fpost2"></div>
-        <div id="fpost3"></div>
-        <div id="fpost4"></div>
-        <div id="fpost5"></div>
-        <div id="fpost6"></div>
-        <div id="fpost7"></div>
-        <div id="fpost8"></div>
+      <div id="recipes" class="f">
+        <h3 class="title">Recipes</h3>
+        <div class="fpost">1</div>
+        <div class="fpost">2</div>
+        <div class="fpost">3</div>
+        <div class="fpost">4</div>        
+        <div class="fpost">5</div>
+        <div class="fpost">6</div>
+        <div class="fpost">7</div>
+        <div class="fpost">8</div>
       </div>
-
 
     </div>
   );

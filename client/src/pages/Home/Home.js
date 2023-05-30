@@ -10,24 +10,24 @@ function Home() {
         </div>
       </div>
 
-      <div id = "recommendedPosts">
-        <h3>Recommended Posts</h3>
-        <div id ="post1"></div>
-        <div id="post2"></div>
-        <div id="post3"></div>
-        <div id="post4"></div>
-        <div id="post5"></div>
-        <div id="post6"></div>
+      <div id="recommendedPosts" class="f">
+        <h3 class="title">Recommended Posts</h3>
+        <div class="rpost">1</div>
+        <div class="rpost">2</div>
+        <div class="rpost">3</div>
+        <div class="rpost">4</div>        
+        <div class="rpost">5</div>
+        <div class="rpost">6</div>
       </div>
     
-      <div id = "recommendedUsers">
-        <h3>Recommended Users</h3>
-        <div id="user1"></div>
-        <div id="user2"></div>
-        <div id="user3"></div>
-        <div id="user4"></div>
-        <div id="user5"></div>
-        <div id="user6"></div>
+      <div id = "recommendedUsers" class="f">
+        <h3 class="title">Recommended Users</h3>
+        <div class="ruser">1</div>
+        <div class="ruser">2</div>
+        <div class="ruser">3</div>
+        <div class="ruser">4</div>
+        <div class="ruser">5</div>
+        <div class="ruser">6</div>
       </div>
 
     </div>
@@ -35,3 +35,13 @@ function Home() {
 }
 
 export default Home;
+
+
+
+
+
+
+
+
+
+

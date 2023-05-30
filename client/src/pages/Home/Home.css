@@ -14,213 +14,71 @@
     margin-top: -2px;
 }
 
-/* Layout of Recommendations */
-#recommendedPosts {
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 75%;
-    width: 65%;
+.title {
+    width: 97%;
     background-color: pink;
     margin-left: 30px;
     margin-right: 14px;
 }
 
+/* Layout of Recommendations */
+#recommendedPosts {
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;
+    flex-direction: row;
+    height: 100%;
+    width: 65%;
+    background-color: pink;
+    margin-left: 30px;
+    margin-right: 14px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 #recommendedUsers {
     display: flex;
+    flex-wrap: wrap;
     position: fixed;
-    flex-direction: column;
-    height: 75%;
+    flex-direction: row;
+    height: 100%;
     width: 30%;
     background-color: pink;
     margin-left: 1300px;
-    margin-right: 0px;
+    margin-right: 14px;
+    justify-content: center;
+    align-items: flex-start; 
 }
 
 /* Recommended Posts */
-#post1{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 50px;
-    margin-top: 100px;
+.rpost {
+    border: 1px solid #000;
+    background-color: white;
+    padding: 10px;
+    margin-top: -200px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 28%;
+    height: 30%;
 }
 
-#post1:hover{
-    background-color: lightgrey;
-}
-
-#post2{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 450px;
-    margin-top: 100px;
-}
-
-#post2:hover{
-    background-color: lightgrey;
-}
-
-#post3{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 850px;
-    margin-top: 100px;
-}
-
-#post3:hover{
-    background-color: lightgrey;
-}
-
-#post4{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 50px;
-    margin-top: 400px;
-}
-
-#post4:hover{
-    background-color: lightgrey;
-}
-
-#post5{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 450px;
-    margin-top: 400px;
-}
-
-#post5:hover{
-    background-color: lightgrey;
-}
-
-#post6{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 25%;
-    width: 18%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 850px;
-    margin-top: 400px;
-}
-
-#post6:hover{
-    background-color: lightgrey;
+.rpost:hover{
+    background-color: lightgray;
 }
 
 /*Recommended Users */
-#user1{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 180px;
-    width: 180px;
+.ruser{
+    border: 1px solid #000;
     border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 70px;
-    margin-top: 100px;
+    background-color: white;
+    padding: 10px;
+    margin-top: -200px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 34%;
+    height: 20%;
 }
 
-#user1:hover{
-    background-color: lightgrey;
-}
-
-#user2{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 180px;
-    width: 180px;
-    border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 70px;
-    margin-top: 300px;
-}
-
-#user2:hover{
-    background-color: lightgrey;
-}
-
-#user3{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 180px;
-    width: 180px;
-    border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 70px;
-    margin-top: 500px;
-}
-
-#user3:hover{
-    background-color: lightgrey;
-}
-
-#user4{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 180px;
-    width: 180px;
-    border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 320px;
-    margin-top: 100px;
-}
-
-#user4:hover{
-    background-color: lightgrey;
-}
-
-#user5{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 180px;
-    width: 180px;
-    border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 320px;
-    margin-top: 300px;
-}
-
-#user5:hover{
-    background-color: lightgrey;
-}
-
-#user6{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    height: 180px;
-    width: 180px;
-    border-radius: 50%;
-    background-color: rgb(255, 255, 255);
-    margin-left: 320px;
-    margin-top: 500px;
-}
-
-#user6:hover{
+.ruser:hover{
     background-color: lightgrey;
 }
