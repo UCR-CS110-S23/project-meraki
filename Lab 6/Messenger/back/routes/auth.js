@@ -11,13 +11,17 @@ router.post("/login", async (req, res) => {
   // check if user in database
   const user = await User.findOne({ username });
 
-  if (!user) return res.json({ msg: "Incorrect Username ", status: false });
-  else if (user.password !== password)
-    return res.json({ msg: "Incorrect Password", status: false });
-  else {
-    session.authenticated = true;
-    session.username = username;
-    res.json({ msg: "Logged in", status: true });
+  if (!user) {
+    console.log("Username does not exist", username);
+    return res.json({ message: "Username does not exist", status: false });
+  } else if (user.password !== password) {
+    console.log(password, "Wrong Password!");
+    return res.json({ message: "Incorrect Password", status: false });
+  } else {
+    // session.authenticated = true;
+    // session.username = username;
+    console.log(username, "Logged in!");
+    res.json({ message: "Logged in", status: true });
   }
 });
 
