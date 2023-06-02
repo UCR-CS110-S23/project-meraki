@@ -67,6 +67,7 @@ class Auth extends react.Component {
           <Form
             fields={fields}
             close={this.closeForm}
+            closeButton={true}
             type="login"
             submit={this.login}
             key={this.state.selectedForm}
@@ -78,6 +79,7 @@ class Auth extends react.Component {
           <Form
             fields={fields}
             close={this.closeForm}
+            closeButton={true}
             type="register"
             submit={this.register}
             key={this.state.selectedForm}

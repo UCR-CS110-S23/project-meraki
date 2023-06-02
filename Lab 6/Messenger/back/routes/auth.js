@@ -7,8 +7,9 @@ module.exports = router;
 router.post("/login", async (req, res) => {
   const { session } = req;
   const { username, password } = req.body;
-
+  console.log("userNNAME", username);
   // check if user in database
+
   const user = await User.findOne({ username });
 
   if (!user) {
@@ -18,9 +19,10 @@ router.post("/login", async (req, res) => {
     console.log(password, "Wrong Password!");
     return res.json({ message: "Incorrect Password", status: false });
   } else {
-    // session.authenticated = true;
-    // session.username = username;
+    session.authenticated = true;
+    session.username = username;
     console.log(username, "Logged in!");
+    console.log("LOOKUSER", user);
     res.json({ message: "Logged in", status: true });
   }
 });
@@ -41,7 +43,7 @@ router.post("/register", async (req, res) => {
     username: username,
     password: password,
     name: name,
-    rooms: [],
+    rooms: ["roomA", "roomB"],
   });
 
   try {
