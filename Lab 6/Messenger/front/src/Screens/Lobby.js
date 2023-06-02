@@ -27,6 +27,24 @@ class Lobby extends react.Component {
     );
   }
 
+  addNewRoom = (data) => {
+    fetch(this.props.server_url + "/api/rooms/create", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) =>
+      //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
+      res.json().then((data) => {
+        console.log(data); //viewing the inputted user login info on browser's console
+      })
+    );
+  };
+
   render() {
     return (
       <div>
@@ -48,7 +66,7 @@ class Lobby extends react.Component {
         {/* write codes to enable user to create a new room*/}
 
         <Form
-          fields={["Room name..."]}
+          fields={["Room name"]}
           type="Create a room"
           closeButton={false}
           submit={this.addNewRoom}

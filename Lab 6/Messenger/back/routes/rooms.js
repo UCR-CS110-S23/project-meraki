@@ -24,8 +24,22 @@ router.get("/all", async (req, res) => {
   //   console.log("user data", user.rooms);
 });
 
-router.post("/create", (req, res) => {
+router.post("/create", async (req, res) => {
   // TODO: write necassary codesn to Create a new room
+  const roomName = req.body["Room name"];
+  console.log(roomName, req.body["Room name"]);
+
+  const room = new Room({
+    name: roomName,
+  });
+
+  try {
+    const dataSaved = await room.save();
+    res.status(200).json(dataSaved);
+  } catch (error) {
+    console.log(error);
+    res.send("ERROR!");
+  }
 });
 
 router.post("/join", (req, res) => {
