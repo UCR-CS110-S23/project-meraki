@@ -22,6 +22,7 @@ class Lobby extends react.Component {
     }).then((res) =>
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
       res.json().then((data) => {
+        // console.log("FETCHING ALL ROOMS", data);
         this.setState({ rooms: data }); //viewing the inputted user login info on browser's console
       })
     );
@@ -40,7 +41,7 @@ class Lobby extends react.Component {
     }).then((res) =>
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
       res.json().then((data) => {
-        console.log(data); //viewing the inputted user login info on browser's console
+        console.log(data, "room data (Lobby.js)"); //can delete this later (just printing out the room document the user inputs)
       })
     );
   };
@@ -54,10 +55,10 @@ class Lobby extends react.Component {
               return (
                 <Button
                   variant="contained"
-                  key={"roomKey" + room}
-                  onClick={() => alert(room)}
+                  key={"roomKey" + room.name}
+                  onClick={() => alert(room.name)}
                 >
-                  {room}
+                  {room.name}
                 </Button>
               );
             })

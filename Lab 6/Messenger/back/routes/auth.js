@@ -43,7 +43,7 @@ router.post("/register", async (req, res) => {
     username: username,
     password: password,
     name: name,
-    rooms: ["roomA", "roomB"],
+    rooms: [],
   });
 
   try {
