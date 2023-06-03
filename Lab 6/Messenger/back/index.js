@@ -46,7 +46,7 @@ app.use(sessionMiddleware);
 //check for a request to the '/' root of the website; if we get the request, we want to check if the user is logged in or not by checking the session
 app.get("/", (req, res) => {
   if (req.session && req.session.authenticated) {
-    res.json({ message: "logged in" });
+    res.json({ message: "logged in", username: req.session.username });
   } else {
     console.log("not logged in");
     res.json({ message: "not logged" });
@@ -83,7 +83,7 @@ io.use((socket, next) => {
 
 io.use((socket, next) => {
   //check if the user is authenticated
-  if (socket.request.session && socket.request.session.authenticated) {
+  if (socket.request.session) {
     next();
   } else {
     console.log("unauthorized");
@@ -92,7 +92,25 @@ io.use((socket, next) => {
 });
 
 io.on("connection", (socket) => {
+  let room = undefined;
+  let username = undefined;
   console.log("user connected");
   // TODO: write codes for the messaging functionality
   // TODO: your code here
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+
+  socket.on("join", (data) => {
+    socket.join(data.room); //join to a specific room; this allows us to emit the message to everyone who has this room later on
+    room = data.room;
+    username = data.username;
+    console.log(`User is joined to room ${data.room}`);
+  });
+
+  socket.on("chat message", (data) => {
+    console.log("got message", data);
+    io.to(room).emit("chat message", data); //to(room) allows us to emit the message to the users that are actually in that specific room (without to(), it would emit it to everyone)
+  });
 });

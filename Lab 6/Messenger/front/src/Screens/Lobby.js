@@ -46,17 +46,22 @@ class Lobby extends react.Component {
     );
   };
 
+  openChatroom = (roomName) => {
+    console.log(roomName, "openroom");
+    this.props.changeScreen("chatroom", roomName);
+  };
+
   render() {
     return (
       <div>
-        <h1>Lobby</h1>
+        <h1>{this.props.userName}'s Lobby</h1>
         {this.state.rooms
           ? this.state.rooms.map((room) => {
               return (
                 <Button
                   variant="contained"
                   key={"roomKey" + room.name}
-                  onClick={() => alert(room.name)}
+                  onClick={() => this.openChatroom(room.name)}
                 >
                   {room.name}
                 </Button>

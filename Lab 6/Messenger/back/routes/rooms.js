@@ -79,6 +79,7 @@ router.post("/create", async (req, res) => {
 });
 
 router.post("/join", (req, res) => {
+  //TODO: Add endpoint for when user clicks on a roomButton, make a request to "/join/:roomName"
   // TODO: write necassary codes to join a new room
 });
 
