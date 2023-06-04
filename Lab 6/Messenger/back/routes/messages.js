@@ -15,6 +15,7 @@ router.get("/:roomName", async (req, res) => {
     room: chatroom._id,
   });
   console.log("all room msgs", roomMessages);
+  return res.status(200).json(roomMessages);
 });
 
 router.post("/send", async (req, res) => {

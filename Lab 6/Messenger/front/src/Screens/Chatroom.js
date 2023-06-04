@@ -25,11 +25,16 @@ class Chatroom extends react.Component {
       },
     }).then((res) =>
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
-      res.json().then((data) => {})
+      res.json().then((data) => {
+        console.log("all messages", data);
+
+        this.setState({ messages: this.state.messages.concat(data) });
+      })
     );
 
     this.socket.on("chat message", (message) => {
-      this.setState({ messages: [...this.state.messages, message] });
+      let msgObj = { message: { text: message } }; //TODO: can add sender/user here to the object if we want to display the owner of the msg later
+      this.setState({ messages: [...this.state.messages, msgObj] });
     });
   }
 
@@ -52,7 +57,7 @@ class Chatroom extends react.Component {
     }).then((res) =>
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
       res.json().then((data) => {
-        alert(data.message);
+        // alert(data.message);
         console.log(data.message, "sent message"); //can delete this later (just printing out the room document the user inputs)
       })
     );
@@ -70,7 +75,7 @@ class Chatroom extends react.Component {
         {/* show chats */}
         <ul>
           {this.state.messages.map((message) => (
-            <li>{message}</li>
+            <li>{message.message.text}</li>
           ))}
         </ul>
         {/* show chat input box*/}
