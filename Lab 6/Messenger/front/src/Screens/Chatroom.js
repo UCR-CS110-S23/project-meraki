@@ -17,6 +17,17 @@ class Chatroom extends react.Component {
       username: this.props.userName,
     });
 
+    fetch(this.props.server_url + `/api/messages/${this.props.roomName}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) =>
+      //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
+      res.json().then((data) => {})
+    );
+
     this.socket.on("chat message", (message) => {
       this.setState({ messages: [...this.state.messages, message] });
     });
@@ -24,6 +35,27 @@ class Chatroom extends react.Component {
 
   sendChat = (text) => {
     this.socket.emit("chat message", text);
+    console.log("OO", text);
+
+    fetch(this.props.server_url + "/api/messages/send", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chat_msg: text,
+        username: this.props.userName,
+        room: this.props.roomName,
+      }),
+    }).then((res) =>
+      //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
+      res.json().then((data) => {
+        alert(data.message);
+        console.log(data.message, "sent message"); //can delete this later (just printing out the room document the user inputs)
+      })
+    );
   };
 
   goBack = () => {

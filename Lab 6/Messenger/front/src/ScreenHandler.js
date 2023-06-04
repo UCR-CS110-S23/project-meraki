@@ -28,9 +28,11 @@ class ScreenHandler extends react.Component {
     }).then((res) => {
       res.json().then((data) => {
         if (data.message == "logged in") {
-          this.setState({ screen: "lobby", user_name: data.username });
+          console.log("logged in!!!", data.username);
+          this.setState({ screen: "lobby", user_name: data.username }); //need to also set user_name for if we refresh the page
         } else {
           this.setState({ screen: "auth" });
+          console.log("AUTH", this.state.user_name);
         }
       });
     });
@@ -44,11 +46,19 @@ class ScreenHandler extends react.Component {
     }
   };
 
+  setUsername = (name) => {
+    this.setState({ user_name: name });
+  };
+
   render() {
     let display = "loading...";
     if (this.state.screen == "auth") {
       display = (
-        <Auth server_url={server_url} changeScreen={this.changeScreen} />
+        <Auth
+          server_url={server_url}
+          changeScreen={this.changeScreen}
+          setUsername={this.setUsername}
+        />
       );
     } else if (this.state.screen == "lobby") {
       display = (

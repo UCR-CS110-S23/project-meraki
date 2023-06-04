@@ -29,8 +29,9 @@ class Auth extends react.Component {
     }).then((res) => {
       res.json().then((data) => {
         if (data.message == "Logged in") {
-          console.log("Logged in");
+          console.log(data, "Logged in");
           this.props.changeScreen("lobby");
+          this.props.setUsername(data.username); //need to get the username from the POST request's response so we can modify username title in the lobby right away !the moment! we login
         } else {
           alert(data.message);
         }
