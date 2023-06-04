@@ -27,59 +27,81 @@ router.get("/all", async (req, res) => {
 router.post("/create", async (req, res) => {
   // TODO: write necassary codesn to Create a new room
   const { session } = req;
-  const user = await User.findOne({ username: session.username });
 
   const roomName = req.body["Room name"];
   console.log(roomName, req.body["Room name"]);
 
-  //   let room = await Room.findOne({ name: roomName });
-
   try {
-    // if (!room) {
-    //   //if room with the specified room name does not exist, create a new room with that name
-    //   room = new Room({
-    //     name: roomName,
-    //   });
-    //   console.log("creating a new room: ", room);
-    //   const dataSaved = await room.save();
-    //   console.log("saved room:", dataSaved);
-    // }
-    const updateRoom = await Room.findOneAndUpdate(
-      {
-        //if the inputted roomName DNE ($ne) in the current active user's rooms array, then we add to the set (i.e. push the room to the rooms array)
-        name: roomName,
-      },
-      {
-        $setOnInsert: {
-          name: roomName,
-        },
-      },
-      { upsert: true }
-    );
+    let checkRoomExists = await Room.findOne({ name: req.body["Room name"] });
 
-    let room = await Room.findOne({ name: roomName });
-    //TODO: check if user has this room in its rooms array already. if it doesn't, push it. if it does, don't push.
-    const updateUser = await User.findOneAndUpdate(
-      {
-        username: session.username,
-        //if the inputted roomName DNE ($ne) in the current active user's rooms array, then we add to the set (i.e. push the room to the rooms array)
-        "rooms.name": { $ne: roomName },
-      },
-      {
-        $addToSet: {
-          rooms: room,
-        },
-      }
-    );
-    res.status(200).json(room);
+    if (checkRoomExists) {
+      return res.json({ message: `Room ${roomName} already exists` });
+    } else {
+      //if room does not exist, then create a new room
+      const room = new Room({
+        name: req.body["Room name"],
+      });
+      const roomSaved = await room.save();
+
+      //append this new room to the current active user's rooms array
+      const user = await User.findOne({ username: session.username });
+      user.rooms.push(room);
+      const userSaved = await user.save();
+
+      res.status(200).json({
+        message: `Created room ${roomSaved.name} and added it to ${session.username}'s rooms.`,
+      });
+    }
   } catch (error) {
     console.log(error);
-    res.send("ERROR!");
+    res.status(400).end("ERROR!");
   }
 });
 
-router.post("/join", (req, res) => {
+router.post("/join", async (req, res) => {
+  //TODO: Add endpoint for when user clicks on a roomButton, make a request to "/join/:roomName"
   // TODO: write necassary codes to join a new room
+
+  //1) Check if room exists in rooms collection
+  //2) If it does, add it to user's active rooms. If it does not, send a message to user saying that the room does not exist.
+
+  const { session } = req;
+
+  const roomName = req.body["Room name"];
+  console.log("Want to join", roomName, req.body["Room name"]);
+
+  try {
+    let checkRoomExists = await Room.findOne({ name: req.body["Room name"] });
+    const user = await User.findOne({ username: session.username });
+
+    if (checkRoomExists) {
+      //append this existing room to the current active user's rooms array
+      const updateUser = await User.findOneAndUpdate(
+        {
+          username: session.username,
+          //if the inputted roomName DNE ($ne) in the current active user's rooms array, then we add to the set (i.e. push the room to the rooms array)
+          "rooms.name": { $ne: roomName },
+        },
+        {
+          $addToSet: {
+            rooms: checkRoomExists,
+          },
+        }
+      );
+
+      return res.status(200).json({
+        message: `User ${session.username} has joined Room ${roomName}!`,
+        user_name: session.username,
+      });
+    } else {
+      return res.status(400).json({
+        message: `Room ${roomName} does not exist.`,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).end("ERROR!");
+  }
 });
 
 router.delete("/leave", (req, res) => {

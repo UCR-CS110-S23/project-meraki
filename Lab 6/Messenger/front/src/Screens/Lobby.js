@@ -28,7 +28,7 @@ class Lobby extends react.Component {
     );
   }
 
-  addNewRoom = (data) => {
+  createRoom = (data) => {
     fetch(this.props.server_url + "/api/rooms/create", {
       method: "POST",
       mode: "cors",
@@ -41,22 +41,47 @@ class Lobby extends react.Component {
     }).then((res) =>
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
       res.json().then((data) => {
+        alert(data.message);
         console.log(data, "room data (Lobby.js)"); //can delete this later (just printing out the room document the user inputs)
       })
     );
   };
 
+  joinRoom = (data) => {
+    fetch(this.props.server_url + "/api/rooms/join", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) =>
+      //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
+      res.json().then((data) => {
+        alert(data.message);
+        console.log(data, "join room data (Lobby.js)"); //can delete this later (just printing out the room document the user inputs)
+      })
+    );
+  };
+
+  openChatroom = (roomName) => {
+    console.log(roomName, "openroom");
+    this.props.changeScreen("chatroom", roomName);
+  };
+
   render() {
     return (
       <div>
-        <h1>Lobby</h1>
+        <h1>{this.props.userName}'s Lobby</h1>
         {this.state.rooms
           ? this.state.rooms.map((room) => {
               return (
                 <Button
                   variant="contained"
                   key={"roomKey" + room.name}
-                  onClick={() => alert(room.name)}
+                  onClick={() => this.openChatroom(room.name)}
                 >
                   {room.name}
                 </Button>
@@ -70,7 +95,13 @@ class Lobby extends react.Component {
           fields={["Room name"]}
           type="Create a room"
           closeButton={false}
-          submit={this.addNewRoom}
+          submit={this.createRoom}
+        />
+        <Form
+          fields={["Room name"]}
+          type="Join a room"
+          closeButton={false}
+          submit={this.joinRoom}
         />
       </div>
     );
