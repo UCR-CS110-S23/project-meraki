@@ -85,7 +85,7 @@ io.use((socket, next) => {
 
 io.use((socket, next) => {
   //check if the user is authenticated
-  if (socket.request.session) {
+  if (socket.request.session && socket.request.session.authenticated) {
     next();
   } else {
     console.log("unauthorized");
