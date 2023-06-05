@@ -32,7 +32,6 @@ router.get("/logout", (req, res) => {
   // Clear the session data and redirect to the home page
   req.session.destroy();
   res.redirect("/");
-  res.send({ msg: "Logged out", status: true });
 });
 
 //TODO: ADD CODE FOR REGISTER PAGE
