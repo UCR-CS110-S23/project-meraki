@@ -7,7 +7,7 @@ module.exports = router;
 router.post("/login", async (req, res) => {
   const { session } = req;
   const { username, password } = req.body;
-  console.log("userNNAME", username);
+  // console.log("userNNAME", username);
   // check if user in database
 
   const user = await User.findOne({ username });
@@ -22,8 +22,8 @@ router.post("/login", async (req, res) => {
     session.authenticated = true;
     session.username = username;
     console.log(username, "Logged in!");
-    console.log("LOOKUSER", user);
-    res.json({ message: "Logged in", status: true });
+    // console.log("LOOKUSER", user);
+    res.json({ message: "Logged in", username: username, status: true });
   }
 });
 
