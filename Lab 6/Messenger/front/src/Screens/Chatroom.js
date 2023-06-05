@@ -33,13 +33,19 @@ class Chatroom extends react.Component {
     );
 
     this.socket.on("chat message", (message) => {
-      let msgObj = { message: { text: message } }; //TODO: can add sender/user here to the object if we want to display the owner of the msg later
+      let msgObj = {
+        message: { text: message.msgText },
+        owner: message.sender, //when we receive the emit on "chat message", we also get the data back that we sent from  `this.socket.emit("chat message"..)` in the sendChat() function
+      }; //TODO: can add sender/user here to the object if we want to display the owner of the msg later
       this.setState({ messages: [...this.state.messages, msgObj] });
     });
   }
 
   sendChat = (text) => {
-    this.socket.emit("chat message", text);
+    this.socket.emit("chat message", {
+      msgText: text,
+      sender: this.props.userName, //when sending and receiving real-time messages, we want to retrieve the actual sender of the message and render the correct render of this message on the DOM
+    });
     console.log("OO", text);
 
     fetch(this.props.server_url + "/api/messages/send", {
@@ -74,9 +80,17 @@ class Chatroom extends react.Component {
         <h3>User: {this.props.userName}</h3>
         {/* show chats */}
         <ul>
-          {this.state.messages.map((message) => (
-            <li>{message.message.text}</li>
-          ))}
+          {this.state.messages.map((message) =>
+            message.owner === this.props.userName ? (
+              <li>
+                {this.props.userName}: {message.message.text} {/*first */}
+              </li>
+            ) : (
+              <li>
+                {message.owner}: {message.message.text} {/*second*/}
+              </li>
+            )
+          )}
         </ul>
         {/* show chat input box*/}
         <input

@@ -14,8 +14,23 @@ router.get("/:roomName", async (req, res) => {
   let roomMessages = await Message.find({
     room: chatroom._id,
   });
-  console.log("all room msgs", roomMessages);
-  return res.status(200).json(roomMessages);
+
+  let msgArray = [];
+  let msgObject = {}; //for creating a new message object to store the actual sender's name instead of their id
+
+  for (let i = 0; i < roomMessages.length; i++) {
+    msgObject = {};
+    console.log(roomMessages[i].sender);
+    const msgOwner = await User.findOne({ _id: roomMessages[i].sender });
+    msgObject.message = roomMessages[i].message;
+    msgObject.owner = msgOwner.username;
+    msgObject.createdDate = roomMessages[i].createdAt;
+    msgObject.updatedDate = roomMessages[i].updatedAt;
+    msgArray.push(msgObject);
+  }
+
+  console.log("all room msgs", msgArray);
+  return res.status(200).json(msgArray); //pass this msgObject array as a response to the frontend
 });
 
 router.post("/send", async (req, res) => {
