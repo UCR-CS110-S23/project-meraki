@@ -70,6 +70,23 @@ class Lobby extends react.Component {
     console.log(roomName, "openroom");
     this.props.changeScreen("chatroom", roomName);
   };
+  
+  logout = (data) => {
+    fetch(this.props.server_url + "/api/auth/logout", {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      res.json().then((data) => {
+          this.props.changeScreen("auth", "");
+      });
+    });
+  };
 
   render() {
     return (
@@ -103,6 +120,8 @@ class Lobby extends react.Component {
           closeButton={false}
           submit={this.joinRoom}
         />
+
+        <Button onClick={() => this.logout()}>Logout</Button>
       </div>
     );
   }
