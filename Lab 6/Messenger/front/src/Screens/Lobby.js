@@ -60,7 +60,8 @@ class Lobby extends react.Component {
     }).then((res) =>
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
       res.json().then((data) => {
-        alert(data.message);
+        this.props.changeScreen("chatroom", data.room_name);
+        // alert(data.message);
         console.log(data, "join room data (Lobby.js)"); //can delete this later (just printing out the room document the user inputs)
       })
     );
@@ -70,7 +71,7 @@ class Lobby extends react.Component {
     console.log(roomName, "openroom");
     this.props.changeScreen("chatroom", roomName);
   };
-  
+
   logout = (data) => {
     fetch(this.props.server_url + "/api/auth/logout", {
       method: "GET",
@@ -83,7 +84,7 @@ class Lobby extends react.Component {
       body: JSON.stringify(data),
     }).then((res) => {
       res.json().then((data) => {
-          this.props.changeScreen("auth", "");
+        this.props.changeScreen("auth", "");
       });
     });
   };
