@@ -104,6 +104,30 @@ router.post("/join", async (req, res) => {
   }
 });
 
-router.delete("/leave", (req, res) => {
+router.delete("/leave", async (req, res) => {
   // TODO: write necassary codes to delete a room
+
+  const { session } = req;
+  const roomName = req.body["Room name"];
+
+  try {
+    const user = await User.findOne({username: session.username});
+    const roomIndex = user.rooms.findIndex((room) => room.name === roomName);
+    if(roomIndex === -1){
+      return res.status(400).json({
+        message: `User ${session.username} is not a member of ${roomName}`,
+      });
+    }
+
+    user.rooms.splice(roomIndex, 1);
+    await user.save();
+
+    res.status(200).json({
+      message: `User ${session.username} has left ${roomName}`,
+    });
+  }
+  catch(e){
+    console.log(e);
+    res.status(400).end("ERROR!");
+  }
 });
