@@ -92,6 +92,7 @@ router.post("/join", async (req, res) => {
       return res.status(200).json({
         message: `User ${session.username} has joined Room ${roomName}!`,
         user_name: session.username,
+        room_name: roomName,
       });
     } else {
       return res.status(400).json({

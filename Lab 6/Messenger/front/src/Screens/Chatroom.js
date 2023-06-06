@@ -8,7 +8,13 @@ class Chatroom extends react.Component {
       text: "",
       messages: [],
     };
-    this.socket = io("http://localhost:3001");
+    this.socket = io("http://localhost:3001", {
+      cors: {
+        origin: "http://localhost:3001",
+        credentials: true,
+      },
+      transports: ["websocket"],
+    });
   }
 
   componentDidMount() {
