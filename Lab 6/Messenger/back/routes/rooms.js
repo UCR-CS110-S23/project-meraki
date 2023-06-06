@@ -138,7 +138,7 @@ router.delete("/leave", async (req, res) => {
       );
 
       console.log("DELETING ROOm", deleteRoomFromUser);
-      return res.status(400).json({
+      return res.status(200).json({
         message: `${roomName} has been deleted.`,
         deleted: true,
       });
@@ -165,5 +165,23 @@ router.delete("/leave", async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(400).end("ERROR!");
+  }
+});
+
+router.get("/:room", async (req, res) => {
+  const room = req.params.room;
+  const roomExists = await Room.findOne({ name: room });
+
+  if (roomExists) {
+    console.log("Open chat room!");
+    return res.status(200).json({
+      deleted: false,
+    });
+  } else {
+    console.log("dont open bruh");
+    return res.status(400).json({
+      message: `Cannot open chatroom. Room ${room} has been already been deleted.`,
+      deleted: true,
+    });
   }
 });
