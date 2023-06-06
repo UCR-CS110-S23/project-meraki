@@ -90,9 +90,12 @@ class Chatroom extends react.Component {
       body: JSON.stringify({
         "Room name": this.props.roomName,
       }),
-    }).then((res) => 
+    }).then((res) =>
       res.json().then((data) => {
-        console.log(data.message);
+        alert(data.message);
+        if (data.deleted) {
+          this.props.changeScreen("lobby", "");
+        }
       })
     );
   };
@@ -126,7 +129,7 @@ class Chatroom extends react.Component {
         />
         <button onClick={() => this.sendChat(this.state.text)}>send</button>
         <button onClick={() => this.goBack()}>Return to Lobby</button>
-        <button onClick={this.leaveRoom}>Leave room</button>
+        <button onClick={this.leaveRoom}>Delete room</button>
       </div>
     );
   }

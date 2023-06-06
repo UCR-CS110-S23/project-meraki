@@ -41,13 +41,14 @@ router.post("/create", async (req, res) => {
       });
     } else {
       //if room does not exist, then create a new room
+      const user = await User.findOne({ username: session.username });
       const room = new Room({
         name: req.body["Room name"],
+        owner: user,
       });
       const roomSaved = await room.save();
 
       //append this new room to the current active user's rooms array
-      const user = await User.findOne({ username: session.username });
       user.rooms.push(room);
       const userSaved = await user.save();
 
@@ -122,19 +123,45 @@ router.delete("/leave", async (req, res) => {
 
   try {
     const user = await User.findOne({ username: session.username });
-    const roomIndex = user.rooms.findIndex((room) => room.name === roomName);
-    if (roomIndex === -1) {
+    const room = await Room.findOne({ name: roomName });
+
+    if (room.owner.equals(user._id)) {
+      //check if the current user is the owner of the room to be deleted
+      const deleteRoom = await Room.findOneAndDelete({ _id: room._id });
+
+      //find all the documents that contain the room to delete in their rooms array and delete the room from each document's array
+      const deleteRoomFromUser = await User.updateMany(
+        {
+          "rooms.name": roomName,
+        },
+        { $pull: { rooms: deleteRoom } }
+      );
+
+      console.log("DELETING ROOm", deleteRoomFromUser);
       return res.status(400).json({
-        message: `User ${session.username} is not a member of ${roomName}`,
+        message: `${roomName} has been deleted.`,
+        deleted: true,
       });
+    } else {
+      console.log("no delete; not the owner of the room");
+      return res.status(400).json({
+        message: `User ${session.username} has no permissions to delete ${roomName}.`,
+        deleted: false,
+      });
+      // const roomIndex = user.rooms.findIndex((room) => room.name === roomName);
+      // if (roomIndex === -1) {
+      //   return res.status(400).json({
+      //     message: `User ${session.username} is not a member of ${roomName}`,
+      //   });
+      // }
+
+      // user.rooms.splice(roomIndex, 1);
+      // await user.save();
+
+      // res.status(200).json({
+      //   message: `User ${session.username} has left ${roomName}`,
+      // });
     }
-
-    user.rooms.splice(roomIndex, 1);
-    await user.save();
-
-    res.status(200).json({
-      message: `User ${session.username} has left ${roomName}`,
-    });
   } catch (e) {
     console.log(e);
     res.status(400).end("ERROR!");
