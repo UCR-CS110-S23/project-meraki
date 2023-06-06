@@ -73,6 +73,24 @@ class Chatroom extends react.Component {
     this.props.changeScreen("lobby", "");
   };
 
+  leaveRoom = () => {
+    fetch(this.props.server_url + "/api/rooms/leave", {
+      method: "DELETE",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "Room name": this.props.roomName,
+      }),
+    }).then((res) => 
+      res.json().then((data) => {
+        console.log(data.message);
+      })
+    );
+  };
+
   render() {
     return (
       <div>
@@ -102,6 +120,7 @@ class Chatroom extends react.Component {
         />
         <button onClick={() => this.sendChat(this.state.text)}>send</button>
         <button onClick={() => this.goBack()}>Return to Lobby</button>
+        <button onClick={this.leaveRoom}>Leave room</button>
       </div>
     );
   }
