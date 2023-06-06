@@ -41,7 +41,11 @@ class Lobby extends react.Component {
     }).then((res) =>
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
       res.json().then((data) => {
-        alert(data.message);
+        if (data.newRoom) {
+          this.props.changeScreen("chatroom", data.room_name);
+        } else {
+          alert(data.message);
+        }
         console.log(data, "room data (Lobby.js)"); //can delete this later (just printing out the room document the user inputs)
       })
     );
@@ -62,6 +66,8 @@ class Lobby extends react.Component {
       res.json().then((data) => {
         if (data.exist) {
           this.props.changeScreen("chatroom", data.room_name);
+        } else {
+          alert(`Room ${data.room_name} does not exist!`);
         }
         // alert(data.message);
         console.log(data, "join room data (Lobby.js)"); //can delete this later (just printing out the room document the user inputs)

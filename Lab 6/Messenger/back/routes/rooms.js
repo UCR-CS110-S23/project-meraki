@@ -35,7 +35,10 @@ router.post("/create", async (req, res) => {
     let checkRoomExists = await Room.findOne({ name: req.body["Room name"] });
 
     if (checkRoomExists) {
-      return res.json({ message: `Room ${roomName} already exists` });
+      return res.json({
+        message: `Room ${roomName} already exists`,
+        newRoom: false,
+      });
     } else {
       //if room does not exist, then create a new room
       const room = new Room({
@@ -50,6 +53,8 @@ router.post("/create", async (req, res) => {
 
       res.status(200).json({
         message: `Created room ${roomSaved.name} and added it to ${session.username}'s rooms.`,
+        room_name: roomSaved.name,
+        newRoom: true,
       });
     }
   } catch (error) {
