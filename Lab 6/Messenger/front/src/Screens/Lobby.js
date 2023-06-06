@@ -91,7 +91,7 @@ class Lobby extends react.Component {
           this.props.changeScreen("chatroom", roomName);
         } else {
           alert(data.message);
-          this.forceUpdate();
+          // this.forceUpdate();
         }
         // this.props.changeScreen("auth", "");
       });
