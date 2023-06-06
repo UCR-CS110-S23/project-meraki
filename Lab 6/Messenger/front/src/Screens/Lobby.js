@@ -76,8 +76,28 @@ class Lobby extends react.Component {
   };
 
   openChatroom = (roomName) => {
+    //check if the selected room to open exists anymore
+    fetch(this.props.server_url + `/api/rooms/${roomName}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((res) => {
+      res.json().then((data) => {
+        if (!data.deleted) {
+          this.props.changeScreen("chatroom", roomName);
+        } else {
+          alert(data.message);
+          // this.forceUpdate();
+        }
+        // this.props.changeScreen("auth", "");
+      });
+    });
+
     console.log(roomName, "openroom");
-    this.props.changeScreen("chatroom", roomName);
   };
 
   logout = (data) => {
