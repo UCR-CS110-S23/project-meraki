@@ -40,6 +40,7 @@ router.post("/create", async (req, res) => {
       //if room does not exist, then create a new room
       const room = new Room({
         name: req.body["Room name"],
+        owner: session.username,
       });
       const roomSaved = await room.save();
 
@@ -47,7 +48,7 @@ router.post("/create", async (req, res) => {
       const user = await User.findOne({ username: session.username });
       user.rooms.push(room);
       const userSaved = await user.save();
-
+      const populatedRoom = await Room.findById(roomSaved._id).populate("owner");
       res.status(200).json({
         message: `Created room ${roomSaved.name} and added it to ${session.username}'s rooms.`,
       });
@@ -111,11 +112,25 @@ router.delete("/leave", async (req, res) => {
   const roomName = req.body["Room name"];
 
   try {
-    const user = await User.findOne({username: session.username});
+    const user = await User.findOne({ username: session.username }).populate("rooms");
+
     const roomIndex = user.rooms.findIndex((room) => room.name === roomName);
+
     if(roomIndex === -1){
       return res.status(400).json({
         message: `User ${session.username} is not a member of ${roomName}`,
+      });
+    }
+
+    const room = user.rooms[roomIndex];
+
+    
+    console.log("curr_user", session.username)
+    console.log("room_owner", room.owner)
+
+    if (room.owner !== session.username) {
+      return res.status(403).json({
+        message: "Only the owner of the room can delete it.",
       });
     }
 
