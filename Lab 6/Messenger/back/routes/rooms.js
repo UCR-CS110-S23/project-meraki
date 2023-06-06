@@ -88,15 +88,19 @@ router.post("/join", async (req, res) => {
           },
         }
       );
+      console.log("JOINN");
 
       return res.status(200).json({
         message: `User ${session.username} has joined Room ${roomName}!`,
         user_name: session.username,
         room_name: roomName,
+        exist: true,
       });
     } else {
       return res.status(400).json({
         message: `Room ${roomName} does not exist.`,
+        room_name: roomName,
+        exist: false,
       });
     }
   } catch (error) {
@@ -112,9 +116,9 @@ router.delete("/leave", async (req, res) => {
   const roomName = req.body["Room name"];
 
   try {
-    const user = await User.findOne({username: session.username});
+    const user = await User.findOne({ username: session.username });
     const roomIndex = user.rooms.findIndex((room) => room.name === roomName);
-    if(roomIndex === -1){
+    if (roomIndex === -1) {
       return res.status(400).json({
         message: `User ${session.username} is not a member of ${roomName}`,
       });
@@ -126,8 +130,7 @@ router.delete("/leave", async (req, res) => {
     res.status(200).json({
       message: `User ${session.username} has left ${roomName}`,
     });
-  }
-  catch(e){
+  } catch (e) {
     console.log(e);
     res.status(400).end("ERROR!");
   }

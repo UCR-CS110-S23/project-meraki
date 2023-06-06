@@ -60,7 +60,9 @@ class Lobby extends react.Component {
     }).then((res) =>
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
       res.json().then((data) => {
-        this.props.changeScreen("chatroom", data.room_name);
+        if (data.exist) {
+          this.props.changeScreen("chatroom", data.room_name);
+        }
         // alert(data.message);
         console.log(data, "join room data (Lobby.js)"); //can delete this later (just printing out the room document the user inputs)
       })
