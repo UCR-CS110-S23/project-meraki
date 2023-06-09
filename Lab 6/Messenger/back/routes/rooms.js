@@ -125,7 +125,7 @@ router.delete("/leave", async (req, res) => {
     const user = await User.findOne({ username: session.username });
     const room = await Room.findOne({ name: roomName });
 
-    if (room.owner === user._id) {
+    if (String(room.owner) === String(user._id)) {
       //check if the current user is the owner of the room to be deleted
       const deleteRoom = await Room.findOneAndDelete({ _id: room._id });
 
@@ -143,7 +143,7 @@ router.delete("/leave", async (req, res) => {
         deleted: true,
       });
     } else {
-      console.log("no delete; not the owner of the room");
+      console.log("no delete; not the owner of the room", room.owner);
       return res.status(400).json({
         message: `User ${session.username} has no permissions to delete ${roomName}.`,
         deleted: false,
