@@ -13,6 +13,7 @@ rooms = ["room1", "room2", "room3"];
 router.get("/all", async (req, res) => {
   // TODO: you have to check the database to only return the rooms that the user is in
   const { session } = req;
+  console.log(session.username, "currentuser for fetch all rooms");
 
   // check if user in database
   //   User.find()

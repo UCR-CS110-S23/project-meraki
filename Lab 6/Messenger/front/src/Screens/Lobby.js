@@ -117,6 +117,10 @@ class Lobby extends react.Component {
     });
   };
 
+  openProfile = (data) => {
+    this.props.changeScreen("profile", "");
+  };
+
   render() {
     return (
       <div>
@@ -151,6 +155,7 @@ class Lobby extends react.Component {
         />
 
         <Button onClick={() => this.logout()}>Logout</Button>
+        <Button onClick={() => this.openProfile()}>Edit Profile</Button>
       </div>
     );
   }
