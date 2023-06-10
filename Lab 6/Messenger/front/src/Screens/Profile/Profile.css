@@ -1,0 +1,9 @@
+#userInfoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+#username {
+  margin-left: 15px;
+}

@@ -66,3 +66,19 @@ router.post("/editUser", async (req, res) => {
     res.status(400).end("ERROR: Unable to edit username");
   }
 });
+
+router.get("/:username/picture", async (req, res) => {
+  console.log("RRRRR");
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (!user.picture) {
+      return res.status(404).json({ message: "No profile picture found." });
+    } else {
+      // res.set("Content-Type", "image/png");
+      res.send(user.picture);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Unable to retrieve profile picture");
+  }
+});

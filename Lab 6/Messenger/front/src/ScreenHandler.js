@@ -2,7 +2,7 @@ import react from "react";
 import Auth from "./Screens/Auth.js";
 import Lobby from "./Screens/Lobby.js";
 import Chatroom from "./Screens/Chatroom.js";
-import Profile from "./Screens/Profile.js";
+import Profile from "./Screens/Profile/Profile.js";
 
 const server_url = "http://localhost:3001";
 
