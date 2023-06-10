@@ -1,5 +1,7 @@
 import react from "react";
 import { io } from "socket.io-client";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 class Chatroom extends react.Component {
   constructor(props) {
@@ -16,6 +18,8 @@ class Chatroom extends react.Component {
       transports: ["websocket"],
     });
   }
+
+  voteCount = 0;
 
   componentDidMount() {
     this.socket.emit("join", {
@@ -100,6 +104,16 @@ class Chatroom extends react.Component {
     );
   };
 
+  upvote = () => {
+    this.voteCount++;
+    alert(this.voteCount);
+  };
+
+  downvote = () => {
+    this.voteCount--;
+    alert(this.voteCount);
+  };
+
   render() {
     return (
       <div>
@@ -109,13 +123,19 @@ class Chatroom extends react.Component {
         <ul>
           {this.state.messages.map((message) =>
             message.owner === this.props.userName ? (
-              <li>
-                {this.props.userName}: {message.message.text} {/*first */}
-              </li>
-            ) : (
-              <li>
-                {message.owner}: {message.message.text} {/*second*/}
-              </li>
+                <li>
+                  {this.props.userName}: {message.message.text} {/*first */}
+                  <KeyboardArrowUpIcon onClick={() => this.upvote()}></KeyboardArrowUpIcon>
+                  {" "}{this.voteCount}{" "}
+                  <KeyboardArrowDownIcon onClick={() => this.downvote()}></KeyboardArrowDownIcon>
+                </li>
+              ) : (
+                <li>
+                  {message.owner}: {message.message.text} {/*second*/}
+                  <KeyboardArrowUpIcon onClick={() => this.upvote()}></KeyboardArrowUpIcon>
+                  {" "}{this.voteCount}{" "}
+                  <KeyboardArrowDownIcon onClick={() => this.downvote()}></KeyboardArrowDownIcon>
+                </li>
             )
           )}
         </ul>
