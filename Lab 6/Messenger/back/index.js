@@ -12,6 +12,7 @@ const bodyParser = require("body-parser");
 const auth = require("./routes/auth");
 const rooms = require("./routes/rooms");
 const messages = require("./routes/messages");
+const profile = require("./routes/profile");
 
 const app = express();
 const server = http.createServer(app);
@@ -67,6 +68,7 @@ app.use((req, res, next) => {
 });
 
 //this is the next() middleware we go to from above
+app.use("/api/profile/", profile);
 app.use("/api/rooms/", rooms); //this deals with the rooms (i.e. creating a new room, seeing all the rooms, etc )
 app.use("/api/messages/", messages); //this deals with sending messages
 
