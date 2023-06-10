@@ -1,7 +1,6 @@
 import react from "react";
 import { io } from "socket.io-client";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Vote from "../Components/Vote";
 
 class Chatroom extends react.Component {
   constructor(props) {
@@ -104,37 +103,24 @@ class Chatroom extends react.Component {
     );
   };
 
-  upvote = () => {
-    this.voteCount++;
-    alert(this.voteCount);
-  };
-
-  downvote = () => {
-    this.voteCount--;
-    alert(this.voteCount);
-  };
-
   render() {
     return (
       <div>
         <h2> Chatroom: {this.props.roomName}</h2>
         <h3>User: {this.props.userName}</h3>
         {/* show chats */}
+        <input id="searchBar" type="search" placeholder="Search messages" size="50"></input>
         <ul>
           {this.state.messages.map((message) =>
             message.owner === this.props.userName ? (
                 <li>
                   {this.props.userName}: {message.message.text} {/*first */}
-                  <KeyboardArrowUpIcon onClick={() => this.upvote()}></KeyboardArrowUpIcon>
-                  {" "}{this.voteCount}{" "}
-                  <KeyboardArrowDownIcon onClick={() => this.downvote()}></KeyboardArrowDownIcon>
+                  <Vote></Vote>
                 </li>
               ) : (
                 <li>
                   {message.owner}: {message.message.text} {/*second*/}
-                  <KeyboardArrowUpIcon onClick={() => this.upvote()}></KeyboardArrowUpIcon>
-                  {" "}{this.voteCount}{" "}
-                  <KeyboardArrowDownIcon onClick={() => this.downvote()}></KeyboardArrowDownIcon>
+                  <Vote></Vote>
                 </li>
             )
           )}

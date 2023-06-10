@@ -105,7 +105,7 @@ function App() {
         </IconButton>
       </ThemeProvider>
     </ColorModeContext.Provider>
-  );
+    );
 }
 
 export default App;
