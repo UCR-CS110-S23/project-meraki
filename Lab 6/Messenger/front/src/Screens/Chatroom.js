@@ -1,5 +1,7 @@
 import react from "react";
 import { io } from "socket.io-client";
+import ProfilePicture from "../Components/ProfilePicture/profilePicture";
+import "./Chatroom.css";
 
 class Chatroom extends react.Component {
   constructor(props) {
@@ -110,11 +112,29 @@ class Chatroom extends react.Component {
           {this.state.messages.map((message) =>
             message.owner === this.props.userName ? (
               <li>
-                {this.props.userName}: {message.message.text} {/*first */}
+                <div>
+                  <ProfilePicture
+                    server_url={this.props.server_url}
+                    userName={this.props.userName}
+                    page="chat"
+                  ></ProfilePicture>
+                  <div className="msgContainer">{message.message.text}</div>
+                </div>
+                <span className="owner">
+                  {this.props.userName} {/*first */}
+                </span>
               </li>
             ) : (
               <li>
-                {message.owner}: {message.message.text} {/*second*/}
+                <div>
+                  <ProfilePicture
+                    server_url={this.props.server_url}
+                    userName={message.owner}
+                    page="chat"
+                  ></ProfilePicture>
+                  <div className="msgContainer">{message.message.text}</div>
+                </div>
+                <span className="owner"> {message.owner} </span> {/*second*/}
               </li>
             )
           )}

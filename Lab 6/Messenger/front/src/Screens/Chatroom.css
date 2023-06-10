@@ -1,0 +1,19 @@
+.chatPFP {
+  width: 20px;
+  height: 20px;
+}
+
+.owner {
+  font-weight: bold;
+}
+
+.msgContainer {
+  background-color: lightgray;
+}
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: flex;
+}

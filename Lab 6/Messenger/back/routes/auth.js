@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../model/user");
+const fs = require("fs");
 const router = express.Router();
 
 module.exports = router;
@@ -39,11 +40,18 @@ router.post("/register", async (req, res) => {
   const { username, password, name } = req.body;
   console.log(username, password, name);
 
+  const defaultProfilePicture = {
+    //Lab 6\Messenger\front\public\defaultUser.png
+    data: fs.readFileSync("../front/public/defaultUser.png"),
+    contentType: "image/jpeg",
+  };
+
   const user = new User({
     username: username,
     password: password,
     name: name,
     rooms: [],
+    picture: defaultProfilePicture,
   });
 
   try {
