@@ -1,5 +1,8 @@
 import react from "react";
 import { io } from "socket.io-client";
+import { Emojione } from 'react-emoji-render';
+
+const EMOJIS = ["💖", "🤡", "👀", "😳", "👍", "👎","💀", "🔥"];
 
 class Chatroom extends react.Component {
   constructor(props) {
@@ -7,6 +10,7 @@ class Chatroom extends react.Component {
     this.state = {
       text: "",
       messages: [],
+      reactions: [],
     };
     this.socket = io("http://localhost:3001", {
       cors: {
@@ -100,32 +104,117 @@ class Chatroom extends react.Component {
     );
   };
 
+  handleReaction = (messageId, emoji) => {
+    this.setState((prevState) => {
+      const { messages } = prevState;
+      const updatedMessages = messages.map((message) => {
+        if (message._id === messageId) {
+          const updatedReactions = message.reactions ? [...message.reactions] : [];
+          const reactionIndex = updatedReactions.findIndex((reaction) => reaction.emoji === emoji);
+    
+          if (reactionIndex !== -1) {
+            updatedReactions[reactionIndex].count++;
+          } else {
+            updatedReactions.push({ emoji, count: 1 });
+          }
+    
+          return {
+            ...message,
+            reactions: updatedReactions,
+          };
+        }
+    
+        return message;
+      });
+    
+      return {
+        messages: updatedMessages,
+      };
+    });
+  };
+  
+  removeReaction = (messageId, emoji) => {
+    this.setState((prevState) => {
+      const { messages } = prevState;
+      const updatedMessages = messages.map((message) => {
+        if (message._id === messageId && message.reactions) {
+          const updatedReactions = message.reactions.map((reaction) => {
+            if (reaction.emoji === emoji) {
+              const updatedReaction = { ...reaction };
+              updatedReaction.count--;
+    
+              if (updatedReaction.count === 0) {
+                return null; // Remove the reaction
+              }
+    
+              return updatedReaction;
+            }
+    
+            return reaction;
+          }).filter(Boolean); // Filter out null reactions
+    
+          return {
+            ...message,
+            reactions: updatedReactions,
+          };
+        }
+    
+        return message;
+      });
+    
+      return {
+        messages: updatedMessages,
+      };
+    });
+  };
+ 
+  
   render() {
+    const { messages } = this.state;
+  
     return (
       <div>
-        <h2> Chatroom: {this.props.roomName}</h2>
+        <h2>Chatroom: {this.props.roomName}</h2>
         <h3>User: {this.props.userName}</h3>
-        {/* show chats */}
+  
         <ul>
-          {this.state.messages.map((message) =>
-            message.owner === this.props.userName ? (
-              <li>
-                {this.props.userName}: {message.message.text} {/*first */}
-              </li>
-            ) : (
-              <li>
-                {message.owner}: {message.message.text} {/*second*/}
-              </li>
-            )
-          )}
+          {messages.map((message) => (
+            <li key={message._id}>
+              <p>
+                <b>{message.owner}:</b> {message.message.text}
+              </p>
+              <div>
+                {EMOJIS.map((emoji) => (
+                  <button
+                    key={emoji}
+                    onClick={() => this.handleReaction(message._id, emoji)}
+                  >
+                    <Emojione text={emoji} />
+                    {message.reactions
+                      ?.find((reaction) => reaction.emoji === emoji)
+                      ?.count}
+                  </button>
+                ))}
+                {message.reactions?.map(({ emoji, count }) => (
+                  <span key={emoji}>
+                    <Emojione text={emoji} />
+                    {count}
+                    <button
+                      onClick={() => this.removeReaction(message._id, emoji)}
+                    >
+                      Remove
+                    </button>
+                  </span>
+                ))}
+              </div>
+            </li>
+          ))}
         </ul>
-        {/* show chat input box*/}
+  
         <input
           type="text"
-          id="msgInput"
-          onChange={(e) => {
-            this.setState({ text: e.target.value });
-          }}
+          value={this.state.text}
+          onChange={(e) => this.setState({ text: e.target.value })}
         />
         <button onClick={() => this.sendChat(this.state.text)}>send</button>
         <button onClick={() => this.goBack()}>Return to Lobby</button>

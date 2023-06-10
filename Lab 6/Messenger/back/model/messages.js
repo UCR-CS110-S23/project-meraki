@@ -15,6 +15,14 @@ const messageSchema = mongoose.Schema(
       ref: "Room",
       required: true,
     },
+    reactions: {
+      type: Map,
+      of: {
+        type: Number,
+        default: 0,
+      },
+      default: {},
+    },
   },
   {
     timestamps: true,
