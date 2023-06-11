@@ -80,7 +80,14 @@ class Chatroom extends react.Component {
     const messages = [...this.state.messages];
     this.setState({messages, editedMessage: messages[index].message.text});
     const msg = document.getElementById(index);
-    msg.innerHTML = "hello";
+    let replaceMsg = this.props.userName;
+    replaceMsg += ": ";
+    let editBox = document.createElement("input");
+    editBox.setAttribute("type", "text");
+    editBox.setAttribute("id", "msgInput");
+    editBox.setAttribute("onChange", "{(e) => {this.setState({text: e.target.value});}}");
+    msg.innerHTML = replaceMsg;
+    msg.appendChild(editBox);
   }
 
   saveEdit = (index) => {
