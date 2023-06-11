@@ -1,6 +1,3 @@
-/*Connie Pak - cpak014
-Hannah Bach - hbach003*/
-
 // import react from 'react';
 // import { io } from 'socket.io-client';
 // import logo from './logo.svg';
