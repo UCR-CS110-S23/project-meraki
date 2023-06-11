@@ -30,6 +30,7 @@ class Profile extends react.Component {
       res.json().then((data) => {
         console.log("NEWWWWUSERR", data.newUsername);
         this.props.setUsername(data.newUsername);
+        alert(`Successfully changed the username to ${data.newUsername}`);
       })
     );
   };
@@ -54,6 +55,7 @@ class Profile extends react.Component {
         body: formData,
       });
       console.log("Profile picture uploaded successfully.");
+      alert("Profile picture uploaded successfully.");
     } catch (error) {
       console.error("Encountered an error during profile picture upload.");
     }
