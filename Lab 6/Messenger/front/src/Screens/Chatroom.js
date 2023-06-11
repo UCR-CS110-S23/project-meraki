@@ -8,7 +8,7 @@ class Chatroom extends react.Component {
       text: "",
       messages: [],
       editedMessage: "",
-      
+      oldText: ""
     };
     this.socket = io("http://localhost:3001", {
       cors: {
@@ -79,19 +79,23 @@ class Chatroom extends react.Component {
 
   editMessage = (index) => {
     const messages = [...this.state.messages];
-    this.setState({messages, editedMessage: messages[index].message.text});
+    const defaultText = messages[index].message.text;
+    this.state.oldText = defaultText;
+    // this.setState({messages, editedMessage: messages[index].message.text});
 
-    const user = this.props.userName;
+    // const user = this.props.userName;
     const replaceMsg = (
       <input
         type="text"
-        id={index}
-        value={this.state.text}
+        id={`edit:${index}`}
+        // value={defaultText}
         onChange={(e) => {
           this.setState({editedMessage: e.target.value});
         }}
       />
     );
+    // console.log(`edit:${index}`);
+
 
     messages[index].editing = true;
     messages[index].replacement = replaceMsg;
@@ -99,7 +103,19 @@ class Chatroom extends react.Component {
   };
 
   saveEdit = (index) => {
+    const messages = [...this.state.messages];
+    messages[index].editing = false;
+    const editedMsg = document.getElementById(`edit:${index}`).value;
+    editedMsg === "" ? (messages[index].message.text = this.state.oldText)
+     : (messages[index].message.text = this.state.editedMessage);
+    this.setState({messages});
+  }
 
+  cancelEdit = (index) => {
+    const messages = [...this.state.messages];
+    messages[index].editing = false;
+    messages[index].message.text = this.state.oldText;
+    this.setState({messages});
   }
 
   goBack = () => {
@@ -151,8 +167,9 @@ class Chatroom extends react.Component {
                 message.editing ? (
                   <>
                     {this.props.userName}: {message.replacement}
-                    <button>Save</button>
-                    <button>Cancel</button>
+                    <button onClick={() => this.saveEdit(index)}>Save</button>
+                    <button onClick={() => this.cancelEdit(index)}>Cancel</button>
+                    {/* {this.state.messages[index].message.text} */}
                   </>
                 ) : (
                   <>
