@@ -8,6 +8,7 @@ class Chatroom extends react.Component {
       text: "",
       messages: [],
       editedMessage: "",
+      
     };
     this.socket = io("http://localhost:3001", {
       cors: {
@@ -79,16 +80,23 @@ class Chatroom extends react.Component {
   editMessage = (index) => {
     const messages = [...this.state.messages];
     this.setState({messages, editedMessage: messages[index].message.text});
-    const msg = document.getElementById(index);
-    let replaceMsg = this.props.userName;
-    replaceMsg += ": ";
-    let editBox = document.createElement("input");
-    editBox.setAttribute("type", "text");
-    editBox.setAttribute("id", "msgInput");
-    editBox.setAttribute("onChange", "{(e) => {this.setState({text: e.target.value});}}");
-    msg.innerHTML = replaceMsg;
-    msg.appendChild(editBox);
-  }
+
+    const user = this.props.userName;
+    const replaceMsg = (
+      <input
+        type="text"
+        id={index}
+        value={this.state.text}
+        onChange={(e) => {
+          this.setState({editedMessage: e.target.value});
+        }}
+      />
+    );
+
+    messages[index].editing = true;
+    messages[index].replacement = replaceMsg;
+    this.setState({messages});
+  };
 
   saveEdit = (index) => {
 
@@ -127,16 +135,37 @@ class Chatroom extends react.Component {
         {/* show chats */}
         <ul>
           {this.state.messages.map((message, index) =>
-            message.owner === this.props.userName ? (
-              <li key={index} id={index}>
-                {this.props.userName}: {message.message.text} {/*first */}
-                <button onClick={() => this.editMessage(index)}>Edit</button>
-              </li>
-            ) : (
-              <li key={index}>
-                {message.owner}: {message.message.text} {/*second*/}
-              </li>
-            )
+            // message.owner === this.props.userName ? (
+            //   <li key={index} id={index}>
+            //     {this.props.userName}: {message.message.text} {/*first */}
+            //     <button onClick={() => this.editMessage(index)}>Edit</button>
+            //   </li>
+            // ) : (
+            //   <li key={index}>
+            //     {message.owner}: {message.message.text} {/*second*/}
+            //   </li>
+            // )
+
+            <li key={index}>
+              {message.owner === this.props.userName ? (
+                message.editing ? (
+                  <>
+                    {this.props.userName}: {message.replacement}
+                    <button>Save</button>
+                    <button>Cancel</button>
+                  </>
+                ) : (
+                  <>
+                    {this.props.userName}: {message.message.text}
+                    <button onClick={() => this.editMessage(index)}>Edit</button>
+                  </>
+                )
+              ) : (
+                <>
+                  {message.owner}: {message.message.text}
+                </>
+              )}
+            </li>
           )}
         </ul>
         {/* show chat input box*/}
