@@ -11,6 +11,7 @@ class Chatroom extends react.Component {
       text: "",
       messages: [],
       reactions: [],
+      searchText: "",
     };
     this.socket = io("http://localhost:3001", {
       cors: {
@@ -56,6 +57,12 @@ class Chatroom extends react.Component {
       msgText: text,
       sender: this.props.userName, //when sending and receiving real-time messages, we want to retrieve the actual sender of the message and render the correct render of this message on the DOM
     });
+
+    this.setState({
+      text: "",
+      searchText: "", // Clear the search text
+    });
+
     console.log("OO", text);
 
     fetch(this.props.server_url + "/api/messages/send", {
@@ -169,16 +176,28 @@ class Chatroom extends react.Component {
   };
  
   
-  render() {
-    const { messages } = this.state;
-  
+render() {
+  const { messages, searchText } = this.state;
+
+  // Filter messages based on search text
+  const filteredMessages = messages.filter((message) =>
+    message.message.text.toLowerCase().includes(searchText.toLowerCase())
+  );
+
     return (
       <div>
         <h2>Chatroom: {this.props.roomName}</h2>
         <h3>User: {this.props.userName}</h3>
-  
+
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => this.setState({ searchText: e.target.value })}
+          placeholder="Search messages"
+        />
+
         <ul>
-          {messages.map((message) => (
+          {filteredMessages.map((message) => (
             <li key={message._id}>
               <p>
                 <b>{message.owner}:</b> {message.message.text}
@@ -210,7 +229,7 @@ class Chatroom extends react.Component {
             </li>
           ))}
         </ul>
-  
+
         <input
           type="text"
           value={this.state.text}
