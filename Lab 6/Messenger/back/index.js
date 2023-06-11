@@ -12,6 +12,8 @@ const bodyParser = require("body-parser");
 const auth = require("./routes/auth");
 const rooms = require("./routes/rooms");
 const messages = require("./routes/messages");
+const profile = require("./routes/profile");
+const Message = require("./model/messages");
 
 const app = express();
 const server = http.createServer(app);
@@ -67,6 +69,7 @@ app.use((req, res, next) => {
 });
 
 //this is the next() middleware we go to from above
+app.use("/api/profile/", profile);
 app.use("/api/rooms/", rooms); //this deals with the rooms (i.e. creating a new room, seeing all the rooms, etc )
 app.use("/api/messages/", messages); //this deals with sending messages
 
@@ -114,5 +117,31 @@ io.on("connection", (socket) => {
   socket.on("chat message", (data) => {
     console.log("got message", data);
     io.to(room).emit("chat message", data); //to(room) allows us to emit the message to the users that are actually in that specific room (without to(), it would emit it to everyone)
+  });
+
+  socket.on("likes", async (data) => {
+    //once server receives "likes" message from socket.emit("likes", ....), we find the message by using the message id provided by the emit
+    const message = await Message.findOne({ _id: data.message_id });
+    console.log("likes!!", message);
+    message.likeCount = message.likeCount + 1; //update the likeCount of this specific message
+    const updateMessageLikes = message.save(); //save this update to MongoDB
+    console.log(`${message._id}'s LIKES COUNT:`, message.likeCount);
+    io.to(room).emit("likes", {
+      //now that the likeCount is updated, we want to pass it back to the chatroom (the frontend) so that it can be rendered in real-time
+      msgId: data.message_id,
+      likeCount: message.likeCount,
+    });
+  });
+
+  socket.on("dislikes", async (data) => {
+    const message = await Message.findOne({ _id: data.message_id });
+    console.log("dislikes!!", message);
+    message.dislikeCount = message.dislikeCount + 1;
+    const updateMessageLikes = message.save();
+    console.log(`${message._id}'s DISLIKES COUNT:`, message.dislikeCount);
+    io.to(room).emit("dislikes", {
+      msgId: data.message_id,
+      dislikeCount: message.dislikeCount,
+    });
   });
 });
