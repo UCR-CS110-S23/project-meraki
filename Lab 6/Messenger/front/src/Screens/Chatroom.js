@@ -79,6 +79,7 @@ class Chatroom extends react.Component {
 
   editMessage = (index) => {
     const messages = [...this.state.messages];
+    const defaultText = messages[index].message.text;
     this.setState({messages, editedMessage: messages[index].message.text});
 
     const user = this.props.userName;
@@ -86,7 +87,7 @@ class Chatroom extends react.Component {
       <input
         type="text"
         id={index}
-        value={this.state.text}
+        value={defaultText}
         onChange={(e) => {
           this.setState({editedMessage: e.target.value});
         }}
