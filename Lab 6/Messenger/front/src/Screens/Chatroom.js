@@ -11,7 +11,7 @@ class Chatroom extends react.Component {
       messages: [],
       searchText: "",
       editedMessage: "",
-      oldText: ""
+      oldText: "",
     };
     this.socket = io("http://localhost:3001", {
       cors: {
@@ -114,47 +114,6 @@ class Chatroom extends react.Component {
     );
   };
 
-  editMessage = (index) => {
-    const messages = [...this.state.messages];
-    const defaultText = messages[index].message.text;
-    this.state.oldText = defaultText;
-    // this.setState({messages, editedMessage: messages[index].message.text});
-
-    // const user = this.props.userName;
-    const replaceMsg = (
-      <input
-        type="text"
-        id={`edit:${index}`}
-        // value={defaultText}
-        onChange={(e) => {
-          this.setState({editedMessage: e.target.value});
-        }}
-      />
-    );
-    // console.log(`edit:${index}`);
-
-
-    messages[index].editing = true;
-    messages[index].replacement = replaceMsg;
-    this.setState({messages});
-  };
-
-  saveEdit = (index) => {
-    const messages = [...this.state.messages];
-    messages[index].editing = false;
-    const editedMsg = document.getElementById(`edit:${index}`).value;
-    editedMsg === "" ? (messages[index].message.text = this.state.oldText)
-     : (messages[index].message.text = this.state.editedMessage);
-    this.setState({messages});
-  }
-
-  cancelEdit = (index) => {
-    const messages = [...this.state.messages];
-    messages[index].editing = false;
-    messages[index].message.text = this.state.oldText;
-    this.setState({messages});
-  }
-
   goBack = () => {
     this.props.changeScreen("lobby", "");
   };
@@ -191,7 +150,7 @@ class Chatroom extends react.Component {
     console.log("msgid", msg_id);
     this.socket.emit("dislikes", { message_id: msg_id });
   };
-    
+
   render() {
     const { messages, searchText } = this.state;
     const filteredMessages = messages.filter((message) =>
@@ -209,57 +168,31 @@ class Chatroom extends react.Component {
           placeholder="Search messages"
         />
         <ul>
-          {this.state.messages.map((message, index) =>
-            // message.owner === this.props.userName ? (
-            //   <li key={index} id={index}>
-            //     {this.props.userName}: {message.message.text} {/*first */}
-            //     <button onClick={() => this.editMessage(index)}>Edit</button>
-            //   </li>
-            // ) : (
-            //   <li key={index}>
-            //     {message.owner}: {message.message.text} {/*second*/}
-            //   </li>
-            // )
-
-            <li key={index}>
-              {message.owner === this.props.userName ? (
-                message.editing ? (
-                  <>
-                    {this.props.userName}: {message.replacement}
-                    <button onClick={() => this.saveEdit(index)}>Save</button>
-                    <button onClick={() => this.cancelEdit(index)}>Cancel</button>
-                    {/* {this.state.messages[index].message.text} */}
-                  </>
-                ) : (
-                  <>
-                    {this.props.userName}: {message.message.text}
-                    <button onClick={() => this.editMessage(index)}>Edit</button>
-                    <button onClick={() => this.handleLike(message.id)}> 👍 {message.likeCount} </button> 
-                    <button onClick={() => this.handleLike(message.id)}> 👎 {message.dislikeCount} </button> 
-                  </>
-                )
-              ) : (
-                <>
-                  {message.owner}: {message.message.text}
-                </>
-              )}
-            </li>
+          {filteredMessages.map((message, index) =>
+            message.owner === this.props.userName ? (
+              <li key={message.id}>
+                {this.props.userName}: {message.message.text}
+                {/*first */}
+                <button onClick={() => this.handleLike(message.id)}>👍</button>
+                {message.likeCount}
+                <button onClick={() => this.handleDislike(message.id)}>
+                  👎
+                </button>
+                {message.dislikeCount}
+              </li>
+            ) : (
+              <li key={message.id}>
+                {message.owner}: {message.message.text}
+                {/*first */}
+                <button onClick={() => this.handleLike(message.id)}>👍</button>
+                {message.likeCount}
+                <button onClick={() => this.handleDislike(message.id)}>
+                  👎
+                </button>
+                {message.dislikeCount}
+              </li>
+            )
           )}
-
-          {filteredMessages.map((message) => (
-            <li key={message.id}>
-              {message.owner === this.props.userName ? (
-                <>{this.props.userName}: </>
-              ) : (
-                <>{message.owner}: </>
-              )}
-              {message.message.text}
-              <ThumbUpIcon onClick={() => this.handleLike(message.id)} />
-              {message.likeCount}
-              <ThumbDownIcon onClick={() => this.handleDislike(message.id)} />
-              {message.dislikeCount}
-            </li>
-          ))}
         </ul>
         {/* show chat input box*/}
         <input
