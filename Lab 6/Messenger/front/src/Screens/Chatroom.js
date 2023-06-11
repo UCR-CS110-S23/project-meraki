@@ -18,8 +18,6 @@ class Chatroom extends react.Component {
     });
   }
 
-  voteCount = 0;
-
   componentDidMount() {
     this.socket.emit("join", {
       room: this.props.roomName,
