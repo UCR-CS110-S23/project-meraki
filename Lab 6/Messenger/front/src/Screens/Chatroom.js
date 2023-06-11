@@ -7,6 +7,7 @@ class Chatroom extends react.Component {
     this.state = {
       text: "",
       messages: [],
+      editedMessage: "",
     };
     this.socket = io("http://localhost:3001", {
       cors: {
@@ -75,6 +76,24 @@ class Chatroom extends react.Component {
     );
   };
 
+  editMessage = (index) => {
+    const messages = [...this.state.messages];
+    this.setState({messages, editedMessage: messages[index].message.text});
+    const msg = document.getElementById(index);
+    let replaceMsg = this.props.userName;
+    replaceMsg += ": ";
+    let editBox = document.createElement("input");
+    editBox.setAttribute("type", "text");
+    editBox.setAttribute("id", "msgInput");
+    editBox.setAttribute("onChange", "{(e) => {this.setState({text: e.target.value});}}");
+    msg.innerHTML = replaceMsg;
+    msg.appendChild(editBox);
+  }
+
+  saveEdit = (index) => {
+
+  }
+
   goBack = () => {
     this.props.changeScreen("lobby", "");
   };
@@ -107,13 +126,14 @@ class Chatroom extends react.Component {
         <h3>User: {this.props.userName}</h3>
         {/* show chats */}
         <ul>
-          {this.state.messages.map((message) =>
+          {this.state.messages.map((message, index) =>
             message.owner === this.props.userName ? (
-              <li>
+              <li key={index} id={index}>
                 {this.props.userName}: {message.message.text} {/*first */}
+                <button onClick={() => this.editMessage(index)}>Edit</button>
               </li>
             ) : (
-              <li>
+              <li key={index}>
                 {message.owner}: {message.message.text} {/*second*/}
               </li>
             )
