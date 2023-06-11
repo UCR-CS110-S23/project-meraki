@@ -75,3 +75,16 @@ router.post("/send", async (req, res) => {
     }
   }
 });
+
+router.post("/edit", async (req, res) => {
+  const { msg_id, text } = req.body;
+  const message = await Message.findOne({ _id: msg_id });
+  console.log("MSG ID EDIT", message);
+  message.message.text = text;
+  const messageSaved = await message.save();
+
+  return res.status(200).json({
+    message_id: msg_id,
+    updateMsg: message.message.text,
+  });
+});

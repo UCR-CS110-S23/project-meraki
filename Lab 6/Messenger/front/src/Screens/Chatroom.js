@@ -1,7 +1,6 @@
 import react from "react";
 import { io } from "socket.io-client";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import EditMessageForm from "../Components/editMessageForm";
 
 class Chatroom extends react.Component {
   constructor(props) {
@@ -151,6 +150,44 @@ class Chatroom extends react.Component {
     this.socket.emit("dislikes", { message_id: msg_id });
   };
 
+  handleEditForm = (msg_id) => {
+    console.log("edit");
+    this.setState((prevState) => ({
+      openForm: prevState.openForm === msg_id ? null : msg_id,
+    }));
+  };
+
+  editMessage = (event, messageId, updatedText) => {
+    event.preventDefault();
+    fetch(this.props.server_url + "/api/messages/edit", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        msg_id: messageId,
+        text: updatedText,
+      }),
+    }).then((res) =>
+      //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
+      res.json().then((data) => {
+        console.log("EDITED MESSAGE!", data);
+        const updateMessages = this.state.messages.map((message) => {
+          if (data.message_id === message.id) {
+            return { ...message, message: { text: data.updateMsg } };
+          } else {
+            return message;
+          }
+        });
+        console.log("Updated likes on msgs", updateMessages);
+        this.setState({ messages: updateMessages }); //we want to render the messages' dislike count
+      })
+    );
+    console.log("msgid", messageId, "event", event, "New text", updatedText);
+  };
+
   render() {
     const { messages, searchText } = this.state;
     const filteredMessages = messages.filter((message) =>
@@ -179,6 +216,17 @@ class Chatroom extends react.Component {
                   👎
                 </button>
                 {message.dislikeCount}
+                <button onClick={() => this.handleEditForm(message.id)}>
+                  edit
+                </button>
+                {this.state.openForm === message.id ? (
+                  <EditMessageForm
+                    editMessage={this.editMessage}
+                    message_Id={message.id}
+                  ></EditMessageForm>
+                ) : (
+                  ""
+                )}
               </li>
             ) : (
               <li key={message.id}>
