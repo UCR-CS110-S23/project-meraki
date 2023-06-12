@@ -63,12 +63,10 @@ class Profile extends react.Component {
 
   render() {
     return (
-      <div>
-        <Button onClick={() => this.props.changeScreen("lobby", "")}>
-          {" "}
-          Return to Lobby
-        </Button>
+      <div align="center">
         <h2>Update Profile</h2>
+        <br></br>
+
         <div id="userInfoContainer">
           <ProfilePicture
             server_url={this.props.server_url}
@@ -77,6 +75,7 @@ class Profile extends react.Component {
           ></ProfilePicture>
           <h2 id="username">{this.props.userName}</h2>
         </div>
+        <br></br>
         <h3>Update Profile Photo</h3>
         <form onSubmit={this.handlePicUpload}>
           <input
@@ -87,12 +86,19 @@ class Profile extends react.Component {
           />
           <button type="submit">Upload Photo</button>
         </form>
+        <br></br>
         <Form
           fields={["New username"]}
           type="Edit username"
           closeButton={false}
           submit={this.editUsername}
         />
+
+        <br></br>
+        <Button onClick={() => this.props.changeScreen("lobby", "")}>
+          {" "}
+          Return to Lobby
+        </Button>
       </div>
     );
   }
