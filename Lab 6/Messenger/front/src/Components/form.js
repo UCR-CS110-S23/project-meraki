@@ -35,7 +35,7 @@ class Form extends react.Component {
       <div>
         <div>
           {this.props.closeButton ? (
-            <Button onClick={this.props.close}> x </Button>
+            <Button onClick={this.props.close}> Go Back </Button>
           ) : (
             ""
           )}

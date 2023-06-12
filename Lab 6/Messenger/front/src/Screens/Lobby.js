@@ -123,9 +123,9 @@ class Lobby extends react.Component {
 
   render() {
     return (
-      <div>
+      <div align="center">
         <h1>{this.props.userName}'s Lobby</h1>
-        {this.state.rooms
+        <h3>Available Rooms:</h3>{this.state.rooms
           ? this.state.rooms.map((room) => {
               return (
                 <Button
@@ -138,24 +138,30 @@ class Lobby extends react.Component {
               );
             })
           : "loading..."}
-        {/* write codes to join a new room using room id*/}
         {/* write codes to enable user to create a new room*/}
+        <br></br><br></br><br></br><br></br>
 
-        <Form
-          fields={["Room name"]}
-          type="Create a room"
-          closeButton={false}
-          submit={this.createRoom}
-        />
-        <Form
-          fields={["Room name"]}
-          type="Join a room"
-          closeButton={false}
-          submit={this.joinRoom}
-        />
-
-        <Button onClick={() => this.logout()}>Logout</Button>
-        <Button onClick={() => this.openProfile()}>Edit Profile</Button>
+        <div style={{position:"absolute", top:250, right:760}}>
+          <Form
+            fields={["Room name"]}
+            type="Create a room"
+            closeButton={false}
+            submit={this.createRoom}
+          />
+        </div>
+        <div style={{position:"absolute", top:250, right:550}}>
+          {/* write codes to join a new room using room id*/}
+          <Form
+            fields={["Room name"]}
+            type="Join a room"
+            closeButton={false}
+            submit={this.joinRoom}
+          />
+        </div>
+        <div  style={{position:"absolute", top: 15, right: 60}}>
+          <Button onClick={() => this.openProfile()}>Edit Profile</Button>
+          <Button onClick={() => this.logout()}>Logout</Button>
+        </div>
       </div>
     );
   }
