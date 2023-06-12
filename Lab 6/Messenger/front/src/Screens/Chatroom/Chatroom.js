@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import ProfilePicture from "../../Components/ProfilePicture/profilePicture";
 import "./Chatroom.css";
 import { Button } from "@mui/material";
+import EditMessageForm from "../../Components/editMessageForm";
 
 class Chatroom extends react.Component {
   constructor(props) {
@@ -152,6 +153,44 @@ class Chatroom extends react.Component {
     this.socket.emit("dislikes", { message_id: msg_id });
   };
 
+  handleEditForm = (msg_id) => {
+    console.log("edit");
+    this.setState((prevState) => ({
+      openForm: prevState.openForm === msg_id ? null : msg_id,
+    }));
+  };
+
+  editMessage = (event, messageId, updatedText) => {
+    event.preventDefault();
+    fetch(this.props.server_url + "/api/messages/edit", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        msg_id: messageId,
+        text: updatedText,
+      }),
+    }).then((res) =>
+      //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
+      res.json().then((data) => {
+        console.log("EDITED MESSAGE!", data);
+        const updateMessages = this.state.messages.map((message) => {
+          if (data.message_id === message.id) {
+            return { ...message, message: { text: data.updateMsg } };
+          } else {
+            return message;
+          }
+        });
+        console.log("Updated likes on msgs", updateMessages);
+        this.setState({ messages: updateMessages }); //we want to render the messages' dislike count
+      })
+    );
+    console.log("msgid", messageId, "event", event, "New text", updatedText);
+  };
+
   render() {
     const { messages, searchText } = this.state;
     const filteredMessages = messages.filter((message) =>
@@ -159,69 +198,53 @@ class Chatroom extends react.Component {
     );
 
     return (
-      <div align="center">
-        <br></br>
+      <div>
         <h2>Chatroom: {this.props.roomName}</h2>
         <h3>User: {this.props.userName}</h3>
-
-        {/* search bar */}
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", left: 0, right: 0, margin: "auto" }}>
-          <input
-            type="text"
-            value={searchText}
-            onChange={(e) => this.setState({ searchText: e.target.value })}
-            placeholder="Search messages"
-          />
-        </div>
-        <ul style={{ margin: 0, padding: 0 }}>
-          <br></br>
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => this.setState({ searchText: e.target.value })}
+          placeholder="Search messages"
+        />
+        <ul>
           {filteredMessages.map((message, index) =>
             message.owner === this.props.userName ? (
               <li key={message.id}>
-                <div class="messageCardContainer" style={{ display: "flex", justifyContent: "center", alignItems: "center", left: 0, right: 0, margin: "auto" }}>
-                  <div className="messageCard">
-                      <div className="picName">
-                        <ProfilePicture
-                          server_url={this.props.server_url}
-                          userName={this.props.userName}
-                          page="chat"
-                        ></ProfilePicture>
-                        <span className="owner">{this.props.userName}</span>&nbsp;
-                      </div>
-                      {message.message.text} &nbsp;&nbsp;&nbsp;
-                      {/*first */}{"   "}
-                      <button onClick={() => this.handleLike(message.id)}>👍</button>
-                      {"   "}{message.likeCount}{"   "}
-                      <button onClick={() => this.handleDislike(message.id)}>👎</button>
-                      {message.dislikeCount}
-                    </div>
-                </div>
+                {this.props.userName}: {message.message.text}
+                {/*first */}
+                <button onClick={() => this.handleLike(message.id)}>👍</button>
+                {message.likeCount}
+                <button onClick={() => this.handleDislike(message.id)}>
+                  👎
+                </button>
+                {message.dislikeCount}
+                <button onClick={() => this.handleEditForm(message.id)}>
+                  edit
+                </button>
+                {this.state.openForm === message.id ? (
+                  <EditMessageForm
+                    editMessage={this.editMessage}
+                    message_Id={message.id}
+                  ></EditMessageForm>
+                ) : (
+                  ""
+                )}
               </li>
             ) : (
               <li key={message.id}>
-                <div class="messageCardContainer" style={{ display: "flex", justifyContent: "center", alignItems: "center", left: 0, right: 0, margin: "auto" }}>
-                  <div className="messageCard">
-                      <div className="picName">
-                        <ProfilePicture
-                          server_url={this.props.server_url}
-                          userName={message.owner}
-                          page="chat"
-                        ></ProfilePicture>
-                        <span className="owner">{message.owner}</span>&nbsp;
-                      </div>
-                      {message.message.text} &nbsp;&nbsp;&nbsp;
-                      {/*first */}{"   "}
-                      <button onClick={() => this.handleLike(message.id)}>👍</button>
-                      {"   "}{message.likeCount}{"   "}
-                      <button onClick={() => this.handleDislike(message.id)}>👎</button>
-                      {message.dislikeCount}
-                    </div>
-                </div>    
+                {message.owner}: {message.message.text}
+                {/*first */}
+                <button onClick={() => this.handleLike(message.id)}>👍</button>
+                {message.likeCount}
+                <button onClick={() => this.handleDislike(message.id)}>
+                  👎
+                </button>
+                {message.dislikeCount}
               </li>
             )
           )}
         </ul>
-        <br></br>
         {/* show chat input box*/}
         <input
           type="text"
@@ -229,12 +252,10 @@ class Chatroom extends react.Component {
           onChange={(e) => {
             this.setState({ text: e.target.value });
           }}
-          placeholder="Send message"
         />
-        <button onClick={() => this.sendChat(this.state.text)}>Send</button>
-        <br></br><br></br>
-        <Button onClick={() => this.goBack()}>Return to Lobby</Button>
-        <Button onClick={this.leaveRoom}>Delete room</Button>
+        <button onClick={() => this.sendChat(this.state.text)}>send</button>
+        <button onClick={() => this.goBack()}>Return to Lobby</button>
+        <button onClick={this.leaveRoom}>Delete room</button>
       </div>
     );
   }
