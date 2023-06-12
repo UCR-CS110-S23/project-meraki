@@ -57,6 +57,9 @@ router.post("/register", async (req, res) => {
   try {
     const dataSaved = await user.save();
     //passes user (username, password, name, rooms) as json to Auth.js as a response
+    return res.status(200).json({
+      user_name: username,
+    });
   } catch (error) {
     console.log(error);
     res.send("ERROR!");
