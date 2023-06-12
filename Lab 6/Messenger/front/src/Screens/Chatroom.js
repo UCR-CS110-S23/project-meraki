@@ -158,10 +158,12 @@ class Chatroom extends react.Component {
 
     return (
       <div align="center">
+        <br></br>
         <h2>Chatroom: {this.props.roomName}</h2>
         <h3>User: {this.props.userName}</h3>
 
-        <div style={{position:"absolute", top: 75, right: 400}}>
+        {/* search bar */}
+        <div style={{position:"absolute", top: 100, right: 400}}>
           <input
             type="text"
             value={searchText}
