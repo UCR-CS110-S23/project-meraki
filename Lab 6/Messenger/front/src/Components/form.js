@@ -47,6 +47,7 @@ class Form extends react.Component {
             return (
               <div>
                 <TextField
+                  type={field[1] === "password" ? "password" : "text"}
                   variant="standard"
                   key={"auth" + field[1]}
                   label={field[1]}

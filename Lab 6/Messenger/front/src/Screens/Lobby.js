@@ -123,49 +123,95 @@ class Lobby extends react.Component {
 
   render() {
     return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
         <h1>{this.props.userName}'s Lobby</h1>
-        <h3>Available Rooms:</h3>{this.state.rooms
-          ? this.state.rooms.map((room) => {
-              return (
-                <Button
-                  variant="contained"
-                  key={"roomKey" + room.name}
-                  onClick={() => this.openChatroom(room.name)}
-                >
-                  {room.name}
-                </Button>
-              );
-            })
-          : "loading..."}
-          
-        {/* write codes to enable user to create a new room*/}
-        <br></br><br></br><br></br><br></br>
-        
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <div style={{ marginRight: "20px", border: "1px solid black", padding: "10px" }}>
-          <Form
-            fields={["Room name"]}
-            type="Create a room"
-            closeButton={false}
-            submit={this.createRoom}
-            
-          />
+        <h3>Available Rooms:</h3>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          {this.state.rooms
+            ? this.state.rooms.map((room) => {
+                return (
+                  <Button
+                    style={{
+                      margin: "5px",
+                    }}
+                    variant="contained"
+                    key={"roomKey" + room.name}
+                    onClick={() => this.openChatroom(room.name)}
+                  >
+                    {room.name}
+                  </Button>
+                );
+              })
+            : "loading..."}
         </div>
-        <div style={{ marginRight: "20px", border: "1px solid black", padding: "10px"}}>
-          <Form
-            fields={["Room name"]}
-            type="Join a room"
-            closeButton={false}
-            submit={this.joinRoom}
-          />
-        </div>
-      </div>
 
-      <div style={{ position: "absolute", top: 15, right: 60, display: "flex", justifyContent: "flex-end" }}>
-        <Button onClick={() => this.openProfile()}>Edit Profile</Button>
-        <Button onClick={() => this.logout()}>Logout</Button>
-      </div>
+        {/* write codes to enable user to create a new room*/}
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              marginRight: "20px",
+              border: "1px solid black",
+              padding: "10px",
+            }}
+          >
+            <Form
+              fields={["Room name"]}
+              type="Create a room"
+              closeButton={false}
+              submit={this.createRoom}
+            />
+          </div>
+          <div
+            style={{
+              marginRight: "20px",
+              border: "1px solid black",
+              padding: "10px",
+            }}
+          >
+            <Form
+              fields={["Room name"]}
+              type="Join a room"
+              closeButton={false}
+              submit={this.joinRoom}
+            />
+          </div>
+        </div>
+
+        <div
+          style={{
+            position: "absolute",
+            top: 15,
+            right: 60,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Button onClick={() => this.openProfile()}>Edit Profile</Button>
+          <Button onClick={() => this.logout()}>Logout</Button>
+        </div>
       </div>
     );
   }

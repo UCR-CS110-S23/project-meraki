@@ -38,6 +38,29 @@ li {
   padding: 10px;
   background-color: #7fc2d9;
   border-radius: 8px;
-  display: inline-block; 
+  display: inline-block;
 }
 
+.mainChatContainer {
+  display: flex;
+  width: 45%;
+  background-color: aliceblue;
+  padding-bottom: 50px;
+  padding-right: 0;
+  padding-left: 0;
+  height: 32rem;
+  overflow: auto;
+}
+
+.activeUser {
+  margin-right: 1rem;
+}
+
+.otherUser {
+  /* margin-right: 20rem; */
+  margin-left: 1rem;
+}
+
+.send {
+  height: 2rem;
+}
