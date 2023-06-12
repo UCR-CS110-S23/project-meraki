@@ -165,7 +165,7 @@ class Chatroom extends react.Component {
         <h3>User: {this.props.userName}</h3>
 
         {/* search bar */}
-        <div style={{position:"absolute", top: 100, right: 400}}>
+        <div style={{position:"absolute", top: 100, right: 450}}>
           <input
             type="text"
             value={searchText}
@@ -173,7 +173,7 @@ class Chatroom extends react.Component {
             placeholder="Search messages"
           />
         </div>
-
+        
         <ul>
           <br></br>
           {filteredMessages.map((message, index) =>
