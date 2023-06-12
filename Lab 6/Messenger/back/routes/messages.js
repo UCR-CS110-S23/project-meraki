@@ -22,14 +22,17 @@ router.get("/:roomName", async (req, res) => {
     msgObject = {};
     console.log(roomMessages[i].sender);
     const msgOwner = await User.findOne({ _id: roomMessages[i].sender });
+    msgObject.id = roomMessages[i]._id;
     msgObject.message = roomMessages[i].message;
     msgObject.owner = msgOwner.username;
     msgObject.createdDate = roomMessages[i].createdAt;
     msgObject.updatedDate = roomMessages[i].updatedAt;
+    msgObject.likeCount = roomMessages[i].likeCount;
+    msgObject.dislikeCount = roomMessages[i].dislikeCount;
     msgArray.push(msgObject);
   }
 
-  console.log("all room msgs", msgArray);
+  // console.log("all room msgs", msgArray);
   return res.status(200).json(msgArray); //pass this msgObject array as a response to the frontend
 });
 
@@ -44,8 +47,8 @@ router.post("/send", async (req, res) => {
   const user = await User.findOne({ username: username });
   const chatroom = await Room.findOne({ name: room });
 
-  console.log("found user", user);
-  console.log("found chatroom", chatroom);
+  // console.log("found user", user);
+  // console.log("found chatroom", chatroom);
 
   if (user && chatroom) {
     const message = new Message({
@@ -56,9 +59,14 @@ router.post("/send", async (req, res) => {
 
     try {
       const messageSaved = await message.save();
-      console.log("message successfully saved!!!", messageSaved);
+      // console.log(
+      //   "message successfully saved!!!",
+      //   messageSaved,
+      //   "ID",
+      //   messageSaved._id
+      // );
       return res.status(200).json({
-        message: `Sent message ${messageSaved.message.text}`,
+        message_id: messageSaved._id,
       });
       //passes user (username, password, name, rooms) as json to Auth.js as a response
     } catch (error) {
@@ -66,4 +74,17 @@ router.post("/send", async (req, res) => {
       res.send("ERROR!");
     }
   }
+});
+
+router.post("/edit", async (req, res) => {
+  const { msg_id, text } = req.body;
+  const message = await Message.findOne({ _id: msg_id });
+  console.log("MSG ID EDIT", message);
+  message.message.text = text;
+  const messageSaved = await message.save();
+
+  return res.status(200).json({
+    message_id: msg_id,
+    updateMsg: message.message.text,
+  });
 });

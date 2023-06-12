@@ -1,5 +1,6 @@
 import react from "react";
 import { io } from "socket.io-client";
+import EditMessageForm from "../Components/editMessageForm";
 
 class Chatroom extends react.Component {
   constructor(props) {
@@ -7,8 +8,9 @@ class Chatroom extends react.Component {
     this.state = {
       text: "",
       messages: [],
+      searchText: "",
       editedMessage: "",
-      oldText: ""
+      oldText: "",
     };
     this.socket = io("http://localhost:3001", {
       cors: {
@@ -44,16 +46,45 @@ class Chatroom extends react.Component {
       let msgObj = {
         message: { text: message.msgText },
         owner: message.sender, //when we receive the emit on "chat message", we also get the data back that we sent from  `this.socket.emit("chat message"..)` in the sendChat() function
+        id: message.message_id,
+        likeCount: 0,
+        dislikeCount: 0,
       }; //TODO: can add sender/user here to the object if we want to display the owner of the msg later
       this.setState({ messages: [...this.state.messages, msgObj] });
+    });
+
+    this.socket.on("likes", (data) => {
+      //once it receives `io.to(room).emit("likes", ..)`'s message from the server, we want to update the state messages array with the updated likeCount so that it can be rendered on the frontend in real-time
+      console.log("likeylikey", data);
+
+      const updateLikesOnMessages = this.state.messages.map((message) => {
+        //find the message to update
+        if (data.msgId === message.id) {
+          return { ...message, likeCount: data.likeCount }; //update the likeCount property of the message that has been reacted on
+        } else {
+          return message;
+        }
+      });
+      this.setState({ messages: updateLikesOnMessages }); //we want to render the messages' like count
+      //updateLikesOnMessages returns the updated messages array containing the updated like count of a specific message that has been reacted on
+    });
+
+    this.socket.on("dislikes", (data) => {
+      console.log("dislikey", data);
+      //Reference for updating an object in the messages array: https://bobbyhadz.com/blog/react-update-object-in-array
+      const updateDislikesOnMessages = this.state.messages.map((message) => {
+        if (data.msgId === message.id) {
+          return { ...message, dislikeCount: data.dislikeCount };
+        } else {
+          return message;
+        }
+      });
+      // console.log("Updated likes on msgs", updateLikesOnMessages);
+      this.setState({ messages: updateDislikesOnMessages }); //we want to render the messages' dislike count
     });
   }
 
   sendChat = (text) => {
-    this.socket.emit("chat message", {
-      msgText: text,
-      sender: this.props.userName, //when sending and receiving real-time messages, we want to retrieve the actual sender of the message and render the correct render of this message on the DOM
-    });
     console.log("OO", text);
 
     fetch(this.props.server_url + "/api/messages/send", {
@@ -72,51 +103,15 @@ class Chatroom extends react.Component {
       //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
       res.json().then((data) => {
         // alert(data.message);
-        console.log(data.message, "sent message"); //can delete this later (just printing out the room document the user inputs)
+        console.log(data.message_id, "sent message"); //can delete this later (just printing out the room document the user inputs)
+        this.socket.emit("chat message", {
+          msgText: text,
+          sender: this.props.userName, //when sending and receiving real-time messages, we want to retrieve the actual sender of the message and render the correct render of this message on the DOM
+          message_id: data.message_id,
+        });
       })
     );
   };
-
-  editMessage = (index) => {
-    const messages = [...this.state.messages];
-    const defaultText = messages[index].message.text;
-    this.state.oldText = defaultText;
-    // this.setState({messages, editedMessage: messages[index].message.text});
-
-    // const user = this.props.userName;
-    const replaceMsg = (
-      <input
-        type="text"
-        id={`edit:${index}`}
-        // value={defaultText}
-        onChange={(e) => {
-          this.setState({editedMessage: e.target.value});
-        }}
-      />
-    );
-    // console.log(`edit:${index}`);
-
-
-    messages[index].editing = true;
-    messages[index].replacement = replaceMsg;
-    this.setState({messages});
-  };
-
-  saveEdit = (index) => {
-    const messages = [...this.state.messages];
-    messages[index].editing = false;
-    const editedMsg = document.getElementById(`edit:${index}`).value;
-    editedMsg === "" ? (messages[index].message.text = this.state.oldText)
-     : (messages[index].message.text = this.state.editedMessage);
-    this.setState({messages});
-  }
-
-  cancelEdit = (index) => {
-    const messages = [...this.state.messages];
-    messages[index].editing = false;
-    messages[index].message.text = this.state.oldText;
-    this.setState({messages});
-  }
 
   goBack = () => {
     this.props.changeScreen("lobby", "");
@@ -143,46 +138,108 @@ class Chatroom extends react.Component {
     );
   };
 
+  //Reference: ChatGPT for guidance on handling likes
+  handleLike = (msg_id) => {
+    console.log("msgid", msg_id);
+    //we want to update likes in real-time (onClick of the like button on a specific message)
+    this.socket.emit("likes", { message_id: msg_id }); //send "likes" message along with the id of the message
+  };
+
+  handleDislike = (msg_id) => {
+    console.log("msgid", msg_id);
+    this.socket.emit("dislikes", { message_id: msg_id });
+  };
+
+  handleEditForm = (msg_id) => {
+    console.log("edit");
+    this.setState((prevState) => ({
+      openForm: prevState.openForm === msg_id ? null : msg_id,
+    }));
+  };
+
+  editMessage = (event, messageId, updatedText) => {
+    event.preventDefault();
+    fetch(this.props.server_url + "/api/messages/edit", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        msg_id: messageId,
+        text: updatedText,
+      }),
+    }).then((res) =>
+      //once we get the response from the POST request, we can process sent response's data from `res.status(200).json(dataSaved);`
+      res.json().then((data) => {
+        console.log("EDITED MESSAGE!", data);
+        const updateMessages = this.state.messages.map((message) => {
+          if (data.message_id === message.id) {
+            return { ...message, message: { text: data.updateMsg } };
+          } else {
+            return message;
+          }
+        });
+        console.log("Updated likes on msgs", updateMessages);
+        this.setState({ messages: updateMessages }); //we want to render the messages' dislike count
+      })
+    );
+    console.log("msgid", messageId, "event", event, "New text", updatedText);
+  };
+
   render() {
+    const { messages, searchText } = this.state;
+    const filteredMessages = messages.filter((message) =>
+      message.message.text.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
       <div>
-        <h2> Chatroom: {this.props.roomName}</h2>
+        <h2>Chatroom: {this.props.roomName}</h2>
         <h3>User: {this.props.userName}</h3>
-        {/* show chats */}
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => this.setState({ searchText: e.target.value })}
+          placeholder="Search messages"
+        />
         <ul>
-          {this.state.messages.map((message, index) =>
-            // message.owner === this.props.userName ? (
-            //   <li key={index} id={index}>
-            //     {this.props.userName}: {message.message.text} {/*first */}
-            //     <button onClick={() => this.editMessage(index)}>Edit</button>
-            //   </li>
-            // ) : (
-            //   <li key={index}>
-            //     {message.owner}: {message.message.text} {/*second*/}
-            //   </li>
-            // )
-
-            <li key={index}>
-              {message.owner === this.props.userName ? (
-                message.editing ? (
-                  <>
-                    {this.props.userName}: {message.replacement}
-                    <button onClick={() => this.saveEdit(index)}>Save</button>
-                    <button onClick={() => this.cancelEdit(index)}>Cancel</button>
-                    {/* {this.state.messages[index].message.text} */}
-                  </>
+          {filteredMessages.map((message, index) =>
+            message.owner === this.props.userName ? (
+              <li key={message.id}>
+                {this.props.userName}: {message.message.text}
+                {/*first */}
+                <button onClick={() => this.handleLike(message.id)}>👍</button>
+                {message.likeCount}
+                <button onClick={() => this.handleDislike(message.id)}>
+                  👎
+                </button>
+                {message.dislikeCount}
+                <button onClick={() => this.handleEditForm(message.id)}>
+                  edit
+                </button>
+                {this.state.openForm === message.id ? (
+                  <EditMessageForm
+                    editMessage={this.editMessage}
+                    message_Id={message.id}
+                  ></EditMessageForm>
                 ) : (
-                  <>
-                    {this.props.userName}: {message.message.text}
-                    <button onClick={() => this.editMessage(index)}>Edit</button>
-                  </>
-                )
-              ) : (
-                <>
-                  {message.owner}: {message.message.text}
-                </>
-              )}
-            </li>
+                  ""
+                )}
+              </li>
+            ) : (
+              <li key={message.id}>
+                {message.owner}: {message.message.text}
+                {/*first */}
+                <button onClick={() => this.handleLike(message.id)}>👍</button>
+                {message.likeCount}
+                <button onClick={() => this.handleDislike(message.id)}>
+                  👎
+                </button>
+                {message.dislikeCount}
+              </li>
+            )
           )}
         </ul>
         {/* show chat input box*/}
