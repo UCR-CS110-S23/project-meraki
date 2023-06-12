@@ -34,18 +34,22 @@ class Profile extends react.Component {
 
   render() {
     return (
-      <div>
+      <div align="center">
         <h2>Update Profile</h2>
-        <Button onClick={() => this.props.changeScreen("lobby", "")}>
-          {" "}
-          Return to Lobby
-        </Button>
+        <br></br>
         <Form
           fields={["New username"]}
           type="Edit username"
           closeButton={false}
           submit={this.editUsername}
         />
+
+        <div style={{position: "absolute", top: 300, right:700}}>
+          <Button onClick={() => this.props.changeScreen("lobby", "")}>
+            {" "}
+            Return to Lobby
+          </Button>
+        </div>
       </div>
     );
   }
