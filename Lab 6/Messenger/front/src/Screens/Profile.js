@@ -7,6 +7,7 @@ class Profile extends react.Component {
     super(props);
     this.state = {
       username: "",
+      imageFile: null,
     };
   }
 
@@ -32,6 +33,31 @@ class Profile extends react.Component {
     );
   };
 
+  handleFileChange = (event) => {
+    //when user selects a file from their local machine folder, we want to set the imageFile state to this file they selected
+    this.setState({ imageFile: event.target.files[0] });
+  };
+
+  handlePicUpload = async (event) => {
+    // once the user hits submit to update their profile picture, we want to make a POST req to server to update this user's pfp to the one they selected
+    event.preventDefault();
+
+    try {
+      const formData = new FormData();
+      formData.append("file", this.state.imageFile); //append the file the user uploaded to FormData so that we can pass it into the body of the POST request
+
+      await fetch(this.props.server_url + "/api/profile/uploadPicture", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body: formData,
+      });
+      console.log("Profile picture uploaded successfully.");
+    } catch (error) {
+      console.error("Encountered an error during profile picture upload.");
+    }
+  };
+
   render() {
     return (
       <div>
@@ -46,6 +72,16 @@ class Profile extends react.Component {
           closeButton={false}
           submit={this.editUsername}
         />
+        <h3>Update Profile Photo</h3>
+        <form onSubmit={this.handlePicUpload}>
+          <input
+            type="file"
+            name="file"
+            accept="image/*"
+            onChange={this.handleFileChange}
+          />
+          <button type="submit">Upload Photo</button>
+        </form>
       </div>
     );
   }

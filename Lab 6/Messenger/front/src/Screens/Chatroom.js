@@ -1,7 +1,5 @@
 import react from "react";
 import { io } from "socket.io-client";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 class Chatroom extends react.Component {
   constructor(props) {
