@@ -37,9 +37,13 @@ class ProfilePicture extends react.Component {
     return (
       <div>
         <img
-          class="profilePicture"
+          className={
+            this.props.page === "profile"
+              ? "editProfilePicture"
+              : "chatProfilePicture"
+          }
           src={this.state.imageUrl}
-          alt="profile img"
+          alt="profilePicture"
         ></img>
       </div>
     );

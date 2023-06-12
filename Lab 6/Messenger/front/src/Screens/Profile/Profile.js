@@ -71,6 +71,7 @@ class Profile extends react.Component {
           <ProfilePicture
             server_url={this.props.server_url}
             userName={this.props.userName}
+            page="profile"
           ></ProfilePicture>
           <h2 id="username">{this.props.userName}</h2>
         </div>

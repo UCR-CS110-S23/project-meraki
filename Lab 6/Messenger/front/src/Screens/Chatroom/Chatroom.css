@@ -1,0 +1,30 @@
+.chatPFP {
+  width: 20px;
+  height: 20px;
+}
+
+.owner {
+  font-weight: bold;
+}
+
+.msgContainer {
+  background-color: lightgray;
+}
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: flex;
+}
+
+.picName {
+  display: flex;
+  flex-direction: row;
+}
+
+.messageCard {
+  margin: 5px;
+  background-color: #ccf5ff;
+  border-radius: 8px;
+}

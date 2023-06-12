@@ -1,5 +1,11 @@
-.profilePicture {
+.editProfilePicture {
   width: 100px;
   height: 100px;
+  border-radius: 50%;
+}
+
+.chatProfilePicture {
+  width: 37px;
+  height: 37px;
   border-radius: 50%;
 }
