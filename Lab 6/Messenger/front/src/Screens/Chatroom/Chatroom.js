@@ -114,6 +114,7 @@ class Chatroom extends react.Component {
         });
       })
     );
+    this.sending.value = "";
   };
 
   goBack = () => {
@@ -199,93 +200,186 @@ class Chatroom extends react.Component {
 
     return (
       <div align="center">
+        <Button onClick={() => this.goBack()}>Return to Lobby</Button>
+        <Button onClick={this.leaveRoom}>Delete room</Button>
         <br></br>
         <h2>Chatroom: {this.props.roomName}</h2>
         <h3>User: {this.props.userName}</h3>
+        <div>
+          {/* search bar */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              margin: "auto",
+            }}
+          >
+            <input
+              type="text"
+              value={searchText}
+              onChange={(e) => this.setState({ searchText: e.target.value })}
+              placeholder="Search messages"
+            />
+          </div>
+          <ul
+            className="mainChatContainer"
+            style={{
+              display: "flex",
+              margin: 0,
+              padding: 0,
+              flexDirection: "column",
+            }}
+          >
+            <br></br>
+            {filteredMessages.map((message, index) =>
+              message.owner === this.props.userName ? (
+                <li
+                  className="activeUser"
+                  key={message.id}
+                  style={{
+                    display: "flex",
+                    alignContent: "flex-end",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <div class="messageCardContainer">
+                    {/* REMOVE STYLE AT messageCardContainer */}
+                    <div className="messageCard">
+                      <div className="picName">
+                        <ProfilePicture
+                          server_url={this.props.server_url}
+                          userName={this.props.userName}
+                          page="chat"
+                        ></ProfilePicture>
+                        <span className="owner">{this.props.userName}</span>
+                        &nbsp;
+                      </div>
+                      <div style={{ display: "flex" }}>
+                        {message.message.text} &nbsp;&nbsp;&nbsp;
+                        {/*first */}
+                        {"   "}
+                        <button
+                          style={{ height: "25px" }}
+                          onClick={() => this.handleLike(message.id)}
+                        >
+                          👍
+                        </button>
+                        &nbsp;
+                        {message.likeCount}&nbsp;
+                        {"   "}
+                        <button
+                          style={{ height: "25px" }}
+                          onClick={() => this.handleDislike(message.id)}
+                        >
+                          👎
+                        </button>
+                        &nbsp;
+                        {message.dislikeCount}&nbsp;
+                        <button
+                          style={{ height: "25px" }}
+                          onClick={() => this.handleEditForm(message.id)}
+                        >
+                          edit
+                        </button>
+                        {this.state.openForm === message.id ? (
+                          <EditMessageForm
+                            editMessage={this.editMessage}
+                            message_Id={message.id}
+                          ></EditMessageForm>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ) : (
+                <li
+                  className="otherUser"
+                  key={message.id}
+                  style={{
+                    display: "flex",
+                    alignContent: "flex-start",
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <div class="messageCardContainer">
+                    {/* REMOVE STYLE AT messageCardContainer */}
+                    <div className="messageCard">
+                      <div className="picName">
+                        <ProfilePicture
+                          server_url={this.props.server_url}
+                          userName={message.owner}
+                          page="chat"
+                        ></ProfilePicture>
+                        <span className="owner">{message.owner}</span>&nbsp;
+                      </div>
+                      <div style={{ display: "flex" }}>
+                        {message.message.text} &nbsp;&nbsp;&nbsp;
+                        {/*first */}
+                        {"   "}
+                        <button
+                          style={{ height: "25px" }}
+                          onClick={() => this.handleLike(message.id)}
+                        >
+                          👍
+                        </button>
+                        &nbsp;
+                        {message.likeCount}
+                        &nbsp;
+                        {"   "}
+                        <button
+                          style={{ height: "25px" }}
+                          onClick={() => this.handleDislike(message.id)}
+                        >
+                          👎
+                        </button>
+                        &nbsp;
+                        {message.dislikeCount}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              )
+            )}
+          </ul>
 
-        {/* search bar */}
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", left: 0, right: 0, margin: "auto" }}>
-          <input
-            type="text"
-            value={searchText}
-            onChange={(e) => this.setState({ searchText: e.target.value })}
-            placeholder="Search messages"
-          />
+          {/* show chat input box*/}
+          <div
+            style={{
+              backgroundColor: "aliceblue",
+              width: "45%",
+              paddingBottom: "20px",
+            }}
+          >
+            <br></br>
+            <br></br>
+            <input
+              ref={(ref) => (this.sending = ref)}
+              className="send"
+              style={{ width: "70%" }}
+              type="text"
+              id="msgInput"
+              onChange={(e) => {
+                this.setState({ text: e.target.value });
+              }}
+              placeholder="Send message"
+            />
+            <button
+              className="send"
+              onClick={() => this.sendChat(this.state.text)}
+            >
+              Send
+            </button>
+          </div>
         </div>
-
-        <ul style={{ margin: 0, padding: 0 }}>
-          <br></br>
-          {filteredMessages.map((message, index) =>
-            message.owner === this.props.userName ? (
-              <li key={message.id}>
-                <div class="messageCardContainer" style={{ display: "flex", justifyContent: "center", alignItems: "center", left: 0, right: 0, margin: "auto" }}>
-                  <div className="messageCard">
-                    <div className="picName">
-                      <ProfilePicture
-                        server_url={this.props.server_url}
-                        userName={this.props.userName}
-                        page="chat"
-                      ></ProfilePicture>
-                      <span className="owner">{this.props.userName}</span>&nbsp;
-                    </div>
-                    {message.message.text} &nbsp;&nbsp;&nbsp;
-                    <button onClick={() => this.handleEditForm(message.id)}>
-                      Edit
-                    </button>
-                    {this.state.openForm === message.id ? (
-                      <EditMessageForm
-                        editMessage={this.editMessage}
-                        message_Id={message.id}
-                      ></EditMessageForm>
-                    ) : (
-                      ""
-                    )}
-                    {/*first */}{"   "}
-                    <button onClick={() => this.handleLike(message.id)}>👍</button>
-                    {"   "}{message.likeCount}{"   "}
-                    <button onClick={() => this.handleDislike(message.id)}>👎</button>
-                    {message.dislikeCount}
-                  </div>
-                </div>
-              </li>
-            ) : (
-              <li key={message.id}>
-                <div class="messageCardContainer" style={{ display: "flex", justifyContent: "center", alignItems: "center", left: 0, right: 0, margin: "auto" }}>
-                  <div className="messageCard">
-                    <div className="picName">
-                      <ProfilePicture
-                        server_url={this.props.server_url}
-                        userName={message.owner}
-                        page="chat"
-                      ></ProfilePicture>
-                      <span className="owner">{message.owner}</span>&nbsp;
-                    </div>
-                    {message.message.text} &nbsp;&nbsp;&nbsp;
-                    {/*first */}{"   "}
-                    <button onClick={() => this.handleLike(message.id)}>👍</button>
-                    {"   "}{message.likeCount}{"   "}
-                    <button onClick={() => this.handleDislike(message.id)}>👎</button>
-                    {message.dislikeCount}
-                  </div>
-                </div>
-              </li>
-            )
-          )}
-        </ul>
         <br></br>
-        {/* show chat input box*/}
-        <input
-          type="text"
-          id="msgInput"
-          onChange={(e) => {
-            this.setState({ text: e.target.value });
-          }}
-          placeholder="Send message"
-        />
-        <button onClick={() => this.sendChat(this.state.text)}>Send</button>
-        <br></br><br></br>
-        <Button onClick={() => this.goBack()}>Return to Lobby</Button>
-        <Button onClick={this.leaveRoom}>Delete room</Button>
+        <br></br>
       </div>
     );
   }
