@@ -2,6 +2,7 @@ import react from "react";
 import { io } from "socket.io-client";
 import ProfilePicture from "../../Components/ProfilePicture/profilePicture";
 import "./Chatroom.css";
+import { Button } from "@mui/material";
 
 class Chatroom extends react.Component {
   constructor(props) {
@@ -158,16 +159,23 @@ class Chatroom extends react.Component {
     );
 
     return (
-      <div>
+      <div align="center">
+        <br></br>
         <h2>Chatroom: {this.props.roomName}</h2>
         <h3>User: {this.props.userName}</h3>
-        <input
-          type="text"
-          value={searchText}
-          onChange={(e) => this.setState({ searchText: e.target.value })}
-          placeholder="Search messages"
-        />
+
+        {/* search bar */}
+        <div style={{position:"absolute", top: 100, right: 450}}>
+          <input
+            type="text"
+            value={searchText}
+            onChange={(e) => this.setState({ searchText: e.target.value })}
+            placeholder="Search messages"
+          />
+        </div>
+        
         <ul>
+          <br></br>
           {filteredMessages.map((message, index) =>
             message.owner === this.props.userName ? (
               <li key={message.id}>
@@ -181,14 +189,10 @@ class Chatroom extends react.Component {
                     <span className="owner">{this.props.userName}</span>&nbsp;
                   </div>
                   {message.message.text} &nbsp;&nbsp;&nbsp;
-                  {/*first */}
-                  <button onClick={() => this.handleLike(message.id)}>
-                    👍
-                  </button>
-                  {message.likeCount}
-                  <button onClick={() => this.handleDislike(message.id)}>
-                    👎
-                  </button>
+                  {/*first */}{"   "}
+                  <button onClick={() => this.handleLike(message.id)}>👍</button>
+                  {"   "}{message.likeCount}{"   "}
+                  <button onClick={() => this.handleDislike(message.id)}>👎</button>
                   {message.dislikeCount}
                 </div>
               </li>
@@ -204,20 +208,17 @@ class Chatroom extends react.Component {
                     <span className="owner">{message.owner}</span>&nbsp;
                   </div>
                   {message.message.text} &nbsp;&nbsp;&nbsp;
-                  {/*first */}
-                  <button onClick={() => this.handleLike(message.id)}>
-                    👍
-                  </button>
-                  {message.likeCount}
-                  <button onClick={() => this.handleDislike(message.id)}>
-                    👎
-                  </button>
+                  {/*first */}{"   "}
+                  <button onClick={() => this.handleLike(message.id)}>👍</button>
+                  {"   "}{message.likeCount}{"   "}
+                  <button onClick={() => this.handleDislike(message.id)}>👎</button>
                   {message.dislikeCount}
                 </div>
               </li>
             )
           )}
         </ul>
+        <br></br>
         {/* show chat input box*/}
         <input
           type="text"
@@ -225,10 +226,12 @@ class Chatroom extends react.Component {
           onChange={(e) => {
             this.setState({ text: e.target.value });
           }}
+          placeholder="Send message"
         />
-        <button onClick={() => this.sendChat(this.state.text)}>send</button>
-        <button onClick={() => this.goBack()}>Return to Lobby</button>
-        <button onClick={this.leaveRoom}>Delete room</button>
+        <button onClick={() => this.sendChat(this.state.text)}>Send</button>
+        <br></br><br></br>
+        <Button onClick={() => this.goBack()}>Return to Lobby</Button>
+        <Button onClick={this.leaveRoom}>Delete room</Button>
       </div>
     );
   }

@@ -111,7 +111,7 @@ class Auth extends react.Component {
       );
     }
     return (
-      <div>
+      <div align="center">
         <h1> Welcome to our website! </h1>
         {display}
       </div>

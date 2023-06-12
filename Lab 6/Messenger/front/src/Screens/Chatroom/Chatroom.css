@@ -12,6 +12,7 @@
 }
 ul {
   list-style-type: none;
+  margin-left: 620px;
 }
 
 li {
@@ -23,8 +24,8 @@ li {
   flex-direction: row;
 }
 
-.messageCard {
+.messageCard{
   margin: 5px;
-  background-color: #ccf5ff;
+  background-color: #7fc2d9;
   border-radius: 8px;
 }
