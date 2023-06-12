@@ -165,7 +165,7 @@ class Chatroom extends react.Component {
         <h3>User: {this.props.userName}</h3>
 
         {/* search bar */}
-        <div style={{position:"absolute", top: 100, right: 450}}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "absolute", left: 0, right: 0, margin: "auto" }}>
           <input
             type="text"
             value={searchText}
@@ -173,47 +173,50 @@ class Chatroom extends react.Component {
             placeholder="Search messages"
           />
         </div>
-        
-        <ul>
+        <ul style={{ margin: 0, padding: 0 }}>
           <br></br>
           {filteredMessages.map((message, index) =>
             message.owner === this.props.userName ? (
               <li key={message.id}>
-                <div className="messageCard">
-                  <div className="picName">
-                    <ProfilePicture
-                      server_url={this.props.server_url}
-                      userName={this.props.userName}
-                      page="chat"
-                    ></ProfilePicture>
-                    <span className="owner">{this.props.userName}</span>&nbsp;
-                  </div>
-                  {message.message.text} &nbsp;&nbsp;&nbsp;
-                  {/*first */}{"   "}
-                  <button onClick={() => this.handleLike(message.id)}>👍</button>
-                  {"   "}{message.likeCount}{"   "}
-                  <button onClick={() => this.handleDislike(message.id)}>👎</button>
-                  {message.dislikeCount}
+                <div class="messageCardContainer" style={{ display: "flex", justifyContent: "center", alignItems: "center", left: 0, right: 0, margin: "auto" }}>
+                  <div className="messageCard">
+                      <div className="picName">
+                        <ProfilePicture
+                          server_url={this.props.server_url}
+                          userName={this.props.userName}
+                          page="chat"
+                        ></ProfilePicture>
+                        <span className="owner">{this.props.userName}</span>&nbsp;
+                      </div>
+                      {message.message.text} &nbsp;&nbsp;&nbsp;
+                      {/*first */}{"   "}
+                      <button onClick={() => this.handleLike(message.id)}>👍</button>
+                      {"   "}{message.likeCount}{"   "}
+                      <button onClick={() => this.handleDislike(message.id)}>👎</button>
+                      {message.dislikeCount}
+                    </div>
                 </div>
               </li>
             ) : (
               <li key={message.id}>
-                <div className="messageCard">
-                  <div className="picName">
-                    <ProfilePicture
-                      server_url={this.props.server_url}
-                      userName={message.owner}
-                      page="chat"
-                    ></ProfilePicture>
-                    <span className="owner">{message.owner}</span>&nbsp;
-                  </div>
-                  {message.message.text} &nbsp;&nbsp;&nbsp;
-                  {/*first */}{"   "}
-                  <button onClick={() => this.handleLike(message.id)}>👍</button>
-                  {"   "}{message.likeCount}{"   "}
-                  <button onClick={() => this.handleDislike(message.id)}>👎</button>
-                  {message.dislikeCount}
-                </div>
+                <div class="messageCardContainer" style={{ display: "flex", justifyContent: "center", alignItems: "center", left: 0, right: 0, margin: "auto" }}>
+                  <div className="messageCard">
+                      <div className="picName">
+                        <ProfilePicture
+                          server_url={this.props.server_url}
+                          userName={message.owner}
+                          page="chat"
+                        ></ProfilePicture>
+                        <span className="owner">{message.owner}</span>&nbsp;
+                      </div>
+                      {message.message.text} &nbsp;&nbsp;&nbsp;
+                      {/*first */}{"   "}
+                      <button onClick={() => this.handleLike(message.id)}>👍</button>
+                      {"   "}{message.likeCount}{"   "}
+                      <button onClick={() => this.handleDislike(message.id)}>👎</button>
+                      {message.dislikeCount}
+                    </div>
+                </div>    
               </li>
             )
           )}

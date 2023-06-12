@@ -6,6 +6,7 @@
 
 .chatProfilePicture {
   width: 37px;
+  padding: 5px;
   height: 37px;
   border-radius: 50%;
 }

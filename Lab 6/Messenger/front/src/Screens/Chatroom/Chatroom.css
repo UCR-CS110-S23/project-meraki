@@ -24,8 +24,20 @@ li {
   flex-direction: row;
 }
 
-.messageCard{
+.messageCardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  right: 0;
+  margin: "auto";
+}
+
+.messageCard {
   margin: 5px;
+  padding: 10px;
   background-color: #7fc2d9;
   border-radius: 8px;
+  display: inline-block; 
 }
+

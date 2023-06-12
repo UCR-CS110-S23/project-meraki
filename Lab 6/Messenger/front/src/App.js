@@ -59,7 +59,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ScreenHandler />
-        <IconButton style={{ zIndex: 5, position: "absolute", top: 10, right: 10 }} onClick={colorMode.toggleColorMode} aria-label="delete">
+        <IconButton style={{ zIndex: 5, position: "absolute", top: 10, right: 10, display: "flex", justifyContent: "flex-end"  }} onClick={colorMode.toggleColorMode} aria-label="delete">
           {mode === 'light' ? <BedtimeIcon /> : <LightModeIcon />}
         </IconButton>
       </ThemeProvider>
