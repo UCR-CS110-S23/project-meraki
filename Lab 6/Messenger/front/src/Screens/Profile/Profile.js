@@ -1,12 +1,13 @@
 import react from "react";
 import { Button } from "@mui/material";
-import Form from "../Components/form.js";
+import "./Profile.css";
+import Form from "../../Components/form.js";
+import ProfilePicture from "../../Components/ProfilePicture/profilePicture.js";
 
 class Profile extends react.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
       imageFile: null,
     };
   }
@@ -61,17 +62,18 @@ class Profile extends react.Component {
   render() {
     return (
       <div>
-        <h2>Update Profile</h2>
         <Button onClick={() => this.props.changeScreen("lobby", "")}>
           {" "}
           Return to Lobby
         </Button>
-        <Form
-          fields={["New username"]}
-          type="Edit username"
-          closeButton={false}
-          submit={this.editUsername}
-        />
+        <h2>Update Profile</h2>
+        <div id="userInfoContainer">
+          <ProfilePicture
+            server_url={this.props.server_url}
+            userName={this.props.userName}
+          ></ProfilePicture>
+          <h2 id="username">{this.props.userName}</h2>
+        </div>
         <h3>Update Profile Photo</h3>
         <form onSubmit={this.handlePicUpload}>
           <input
@@ -82,6 +84,12 @@ class Profile extends react.Component {
           />
           <button type="submit">Upload Photo</button>
         </form>
+        <Form
+          fields={["New username"]}
+          type="Edit username"
+          closeButton={false}
+          submit={this.editUsername}
+        />
       </div>
     );
   }
