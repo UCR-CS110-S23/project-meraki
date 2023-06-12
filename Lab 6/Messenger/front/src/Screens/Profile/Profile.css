@@ -1,0 +1,16 @@
+#userInfoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-left: 650px;
+}
+
+#username {
+  margin-left: 15px;
+}
+
+.profilePic {
+  width: 50vw;
+  height: 50vw;
+  border-radius: 50%;
+}

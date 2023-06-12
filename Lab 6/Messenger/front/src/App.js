@@ -1,44 +1,3 @@
-/*Connie Pak - cpak014
-Hannah Bach - hbach003*/
-
-// import react from 'react';
-// import { io } from 'socket.io-client';
-// import logo from './logo.svg';
-// import './App.css';
-
-// import Init from './initialScreen.js';
-// import Chat from './Chat.js';
-
-// class App extends react.Component {
-//   constructor(props){
-//     super(props);
-    
-//     this.socket = io('http://localhost:3000');
-//     this.state = {
-//       username: '',
-//       room: '',
-//       screen: "init",
-//     }
-//   }
-
-//   click = (room, message) => {
-//     console.log(room);
-//     this.socket.emit('join', {room: room, username: message});
-//     this.setState({room: room, username: message, screen: "chat"});
-//   }
-  
-
-//   render(){
-//   return (
-//     <div className="App">
-//       {this.state.screen === "init" ? <Init click={this.click}></Init> : <Chat socket={this.socket}></Chat>}
-//     </div>
-//   );
-//   }
-// }
-
-// export default App;
-
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -100,7 +59,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ScreenHandler />
-        <IconButton style={{ zIndex: 5, color: "black", position: "absolute", top: 10, right: 10 }} onClick={colorMode.toggleColorMode} aria-label="delete">
+        <IconButton style={{ zIndex: 5, position: "absolute", top: 10, right: 10, display: "flex", justifyContent: "flex-end"  }} onClick={colorMode.toggleColorMode} aria-label="delete">
           {mode === 'light' ? <BedtimeIcon /> : <LightModeIcon />}
         </IconButton>
       </ThemeProvider>
