@@ -46,6 +46,12 @@ router.post("/register", async (req, res) => {
     contentType: "image/jpeg",
   };
 
+  const findUser = await User.findOne({ username: username });
+  if (findUser) {
+    return res.status(200).json({
+      message: "User already exists",
+    });
+  }
   const user = new User({
     username: username,
     password: password,
