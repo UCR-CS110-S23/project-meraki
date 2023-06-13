@@ -35,7 +35,7 @@
   **6.** Start the development server: `npm start` <br>
   **7.** Connect to the database: `npx nodemon start` <br>
   
- 
+ ---
 ## **project-meraki**
   project-meraki created by GitHub Classroom <br><br>
   Before we decided to do the alternative final project, Lab 6 was done in a separate CS110 Lab repository. We cloned the original lab repository and merged it with this final project repository, so the commit history will contain commits from labs 1-5.
