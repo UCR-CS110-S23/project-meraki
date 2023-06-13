@@ -30,7 +30,7 @@
   **4.** In both, install the dependencies: `npm install` <br>
   **5.** Set up the environment variables: <br>
   - Create a `.env` file in the back-end directory <br> 
-  - Add the necessary environment variables such as database connection details, port, and session-secret
+  - Add the necessary environment variables such as database connection details, port number, and session-secret
   
   **6.** Start the development server: `npm start` <br>
   **7.** Connect to the database: `npx nodemon start` <br>
