@@ -15,7 +15,7 @@
       - Room creators are able to delete rooms
   - **Real-time Messaging:** users within chatrooms can send, recieve, and react to messages in real-time
       - Message authors are able to edit their messages
-  - **User Profiles:** users are able to edit their account name and change their profile photo
+  - **User Profiles:** users are able to change their account name and change their profile photo
   - **Search:** users are able to search for specific messages in the chatroom
 
 ## Technologies Used:
