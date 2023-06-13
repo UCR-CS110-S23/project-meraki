@@ -64,6 +64,10 @@ class Profile extends react.Component {
   render() {
     return (
       <div align="center">
+        <Button onClick={() => this.props.changeScreen("lobby", "")}>
+          {" "}
+          Return to Lobby
+        </Button>
         <h2>Update Profile</h2>
         <br></br>
 
@@ -95,10 +99,6 @@ class Profile extends react.Component {
         />
 
         <br></br>
-        <Button onClick={() => this.props.changeScreen("lobby", "")}>
-          {" "}
-          Return to Lobby
-        </Button>
       </div>
     );
   }
