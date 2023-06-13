@@ -38,6 +38,31 @@
   **6.** Start the development server: `npm start` <br>
   **7.** Connect to the database: `npx nodemon start` <br>
   
+## Screenshots
+
+### Login and Register page
+
+![image](https://github.com/UCR-CS110-S23/project-meraki/assets/57569284/46d749e7-7e56-4b7c-be45-0993a7662a77)
+![image](https://github.com/UCR-CS110-S23/project-meraki/assets/57569284/b46d6c27-14c3-46db-897d-4831ffc04866)
+
+-----
+
+### Lobby Page
+
+![image](https://github.com/UCR-CS110-S23/project-meraki/assets/57569284/316dba56-507a-4e2b-b8e6-6ef993dfa1f8)
+
+-----
+
+### Chatroom Page
+
+![image](https://github.com/UCR-CS110-S23/project-meraki/assets/57569284/4f1a713c-61fa-4b8c-ab1f-6e1d7f6162b8)
+
+-----
+
+### Edit Profile Page
+
+![image](https://github.com/UCR-CS110-S23/project-meraki/assets/57569284/e2a4a545-73da-4c33-bd28-393d3240750e)
+
  ---
 ## **project-meraki**
   Before we decided to do the alternative final project, Lab 6 was done in a separate CS110 Lab repository. We cloned the original lab repository and merged it with this final project repository, so the commit history will contain commits from labs 1-5.
