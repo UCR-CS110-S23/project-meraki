@@ -1,6 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/w5ovOekq)
 
-**NOTE:** This repo contains commits from Labs 1-5. To only view the commit history for the alternative project (Lab 6), please start on May 29, 2023. (scroll all the way down for more details)
+### **NOTE:** This repo contains commits from Labs 1-5. To only view the commit history for the alternative project (Lab 6), please start on May 29, 2023. (scroll all the way down for more details)
 
 # CS 110 Alternative Project (project-meraki)
 ## Meraki Members
