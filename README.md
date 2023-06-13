@@ -49,7 +49,7 @@
 
 ### Lobby Page
 
-![image](https://github.com/UCR-CS110-S23/project-meraki/assets/57569284/316dba56-507a-4e2b-b8e6-6ef993dfa1f8)
+![image](https://github.com/UCR-CS110-S23/project-meraki/assets/57569284/35feefd3-c80e-4cd6-b6f4-ec3015ba8c3b)
 
 -----
 
