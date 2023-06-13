@@ -33,7 +33,7 @@
   - Add the necessary environment variables such as database connection details, port, and session-secret
   
   **6.** Start the development server: `npm start` <br>
-  **7.** Connect to the database: `npx nodemon start <br>
+  **7.** Connect to the database: `npx nodemon start` <br>
   
  
 ## **project-meraki**
